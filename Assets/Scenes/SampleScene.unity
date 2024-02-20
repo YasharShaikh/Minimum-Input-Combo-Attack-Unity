@@ -478,7 +478,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
@@ -492,9 +492,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1383927770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa43c17081f6ed643a3705f58e678db9, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e5606a10cd02a242aa9312f9dfa1a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveVector: {x: 0, y: 0, z: 0}
+  inputVector: {x: 0, y: 0}
+  moveSpeed: 0
+  playerRotation: 0
+  gravity: {x: 0, y: 0, z: 0}
+  playerInput: {fileID: 0}
   characterController: {fileID: 0}
 --- !u!4 &108875248060470299
 Transform:
