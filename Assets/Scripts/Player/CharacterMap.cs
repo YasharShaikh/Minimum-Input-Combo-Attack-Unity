@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,7 +12,17 @@ public partial class PlayerStateManager
         moveVector.x = inputVector.x;
         moveVector.z = inputVector.y;
 
-        Debug.Log("X = " + moveVector.x);
-        Debug.Log("Y = " + moveVector.y);
+    }
+
+
+    private void OnCameraMove(InputValue inputValue)
+    {
+        mouseInputVector = inputValue.Get<Vector2>();
+        mouseVector.x = mouseInputVector.x;
+        mouseVector.y = mouseInputVector.y;
+
+
+        Debug.Log("X = " + mouseVector.x);
+        Debug.Log("Y = " + mouseVector.y);
     }
 }
