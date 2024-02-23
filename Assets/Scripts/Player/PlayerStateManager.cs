@@ -20,7 +20,10 @@ public partial class PlayerStateManager : MonoBehaviour
         Move();
         ApplyGravity();
     }
-
+    private void FixedUpdate()
+    {
+        CameraRotation();
+    }
     #region movement
 
     public void ApplyGravity()
@@ -29,7 +32,14 @@ public partial class PlayerStateManager : MonoBehaviour
     }
     public void Move()
     {
+        //transform.rotation = Quaternion.Slerp(transform.rotation, mouseVector, Time.deltaTime);
+        transform.rotation = Quaternion.LookRotation(moveVector * Time.deltaTime);
         characterController.Move(moveVector * moveSpeed * Time.deltaTime);
+    }
+
+    public void CameraRotation()
+    {
+        followTarget.rotation =Quaternion.identity;
     }
     #endregion
 }

@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,10 +16,10 @@ public partial class PlayerStateManager
 
 
     [Header("Character Movement")]
+    public Transform followTarget;
     public float moveSpeed;
     public float playerRotation;
     public Vector3 gravity;
-
 
 
     [HideInInspector] public PlayerInput playerInput;

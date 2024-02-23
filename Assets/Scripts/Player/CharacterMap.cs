@@ -25,4 +25,6 @@ public partial class PlayerStateManager
         Debug.Log("X = " + mouseVector.x);
         Debug.Log("Y = " + mouseVector.y);
     }
+
+
 }
