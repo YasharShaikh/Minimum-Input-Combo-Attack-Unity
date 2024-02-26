@@ -5,41 +5,44 @@ public partial class PlayerStateManager : MonoBehaviour
 {
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();  
+        characterController = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        playerCamera = Camera.main;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Move();
         ApplyGravity();
     }
+
     private void FixedUpdate()
     {
-        CameraRotation();
     }
+
     #region movement
 
     public void ApplyGravity()
     {
-        characterController.Move(gravity*Time.deltaTime);
+        characterController.Move(gravity * Time.deltaTime);
     }
     public void Move()
     {
-        //transform.rotation = Quaternion.Slerp(transform.rotation, mouseVector, Time.deltaTime);
-        transform.rotation = Quaternion.LookRotation(moveVector * Time.deltaTime);
-        characterController.Move(moveVector * moveSpeed * Time.deltaTime);
+        float horizontalInput = playerInput.actions["Movement"].ReadValue<Vector2>().x;
+        float verticalInput = playerInput.actions["Movement"].ReadValue<Vector2>().y;
+
+        Vector3 moveDirection = (playerCamera.transform.forward * verticalInput) +
+                                (playerCamera.transform.right * horizontalInput);
+        moveDirection.y = 0f;
+
+        if (moveDirection != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+
+        characterController.Move(moveDirection.normalized * moveSpeed * Time.deltaTime);
     }
 
-    public void CameraRotation()
-    {
-        followTarget.rotation =Quaternion.identity;
-    }
     #endregion
 }
