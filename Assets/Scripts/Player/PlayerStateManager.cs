@@ -14,7 +14,10 @@ public partial class PlayerStateManager : MonoBehaviour
         playerAnimator = GetComponentInChildren<Animator>();
 
     }
-
+    private void Start()
+    {
+        Cursor.visible = false;
+    }
     void Update()
     {
         Move();
