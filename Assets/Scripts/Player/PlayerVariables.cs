@@ -1,26 +1,40 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+
+[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerInput))]
+
 public partial class PlayerStateManager
 {
+
     [Header("Movement Data")]
-    [SerializeField] Vector3 moveVector;
-    [SerializeField] Vector2 inputVector;
+    [HideInInspector] Vector3 moveVector;
+    [HideInInspector] Vector2 inputVector;
 
 
 
     [Header("Character Movement")]
     [SerializeField] Transform followTarget;
     [SerializeField] float moveSpeed;
+    [SerializeField] float acceleration;
     [SerializeField] float playerRotation;
+    [Space]
     [SerializeField] Vector3 gravity;
+    [Header("Player animations")]
+    [SerializeField] int VelocityHash;
 
 
     [Header("Camera Controller")]
-    [SerializeField] Camera playerCamera;
     [SerializeField] float rotationSpeed;
+    [HideInInspector] Camera playerCamera;
+
+
+    [Header("References")]
     [HideInInspector] public PlayerInput playerInput;
     [HideInInspector] public CharacterController characterController;
+    [HideInInspector] Animator playerAnimator;
 
 
 }

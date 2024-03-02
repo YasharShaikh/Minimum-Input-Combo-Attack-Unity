@@ -11,6 +11,5 @@ public partial class PlayerStateManager
         inputVector = inputValue.Get<Vector2>();
         moveVector.x = inputVector.x;
         moveVector.z = inputVector.y;
-
     }
 }
