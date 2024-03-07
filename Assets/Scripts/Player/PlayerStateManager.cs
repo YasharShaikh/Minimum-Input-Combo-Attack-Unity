@@ -4,13 +4,19 @@ using UnityEngine.UI;
 
 public partial class PlayerStateManager : MonoBehaviour
 {
+
+    public static PlayerStateManager Instance;
+
+
     private void Awake()
     {
+
+        Instance = this;
+
+
         characterController = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
         playerCamera = Camera.main;
-
-
         playerAnimator = GetComponentInChildren<Animator>();
 
     }
@@ -45,6 +51,7 @@ public partial class PlayerStateManager : MonoBehaviour
         float magnitude = Mathf.Clamp01(moveDirection.magnitude)*moveSpeed;
 
         playerAnimator.SetFloat("velocity", magnitude);
+
         moveDirection.y = 0f;
         if (moveDirection != Vector3.zero)
         {

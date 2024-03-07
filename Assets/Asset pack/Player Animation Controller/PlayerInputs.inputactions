@@ -24,9 +24,27 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "Roll",
                     "type": "Button",
-                    "id": "211a189c-01f4-4eb9-9808-7bd2acdcdf1c",
+                    "id": "1e65520c-eeda-4649-a8f6-204d88b14da3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "swordAttack",
+                    "type": "PassThrough",
+                    "id": "098b5700-5dc9-46cf-ab9f-b46203abaf0d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "energyAttack",
+                    "type": "Button",
+                    "id": "f0e770e7-1774-48f7-b30f-b492a59c6646",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -102,12 +120,34 @@
                 },
                 {
                     "name": "",
-                    "id": "19b81025-de47-48f1-8144-8d40789f0bd1",
+                    "id": "7dfba71c-5b61-417c-bc00-056c39c0a3f6",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e82e99b0-75db-43a1-af29-a80a9f96f4aa",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "swordAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "af7b8b9f-1571-4b13-af08-bc205acccf4b",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "energyAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

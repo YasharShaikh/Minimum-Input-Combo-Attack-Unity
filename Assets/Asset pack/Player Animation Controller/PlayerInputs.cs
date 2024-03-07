@@ -46,9 +46,27 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""Roll"",
                     ""type"": ""Button"",
-                    ""id"": ""211a189c-01f4-4eb9-9808-7bd2acdcdf1c"",
+                    ""id"": ""1e65520c-eeda-4649-a8f6-204d88b14da3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""swordAttack"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""098b5700-5dc9-46cf-ab9f-b46203abaf0d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""energyAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""f0e770e7-1774-48f7-b30f-b492a59c6646"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -124,12 +142,34 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""19b81025-de47-48f1-8144-8d40789f0bd1"",
+                    ""id"": ""7dfba71c-5b61-417c-bc00-056c39c0a3f6"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e82e99b0-75db-43a1-af29-a80a9f96f4aa"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""swordAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af7b8b9f-1571-4b13-af08-bc205acccf4b"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""energyAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -719,7 +759,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_MouseLook = m_Player.FindAction("MouseLook", throwIfNotFound: true);
-        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
+        m_Player_swordAttack = m_Player.FindAction("swordAttack", throwIfNotFound: true);
+        m_Player_energyAttack = m_Player.FindAction("energyAttack", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -795,14 +837,18 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_MouseLook;
-    private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Roll;
+    private readonly InputAction m_Player_swordAttack;
+    private readonly InputAction m_Player_energyAttack;
     public struct PlayerActions
     {
         private @PlayerInputs m_Wrapper;
         public PlayerActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @MouseLook => m_Wrapper.m_Player_MouseLook;
-        public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Roll => m_Wrapper.m_Player_Roll;
+        public InputAction @swordAttack => m_Wrapper.m_Player_swordAttack;
+        public InputAction @energyAttack => m_Wrapper.m_Player_energyAttack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -818,9 +864,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @MouseLook.started += instance.OnMouseLook;
             @MouseLook.performed += instance.OnMouseLook;
             @MouseLook.canceled += instance.OnMouseLook;
-            @Jump.started += instance.OnJump;
-            @Jump.performed += instance.OnJump;
-            @Jump.canceled += instance.OnJump;
+            @Roll.started += instance.OnRoll;
+            @Roll.performed += instance.OnRoll;
+            @Roll.canceled += instance.OnRoll;
+            @swordAttack.started += instance.OnSwordAttack;
+            @swordAttack.performed += instance.OnSwordAttack;
+            @swordAttack.canceled += instance.OnSwordAttack;
+            @energyAttack.started += instance.OnEnergyAttack;
+            @energyAttack.performed += instance.OnEnergyAttack;
+            @energyAttack.canceled += instance.OnEnergyAttack;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -831,9 +883,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @MouseLook.started -= instance.OnMouseLook;
             @MouseLook.performed -= instance.OnMouseLook;
             @MouseLook.canceled -= instance.OnMouseLook;
-            @Jump.started -= instance.OnJump;
-            @Jump.performed -= instance.OnJump;
-            @Jump.canceled -= instance.OnJump;
+            @Roll.started -= instance.OnRoll;
+            @Roll.performed -= instance.OnRoll;
+            @Roll.canceled -= instance.OnRoll;
+            @swordAttack.started -= instance.OnSwordAttack;
+            @swordAttack.performed -= instance.OnSwordAttack;
+            @swordAttack.canceled -= instance.OnSwordAttack;
+            @energyAttack.started -= instance.OnEnergyAttack;
+            @energyAttack.performed -= instance.OnEnergyAttack;
+            @energyAttack.canceled -= instance.OnEnergyAttack;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1018,7 +1076,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnMouseLook(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
+        void OnRoll(InputAction.CallbackContext context);
+        void OnSwordAttack(InputAction.CallbackContext context);
+        void OnEnergyAttack(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

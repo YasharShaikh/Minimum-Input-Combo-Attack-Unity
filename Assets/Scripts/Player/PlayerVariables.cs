@@ -10,8 +10,6 @@ public partial class PlayerStateManager
 {
 
     [Header("Movement Data")]
-    [HideInInspector] Vector3 moveVector;
-    [HideInInspector] Vector2 inputVector;
 
 
 
@@ -24,16 +22,18 @@ public partial class PlayerStateManager
     [SerializeField] Vector3 gravity;
     [Header("Player animations")]
     [SerializeField] int VelocityHash;
+    [Space]
+    public bool SwdAttack;
+    public bool EngyAttack;
 
-
-    [Header("Camera Controller")]
+    [Header("Camera Controllser")]
     [SerializeField] float rotationSpeed;
     [HideInInspector] Camera playerCamera;
 
 
     [Header("References")]
     [HideInInspector] public PlayerInput playerInput;
-    [HideInInspector] public CharacterController characterController;
+    [HideInInspector] private CharacterController characterController;
     [HideInInspector] Animator playerAnimator;
 
 
