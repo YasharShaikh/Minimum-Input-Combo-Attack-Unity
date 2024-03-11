@@ -34,7 +34,7 @@ public partial class PlayerStateManager
     [Header("References")]
     [HideInInspector] public PlayerInput playerInput;
     [HideInInspector] private CharacterController characterController;
-    [HideInInspector] Animator playerAnimator;
+    [HideInInspector] public Animator playerAnimator;
 
 
 }

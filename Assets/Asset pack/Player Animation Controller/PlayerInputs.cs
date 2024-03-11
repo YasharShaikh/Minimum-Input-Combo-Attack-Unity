@@ -56,7 +56,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""swordAttack"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""098b5700-5dc9-46cf-ab9f-b46203abaf0d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

@@ -42,7 +42,11 @@ public class PlayerAttack : MonoBehaviour
         if (swdBTNpressed)
         {
             Debug.Log("Performing sword attack");
+            PlayerStateManager.Instance.playerAnimator.SetBool("swdATK", true);
             PlayerStateManager.Instance.SwdAttack = true;
+        }else
+        {
+            PlayerStateManager.Instance.playerAnimator.SetBool("swdATK", false);
         }
     }
 
