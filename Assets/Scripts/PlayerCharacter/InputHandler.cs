@@ -36,7 +36,7 @@ namespace player
             instance = this;
 
             moveAction = playerControls.FindActionMap(actionMapName).FindAction(move);
-            rollAction = playerControls.FindActionMap(actionMapName).FindAction(swordAttack);
+            rollAction = playerControls.FindActionMap(actionMapName).FindAction(roll);
 
             swordAction = playerControls.FindActionMap(actionMapName).FindAction(swordAttack);
             powerAction = playerControls.FindActionMap(actionMapName).FindAction(powerAttack);
@@ -45,20 +45,18 @@ namespace player
             RegisterInputActions();
         }
 
+        private void Update()
+        {
+            moveInput = moveAction.ReadValue<Vector2>();
+            swordATKTriggered = swordAction.triggered;
+            powerATKTriggered = powerAction.triggered;
+            rollTriggered = rollAction.triggered;   
+
+        }
         private void RegisterInputActions()
         {
             moveAction.performed += context => moveInput = context.ReadValue<Vector2>();
             moveAction.canceled += context => moveInput = Vector2.zero;
-
-            rollAction.performed += context => rollTriggered = true;
-            rollAction.canceled += context => rollTriggered = false;
-
-            swordAction.performed += context => swordATKTriggered = true;
-            swordAction.canceled += context => swordATKTriggered = false;
-
-            powerAction.performed += context => powerATKTriggered = true;
-            powerAction.canceled += context => powerATKTriggered = false;
-
         }
 
         private void OnEnable()

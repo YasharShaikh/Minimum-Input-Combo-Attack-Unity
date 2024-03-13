@@ -53,6 +53,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""roll"",
+                    ""type"": ""Button"",
+                    ""id"": ""c72e69cc-808f-4880-b029-208b33ed9383"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""pwrATK"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""defbe32e-dd1d-4573-a5a9-7f574c080cc2"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +163,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_swdATK = m_Player.FindAction("swdATK", throwIfNotFound: true);
         m_Player_pwrATK = m_Player.FindAction("pwrATK", throwIfNotFound: true);
+        m_Player_roll = m_Player.FindAction("roll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +228,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_swdATK;
     private readonly InputAction m_Player_pwrATK;
+    private readonly InputAction m_Player_roll;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -214,6 +236,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @swdATK => m_Wrapper.m_Player_swdATK;
         public InputAction @pwrATK => m_Wrapper.m_Player_pwrATK;
+        public InputAction @roll => m_Wrapper.m_Player_roll;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +255,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @pwrATK.started += instance.OnPwrATK;
             @pwrATK.performed += instance.OnPwrATK;
             @pwrATK.canceled += instance.OnPwrATK;
+            @roll.started += instance.OnRoll;
+            @roll.performed += instance.OnRoll;
+            @roll.canceled += instance.OnRoll;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -245,6 +271,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @pwrATK.started -= instance.OnPwrATK;
             @pwrATK.performed -= instance.OnPwrATK;
             @pwrATK.canceled -= instance.OnPwrATK;
+            @roll.started -= instance.OnRoll;
+            @roll.performed -= instance.OnRoll;
+            @roll.canceled -= instance.OnRoll;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -267,5 +296,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnSwdATK(InputAction.CallbackContext context);
         void OnPwrATK(InputAction.CallbackContext context);
+        void OnRoll(InputAction.CallbackContext context);
     }
 }
