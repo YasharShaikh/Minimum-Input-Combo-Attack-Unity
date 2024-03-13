@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetLockOn : MonoBehaviour
+public class PlayerCombatHandler : MonoBehaviour
 {
-
-    Transform closestTarget;
-    List<GameObject> targets = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {

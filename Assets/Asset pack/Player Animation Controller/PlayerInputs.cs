@@ -55,7 +55,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""swordAttack"",
+                    ""name"": ""swdATK"",
                     ""type"": ""Button"",
                     ""id"": ""098b5700-5dc9-46cf-ab9f-b46203abaf0d"",
                     ""expectedControlType"": ""Button"",
@@ -64,7 +64,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""energyAttack"",
+                    ""name"": ""pwrATK"",
                     ""type"": ""Button"",
                     ""id"": ""f0e770e7-1774-48f7-b30f-b492a59c6646"",
                     ""expectedControlType"": ""Button"",
@@ -158,7 +158,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""swordAttack"",
+                    ""action"": ""swdATK"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -169,7 +169,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""energyAttack"",
+                    ""action"": ""pwrATK"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -760,8 +760,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_MouseLook = m_Player.FindAction("MouseLook", throwIfNotFound: true);
         m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
-        m_Player_swordAttack = m_Player.FindAction("swordAttack", throwIfNotFound: true);
-        m_Player_energyAttack = m_Player.FindAction("energyAttack", throwIfNotFound: true);
+        m_Player_swdATK = m_Player.FindAction("swdATK", throwIfNotFound: true);
+        m_Player_pwrATK = m_Player.FindAction("pwrATK", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -838,8 +838,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_MouseLook;
     private readonly InputAction m_Player_Roll;
-    private readonly InputAction m_Player_swordAttack;
-    private readonly InputAction m_Player_energyAttack;
+    private readonly InputAction m_Player_swdATK;
+    private readonly InputAction m_Player_pwrATK;
     public struct PlayerActions
     {
         private @PlayerInputs m_Wrapper;
@@ -847,8 +847,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @MouseLook => m_Wrapper.m_Player_MouseLook;
         public InputAction @Roll => m_Wrapper.m_Player_Roll;
-        public InputAction @swordAttack => m_Wrapper.m_Player_swordAttack;
-        public InputAction @energyAttack => m_Wrapper.m_Player_energyAttack;
+        public InputAction @swdATK => m_Wrapper.m_Player_swdATK;
+        public InputAction @pwrATK => m_Wrapper.m_Player_pwrATK;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -867,12 +867,12 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Roll.started += instance.OnRoll;
             @Roll.performed += instance.OnRoll;
             @Roll.canceled += instance.OnRoll;
-            @swordAttack.started += instance.OnSwordAttack;
-            @swordAttack.performed += instance.OnSwordAttack;
-            @swordAttack.canceled += instance.OnSwordAttack;
-            @energyAttack.started += instance.OnEnergyAttack;
-            @energyAttack.performed += instance.OnEnergyAttack;
-            @energyAttack.canceled += instance.OnEnergyAttack;
+            @swdATK.started += instance.OnSwdATK;
+            @swdATK.performed += instance.OnSwdATK;
+            @swdATK.canceled += instance.OnSwdATK;
+            @pwrATK.started += instance.OnPwrATK;
+            @pwrATK.performed += instance.OnPwrATK;
+            @pwrATK.canceled += instance.OnPwrATK;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -886,12 +886,12 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Roll.started -= instance.OnRoll;
             @Roll.performed -= instance.OnRoll;
             @Roll.canceled -= instance.OnRoll;
-            @swordAttack.started -= instance.OnSwordAttack;
-            @swordAttack.performed -= instance.OnSwordAttack;
-            @swordAttack.canceled -= instance.OnSwordAttack;
-            @energyAttack.started -= instance.OnEnergyAttack;
-            @energyAttack.performed -= instance.OnEnergyAttack;
-            @energyAttack.canceled -= instance.OnEnergyAttack;
+            @swdATK.started -= instance.OnSwdATK;
+            @swdATK.performed -= instance.OnSwdATK;
+            @swdATK.canceled -= instance.OnSwdATK;
+            @pwrATK.started -= instance.OnPwrATK;
+            @pwrATK.performed -= instance.OnPwrATK;
+            @pwrATK.canceled -= instance.OnPwrATK;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1077,8 +1077,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnMouseLook(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
-        void OnSwordAttack(InputAction.CallbackContext context);
-        void OnEnergyAttack(InputAction.CallbackContext context);
+        void OnSwdATK(InputAction.CallbackContext context);
+        void OnPwrATK(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "swordAttack",
+                    "name": "swdATK",
                     "type": "Button",
                     "id": "098b5700-5dc9-46cf-ab9f-b46203abaf0d",
                     "expectedControlType": "Button",
@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "energyAttack",
+                    "name": "pwrATK",
                     "type": "Button",
                     "id": "f0e770e7-1774-48f7-b30f-b492a59c6646",
                     "expectedControlType": "Button",
@@ -136,7 +136,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "swordAttack",
+                    "action": "swdATK",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -147,7 +147,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "energyAttack",
+                    "action": "pwrATK",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
