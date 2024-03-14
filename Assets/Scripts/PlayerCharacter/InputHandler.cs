@@ -15,14 +15,23 @@ namespace player
 
         [Header("Action Name ref")]
         [SerializeField] string move;
+
+
+        [Space]
         [SerializeField] string roll;
+        
+        [Space]
         [SerializeField] string swordAttack;
         [SerializeField] string powerAttack;
+        [Space]
+        [SerializeField] string lockON;
+
 
         InputAction moveAction;
         InputAction rollAction;
         InputAction swordAction;
         InputAction powerAction;
+        InputAction lockONAction;
 
 
 
@@ -30,6 +39,7 @@ namespace player
         public bool swordATKTriggered { get; private set; }
         public bool powerATKTriggered { get; private set; }
         public bool rollTriggered { get; private set; }
+        public bool lockONTriggered { get; private set; }
 
         private void Awake()
         {
@@ -41,7 +51,7 @@ namespace player
             swordAction = playerControls.FindActionMap(actionMapName).FindAction(swordAttack);
             powerAction = playerControls.FindActionMap(actionMapName).FindAction(powerAttack);
 
-
+            lockONAction = playerControls.FindActionMap(actionMapName).FindAction(lockON);
             RegisterInputActions();
         }
 
@@ -50,7 +60,12 @@ namespace player
             moveInput = moveAction.ReadValue<Vector2>();
             swordATKTriggered = swordAction.triggered;
             powerATKTriggered = powerAction.triggered;
-            rollTriggered = rollAction.triggered;   
+            rollTriggered = rollAction.triggered;
+            if (lockONAction.triggered)
+            {
+                lockONTriggered = !lockONTriggered;
+                Debug.Log(lockONTriggered);
+            }
 
         }
         private void RegisterInputActions()
@@ -62,7 +77,10 @@ namespace player
         private void OnEnable()
         {
             moveAction.Enable();
+            
+            lockONAction.Enable();
             rollAction.Enable();
+            
             swordAction.Enable();
             powerAction.Enable();
         }
@@ -70,7 +88,10 @@ namespace player
         private void OnDisable()
         {
             moveAction.Disable();
+
+            lockONAction.Disable();
             rollAction.Disable();
+            
             swordAction.Disable();
             powerAction.Disable();
         }

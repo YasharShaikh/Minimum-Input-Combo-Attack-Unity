@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 710716902}
   - component: {fileID: 710716903}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: GameObject
-  m_TagString: enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,7 +54,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3728266313328643532}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ROOT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5645699004497669967}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: DEF-base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2016522298165503403}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: DEF-head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,9 +150,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5360683131785772904}
   - component: {fileID: 5615497917579445399}
-  - component: {fileID: 285781239}
-  m_Layer: 7
-  m_Name: training_dummy
+  m_Layer: 0
+  m_Name: training_dummy 1
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,19 +196,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &285781239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4697017240656324050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 736701fc0ee7a2d4e91a4446215ff47b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDead: 0
 --- !u!1 &6774080502169825540
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,9 +205,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8033125610158513919}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ARM_training_dummy
-  m_TagString: enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -252,9 +238,9 @@ GameObject:
   m_Component:
   - component: {fileID: 334251544987690374}
   - component: {fileID: 2476776925156711659}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: training_dummy
-  m_TagString: enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -343,7 +329,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 651559519819052157}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: DEF-sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +360,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8765436389459637649}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: DEF-hands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -407,7 +393,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 493139339602910788}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: DEF-body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +426,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5282924383133029861}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: DEF-shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}

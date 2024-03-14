@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 namespace player
@@ -27,7 +26,13 @@ namespace player
         [SerializeField] float currentStamina;
         [SerializeField] float regenerationRate;
         [SerializeField] float deductionRateROLL;
-            
+
+        [Header("Lock ON ")]
+        [SerializeField] float lockONRadius;
+        [SerializeField] float minLockONAngle;
+        [SerializeField] float maxLockONAngle;
+        [SerializeField] float targetDistanceLockON;
+
         [Space]
         [HideInInspector] public float magnitude;
         CharacterController characterController;
@@ -54,22 +59,73 @@ namespace player
             Move();
             ApplyGravity();
             PerformRoll();
+            LockONHandler();
         }
 
 
         private void PlayerVisionInfo()
         {
             int layerMask = ~LayerMask.GetMask("Player");
-            Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            //Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
-            RaycastHit hit;
+            //RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit,RayDistance,layerMask))
+            //if (Physics.Raycast(ray, out hit, RayDistance, enemyLayerMask))
+            //{
+            //    Debug.DrawRay(ray.origin, playerCamera.transform.forward, Color.red);
+            //    //LockONHandler(hit);
+            //}
+        }
+
+
+        private void LockONHandler()
+        {
+
+
+            int enemyLayerMask = LayerMask.GetMask("enemy");
+            Collider[] enemyColliders = Physics.OverlapSphere(transform.position, lockONRadius, enemyLayerMask);
+            foreach (Collider enemyCollider in enemyColliders)
             {
-                Debug.DrawRay(ray.origin, playerCamera.transform.forward, Color.red);
-                Debug.Log("Hit: " + hit.transform.name);
+                EnemyBrain enemy = enemyCollider.GetComponent<EnemyBrain>();
+                Vector3 enemyDirection = enemyCollider.transform.position - transform.position;
+                float playerDistanceFromEnemy = Vector3.Distance(transform.position, enemyCollider.transform.position);
+                float viewableAngle = Vector3.Angle(enemyDirection, playerCamera.transform.forward);
+
+                if (enemy.isDead)
+                    continue;
+                if (playerDistanceFromEnemy > targetDistanceLockON)
+                    continue;
+
+                if (viewableAngle > minLockONAngle && viewableAngle < maxLockONAngle)
+                {
+
+                }
+
+
+
+
             }
         }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, lockONRadius);
+        }
+        //private static void LockONHandler(RaycastHit hit)
+        //{
+        //    if (hit.transform.tag == "enemy")
+        //    {
+        //        if (InputHandler.instance.lockONTriggered)
+        //        {
+        //            Debug.Log("Enemy locked on ");
+        //        }
+        //        else if (!InputHandler.instance.lockONTriggered)
+        //        {
+        //            Debug.Log("Enemy lock on removed");
+        //        }
+        //    }
+        //}
 
         private void Move()
         {
@@ -92,7 +148,7 @@ namespace player
         {
             if (isPerformingROLLAnimation)
                 return;
-            if(magnitude > 0 && InputHandler.instance.rollTriggered)
+            if (magnitude > 0 && InputHandler.instance.rollTriggered)
             {
                 isPerformingROLLAnimation = true;
                 moveDirection.y = 0;
@@ -100,10 +156,9 @@ namespace player
 
                 Quaternion lookDirection = Quaternion.LookRotation(moveDirection);
 
-                Debug.Log("performing roll");
                 PlayerAnimationHandler.instance.rollPerform();
             }
-           
+
 
 
             //full logic for perform roll
