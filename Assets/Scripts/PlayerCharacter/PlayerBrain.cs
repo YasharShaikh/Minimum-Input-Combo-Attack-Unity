@@ -32,6 +32,7 @@ namespace player
         [SerializeField] float minLockONAngle;
         [SerializeField] float maxLockONAngle;
         [SerializeField] float targetDistanceLockON;
+        [SerializeField] GameObject lockedONEnemy;
 
         [Space]
         [HideInInspector] public float magnitude;
@@ -80,25 +81,35 @@ namespace player
 
         private void LockONHandler()
         {
-
+            
 
             int enemyLayerMask = LayerMask.GetMask("enemy");
             Collider[] enemyColliders = Physics.OverlapSphere(transform.position, lockONRadius, enemyLayerMask);
             foreach (Collider enemyCollider in enemyColliders)
             {
-                EnemyBrain enemy = enemyCollider.GetComponent<EnemyBrain>();
+
+                EnemyBrain enemy = enemyCollider.GetComponentInParent<EnemyBrain>();
                 Vector3 enemyDirection = enemyCollider.transform.position - transform.position;
                 float playerDistanceFromEnemy = Vector3.Distance(transform.position, enemyCollider.transform.position);
                 float viewableAngle = Vector3.Angle(enemyDirection, playerCamera.transform.forward);
 
-                if (enemy.isDead)
-                    continue;
-                if (playerDistanceFromEnemy > targetDistanceLockON)
-                    continue;
+
+                Debug.Log("Eneny name = " +enemy.name + "angle = " + viewableAngle);
+                Debug.DrawRay(transform.position, enemyDirection, Color.red);
+
+                //if (enemy == null)
+                //    Debug.Log("bRAIN Found = "+ playerDistanceFromEnemy);
+                //if (!enemy.isDead)
+                //    Debug.Log("enemy=" + enemy.gameObject.name);
+
+                //continue;
+                //if (playerDistanceFromEnemy > targetDistanceLockON)
+                //    continue;
 
                 if (viewableAngle > minLockONAngle && viewableAngle < maxLockONAngle)
                 {
-
+                    Debug.DrawRay(transform.position,enemyDirection, Color.red);
+                    enemy.isDead = true;
                 }
 
 
