@@ -94,7 +94,7 @@ namespace player
                 float viewableAngle = Vector3.Angle(enemyDirection, playerCamera.transform.forward);
 
 
-                Debug.Log("Eneny name = " +enemy.name + "angle = " + viewableAngle);
+                //Debug.Log("Eneny name = " +enemy.name + "angle = " + viewableAngle);
                 Debug.DrawRay(transform.position, enemyDirection, Color.red);
 
                 //if (enemy == null)
@@ -108,6 +108,7 @@ namespace player
 
                 if (viewableAngle > minLockONAngle && viewableAngle < maxLockONAngle)
                 {
+                    Debug.Log("Working");
                     Debug.DrawRay(transform.position,enemyDirection, Color.red);
                     enemy.isDead = true;
                 }
