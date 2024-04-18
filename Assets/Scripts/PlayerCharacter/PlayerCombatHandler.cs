@@ -1,12 +1,13 @@
 using player;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCombatHandler : MonoBehaviour
 {
     [SerializeField] float timeBetweenCombo;
     [SerializeField] int mainAtkComboStream; // will track the current combo count
-    [SerializeField] string[] swdATKTracker ; // will track which swd atk animation is to be played
-    [SerializeField] string[] pwrATKTracker ; // will track which pwr atk animation is to be played
+    [SerializeField] List< string> swdATKTrackerL = new List<string>() ; // will track which swd atk animation is to be played
+    [SerializeField] List<string> pwrATKTrackerL  = new List<string>(); // will track which pwr atk animation is to be played
     [SerializeField] string[] performedComboTracker;
     int maxCombo = 3;
     [SerializeField] float lastClickTime;
@@ -25,10 +26,19 @@ public class PlayerCombatHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!isPerformingCombo )
+        {
+            lastClickTime = 0;
+        }
+        else
+        {
+            lastClickTime += Time.deltaTime;
+        }
 
         // Check if the player has triggered a sword or power attack
         if (InputHandler.instance.swordATKTriggered || InputHandler.instance.powerATKTriggered)
         {
+            isPerformingCombo = true;
             // If the current main attack combo stream is zero, start a new combo
             if (mainAtkComboStream == 0)
             {
@@ -37,13 +47,14 @@ public class PlayerCombatHandler : MonoBehaviour
             else if (mainAtkComboStream < maxCombo)
             {
                 // Check if the time between combo attacks has elapsed
-                if (Time.time - lastClickTime < timeBetweenCombo)
+                if ( lastClickTime < timeBetweenCombo)
                 {
                     // Continue the combo attack
                     ContinueCombo();
                 }
                 else
                 {
+                    Debug.Log("reset combo due to timebetweencombo");
                     // Start a new combo attack
                     StartCombo();
                 }
@@ -55,13 +66,13 @@ public class PlayerCombatHandler : MonoBehaviour
             }
 
             // Update the last click time
-            lastClickTime = Time.time;
         }
     }
 
     // Start a new combo attack
     void StartCombo()
     {
+        mainAtkComboStream = 0;
         mainAtkComboStream++;
         Debug.Log("Starting combo " + mainAtkComboStream);
 
@@ -95,6 +106,7 @@ public class PlayerCombatHandler : MonoBehaviour
     // Reset the combo attack
     void ResetCombo()
     {
+
         Debug.Log("Combo reset");
         mainAtkComboStream = 0;
     }
@@ -102,19 +114,22 @@ public class PlayerCombatHandler : MonoBehaviour
     // Perform a sword attack
     void PerformSwordAttack()
     {
-        if (swdATKTracker.Length == 0)
+        if(swdATKTrackerL.Count == 0)
         {
             Debug.Log("Empty");
         }
-
-        Debug.Log("Performing sword attack: " + swdATKTracker[mainAtkComboStream - 1]);
+        Debug.Log("Performing sword attack from list=" + swdATKTrackerL[mainAtkComboStream-1]);
         // Play the corresponding animation for the sword attack
     }
 
     // Perform a power attack
     void PerformPowerAttack()
     {
-        Debug.Log("Performing power attack: " + pwrATKTracker[mainAtkComboStream - 1]);
+        if (pwrATKTrackerL.Count == 0)
+        {
+            Debug.Log("Empty");
+        }
+        Debug.Log("Performing power attack: " + pwrATKTrackerL[mainAtkComboStream - 1]);
         // Play the corresponding animation for the power attack
     }
 }

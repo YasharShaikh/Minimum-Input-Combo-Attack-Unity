@@ -2062,7 +2062,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261048027}
-  m_LocalRotation: {x: -0.039904393, y: 2.9299564e-15, z: 1.9692914e-16, w: 0.99920356}
+  m_LocalRotation: {x: -0.03990437, y: -0.000000018039174, z: -7.2041567e-10, w: 0.9992035}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3141,7 +3141,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484334139}
-  m_LocalRotation: {x: 0.15423335, y: 0.000000018432566, z: -0.0000000028773457, w: 0.9880345}
+  m_LocalRotation: {x: 0.15423335, y: -0.000000019007102, z: 0.0000000029670317, w: 0.9880345}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7365,17 +7365,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f463ca218967b7440aabe6059fbdcaa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenCombo: 0
+  timeBetweenCombo: 1
   mainAtkComboStream: 0
-  swdATKTracker:
-  - swd atk 1
-  - swd atk 2
-  - swd atk 3
-  - swd atk 4
-  pwrATKTracker:
-  - pwr attack 1
-  - pwr attack 2
+  swdATKTrackerL:
+  - List swd atk 1
+  - List swd atk 2
+  - List swd atk 3
+  pwrATKTrackerL:
+  - List pwr attack 1
+  - List pwr attack 2
+  - List pwr attack 3
   performedComboTracker: []
+  lastClickTime: 0
 --- !u!1 &1470405778
 GameObject:
   m_ObjectHideFlags: 0
