@@ -7,32 +7,35 @@ namespace player
     {
 
         public static InputHandler instance;
-        [Header("Inpu tAction Asset")]
+        [Header("InputAction Asset")]
         [SerializeField] InputActionAsset playerControls;
 
-        [Header("Action Map Name")]
+        [Header("ActionMap Name")]
         [SerializeField] string actionMapName;
 
         [Header("Action Name ref")]
         [SerializeField] string move;
 
 
-        [Space]
+
+        [Header("Movement Action")]
         [SerializeField] string roll;
-        
-        [Space]
+
+
+        [Header("Combat Action")]
         [SerializeField] string swordAttack;
         [SerializeField] string powerAttack;
-        [Space]
         [SerializeField] string lockON;
 
+        [Header("Menu Action")]
+        [SerializeField] string swordRadialMenu;
+        [SerializeField] string energyRadialMenu;
 
         InputAction moveAction;
         InputAction rollAction;
         InputAction swordAction;
         InputAction powerAction;
         InputAction lockONAction;
-
 
 
         public Vector2 moveInput { get; private set; }
