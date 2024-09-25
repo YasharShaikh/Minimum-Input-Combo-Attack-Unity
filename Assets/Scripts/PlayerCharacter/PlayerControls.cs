@@ -71,6 +71,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""swordRadialMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""b4ddeea5-3354-413c-b247-d7d0aead1878"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""energyRadialMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""8deb3f56-51c0-4e87-b9c6-a2e4e11a627a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +190,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""lockON"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""98586b72-374d-4806-a1b9-f90c07266fdd"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""swordRadialMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a34f21c0-4a3a-44a8-86f1-b0c756afbef0"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""energyRadialMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +225,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_pwrATK = m_Player.FindAction("pwrATK", throwIfNotFound: true);
         m_Player_roll = m_Player.FindAction("roll", throwIfNotFound: true);
         m_Player_lockON = m_Player.FindAction("lockON", throwIfNotFound: true);
+        m_Player_swordRadialMenu = m_Player.FindAction("swordRadialMenu", throwIfNotFound: true);
+        m_Player_energyRadialMenu = m_Player.FindAction("energyRadialMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +293,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_pwrATK;
     private readonly InputAction m_Player_roll;
     private readonly InputAction m_Player_lockON;
+    private readonly InputAction m_Player_swordRadialMenu;
+    private readonly InputAction m_Player_energyRadialMenu;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -260,6 +304,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @pwrATK => m_Wrapper.m_Player_pwrATK;
         public InputAction @roll => m_Wrapper.m_Player_roll;
         public InputAction @lockON => m_Wrapper.m_Player_lockON;
+        public InputAction @swordRadialMenu => m_Wrapper.m_Player_swordRadialMenu;
+        public InputAction @energyRadialMenu => m_Wrapper.m_Player_energyRadialMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -284,6 +330,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @lockON.started += instance.OnLockON;
             @lockON.performed += instance.OnLockON;
             @lockON.canceled += instance.OnLockON;
+            @swordRadialMenu.started += instance.OnSwordRadialMenu;
+            @swordRadialMenu.performed += instance.OnSwordRadialMenu;
+            @swordRadialMenu.canceled += instance.OnSwordRadialMenu;
+            @energyRadialMenu.started += instance.OnEnergyRadialMenu;
+            @energyRadialMenu.performed += instance.OnEnergyRadialMenu;
+            @energyRadialMenu.canceled += instance.OnEnergyRadialMenu;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -303,6 +355,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @lockON.started -= instance.OnLockON;
             @lockON.performed -= instance.OnLockON;
             @lockON.canceled -= instance.OnLockON;
+            @swordRadialMenu.started -= instance.OnSwordRadialMenu;
+            @swordRadialMenu.performed -= instance.OnSwordRadialMenu;
+            @swordRadialMenu.canceled -= instance.OnSwordRadialMenu;
+            @energyRadialMenu.started -= instance.OnEnergyRadialMenu;
+            @energyRadialMenu.performed -= instance.OnEnergyRadialMenu;
+            @energyRadialMenu.canceled -= instance.OnEnergyRadialMenu;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -327,5 +385,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnPwrATK(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
         void OnLockON(InputAction.CallbackContext context);
+        void OnSwordRadialMenu(InputAction.CallbackContext context);
+        void OnEnergyRadialMenu(InputAction.CallbackContext context);
     }
 }
