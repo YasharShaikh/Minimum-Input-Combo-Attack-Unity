@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Steady_ATK03
+  m_Controller: {fileID: 9100000, guid: 5bf8bdc84aaabcf41af8a23bc4bf24ba, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 8730995916784794697, guid: 608823c8938341a68d0cedaa043d6ad9, type: 3}
+    m_OverrideClip: {fileID: -7104751413270520068, guid: 2e7240198d7d417f8313324822fc28e1, type: 3}

@@ -18,6 +18,7 @@ namespace player
         [SerializeField] Vector3 gravity;
         [SerializeField] Vector3 moveDirection;
         [SerializeField] float moveSpeed;
+        [SerializeField] float rollSpeed;
         [SerializeField] float rotationSpeed;
         [HideInInspector] public bool isPerformingROLLAnimation;
 
@@ -167,6 +168,7 @@ namespace player
                 moveDirection.Normalize();
 
                 Quaternion lookDirection = Quaternion.LookRotation(moveDirection);
+                //characterController.Move(moveDirection.normalized * rollSpeed * Time.deltaTime);
 
                 PlayerAnimationHandler.instance.rollPerform();
             }

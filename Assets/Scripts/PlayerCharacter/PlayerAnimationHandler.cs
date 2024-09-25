@@ -7,55 +7,43 @@ public class PlayerAnimationHandler : MonoBehaviour
 {
     public static PlayerAnimationHandler instance;
     Animator playerAnimator;
-    [Header("Animation State")]
-    [SerializeField] int BasicMovementLayer;
-    [SerializeField] int AttackLayer;
-
-
-
 
     private void Awake()
     {
         instance = this;
         playerAnimator = GetComponentInChildren<Animator>();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        swordAttack();
-    }
-
-   
 
     #region combat related
 
-
-
-    private void swordAttack()
+    public void swordAttack(AttackSO combo)
     {
-        bool swordAttack = InputHandler.instance.swordATKTriggered;
-        if (swordAttack)
+        if (playerAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.5f )
         {
-            playerAnimator.SetTrigger("swdATK");
+            playerAnimator.runtimeAnimatorController = combo.controller;
+            playerAnimator.Play("SwordAttack", 1, 0);
+        }
+        else
+        {
+            Debug.Log("Currently playing combo: " + combo);
         }
     }
-    private void powerAttack()
+    public void powerAttack(EnergySO combo)
     {
-        bool powerAttack = InputHandler.instance.powerATKTriggered;
-        if (powerAttack)
+        if(playerAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime>0.5f )
         {
-            playerAnimator.SetTrigger("engyATK");
+            playerAnimator.runtimeAnimatorController = combo.controller;
+            playerAnimator.Play("EnergyAttack", 1, 0);
         }
+        else
+        {
+            Debug.Log("Currently playing combo: " + combo);
+        }
+
     }
     #endregion
 
-    #region movement related
+    #region Movement Related
     public void LocomotionAnimaton(float magnitude)
     {
         playerAnimator.SetFloat("velocity", magnitude);
@@ -63,7 +51,7 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     #endregion
 
-    #region action related
+    #region Action related
     public void rollPerform()
     {
         playerAnimator.SetTrigger("roll");
@@ -71,4 +59,14 @@ public class PlayerAnimationHandler : MonoBehaviour
     }
     #endregion
 
+
+    bool AnimatorIsPlaying()
+    {
+        return playerAnimator.GetCurrentAnimatorStateInfo(1).length > playerAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime;
+    }
+    bool AnimatorIsPlayingOnLayer(int layerIndex)
+    {
+        AnimatorStateInfo stateInfo = playerAnimator.GetCurrentAnimatorStateInfo(layerIndex);
+        return stateInfo.length > stateInfo.normalizedTime;  // True if animation is still playing
+    }
 }
