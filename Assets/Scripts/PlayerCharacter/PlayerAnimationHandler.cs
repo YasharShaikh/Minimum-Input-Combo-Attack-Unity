@@ -1,4 +1,3 @@
-using player;
 using UnityEngine;
 
 
@@ -16,9 +15,9 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     #region combat related
 
-    public void swordAttack(AttackSO combo)
+    public void SwordAttack(AttackSO combo)
     {
-        if (playerAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.5f )
+        if (playerAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.5f)
         {
             playerAnimator.runtimeAnimatorController = combo.controller;
             playerAnimator.Play("SwordAttack", 1, 0);
@@ -28,9 +27,9 @@ public class PlayerAnimationHandler : MonoBehaviour
             Debug.Log("Currently playing combo: " + combo);
         }
     }
-    public void powerAttack(EnergySO combo)
+    public void PowerAttack(EnergySO combo)
     {
-        if(playerAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime>0.5f )
+        if (playerAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.5f)
         {
             playerAnimator.runtimeAnimatorController = combo.controller;
             playerAnimator.Play("EnergyAttack", 1, 0);

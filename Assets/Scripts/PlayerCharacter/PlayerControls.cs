@@ -37,7 +37,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""swdATK"",
+                    ""name"": ""SwordAttack"",
                     ""type"": ""Button"",
                     ""id"": ""099b3a3a-2088-44c7-9442-4e909564c1ec"",
                     ""expectedControlType"": ""Button"",
@@ -46,7 +46,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""pwrATK"",
+                    ""name"": ""PowerAttack"",
                     ""type"": ""Button"",
                     ""id"": ""21f8a412-0de5-442d-a260-7142d7d13f8d"",
                     ""expectedControlType"": ""Button"",
@@ -55,7 +55,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""roll"",
+                    ""name"": ""RollAction"",
                     ""type"": ""Button"",
                     ""id"": ""c72e69cc-808f-4880-b029-208b33ed9383"",
                     ""expectedControlType"": ""Button"",
@@ -73,7 +73,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""swordRadialMenu"",
+                    ""name"": ""SwordRadialMenu"",
                     ""type"": ""Button"",
                     ""id"": ""b4ddeea5-3354-413c-b247-d7d0aead1878"",
                     ""expectedControlType"": ""Button"",
@@ -82,7 +82,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""energyRadialMenu"",
+                    ""name"": ""EnergyRadialMenu"",
                     ""type"": ""Button"",
                     ""id"": ""8deb3f56-51c0-4e87-b9c6-a2e4e11a627a"",
                     ""expectedControlType"": ""Button"",
@@ -154,7 +154,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""swdATK"",
+                    ""action"": ""SwordAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -165,7 +165,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""pwrATK"",
+                    ""action"": ""PowerAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -176,7 +176,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""roll"",
+                    ""action"": ""RollAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -198,7 +198,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""swordRadialMenu"",
+                    ""action"": ""SwordRadialMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -209,7 +209,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""energyRadialMenu"",
+                    ""action"": ""EnergyRadialMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -221,12 +221,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
-        m_Player_swdATK = m_Player.FindAction("swdATK", throwIfNotFound: true);
-        m_Player_pwrATK = m_Player.FindAction("pwrATK", throwIfNotFound: true);
-        m_Player_roll = m_Player.FindAction("roll", throwIfNotFound: true);
+        m_Player_SwordAttack = m_Player.FindAction("SwordAttack", throwIfNotFound: true);
+        m_Player_PowerAttack = m_Player.FindAction("PowerAttack", throwIfNotFound: true);
+        m_Player_RollAction = m_Player.FindAction("RollAction", throwIfNotFound: true);
         m_Player_lockON = m_Player.FindAction("lockON", throwIfNotFound: true);
-        m_Player_swordRadialMenu = m_Player.FindAction("swordRadialMenu", throwIfNotFound: true);
-        m_Player_energyRadialMenu = m_Player.FindAction("energyRadialMenu", throwIfNotFound: true);
+        m_Player_SwordRadialMenu = m_Player.FindAction("SwordRadialMenu", throwIfNotFound: true);
+        m_Player_EnergyRadialMenu = m_Player.FindAction("EnergyRadialMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -289,23 +289,23 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
-    private readonly InputAction m_Player_swdATK;
-    private readonly InputAction m_Player_pwrATK;
-    private readonly InputAction m_Player_roll;
+    private readonly InputAction m_Player_SwordAttack;
+    private readonly InputAction m_Player_PowerAttack;
+    private readonly InputAction m_Player_RollAction;
     private readonly InputAction m_Player_lockON;
-    private readonly InputAction m_Player_swordRadialMenu;
-    private readonly InputAction m_Player_energyRadialMenu;
+    private readonly InputAction m_Player_SwordRadialMenu;
+    private readonly InputAction m_Player_EnergyRadialMenu;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
-        public InputAction @swdATK => m_Wrapper.m_Player_swdATK;
-        public InputAction @pwrATK => m_Wrapper.m_Player_pwrATK;
-        public InputAction @roll => m_Wrapper.m_Player_roll;
+        public InputAction @SwordAttack => m_Wrapper.m_Player_SwordAttack;
+        public InputAction @PowerAttack => m_Wrapper.m_Player_PowerAttack;
+        public InputAction @RollAction => m_Wrapper.m_Player_RollAction;
         public InputAction @lockON => m_Wrapper.m_Player_lockON;
-        public InputAction @swordRadialMenu => m_Wrapper.m_Player_swordRadialMenu;
-        public InputAction @energyRadialMenu => m_Wrapper.m_Player_energyRadialMenu;
+        public InputAction @SwordRadialMenu => m_Wrapper.m_Player_SwordRadialMenu;
+        public InputAction @EnergyRadialMenu => m_Wrapper.m_Player_EnergyRadialMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -318,24 +318,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @swdATK.started += instance.OnSwdATK;
-            @swdATK.performed += instance.OnSwdATK;
-            @swdATK.canceled += instance.OnSwdATK;
-            @pwrATK.started += instance.OnPwrATK;
-            @pwrATK.performed += instance.OnPwrATK;
-            @pwrATK.canceled += instance.OnPwrATK;
-            @roll.started += instance.OnRoll;
-            @roll.performed += instance.OnRoll;
-            @roll.canceled += instance.OnRoll;
+            @SwordAttack.started += instance.OnSwordAttack;
+            @SwordAttack.performed += instance.OnSwordAttack;
+            @SwordAttack.canceled += instance.OnSwordAttack;
+            @PowerAttack.started += instance.OnPowerAttack;
+            @PowerAttack.performed += instance.OnPowerAttack;
+            @PowerAttack.canceled += instance.OnPowerAttack;
+            @RollAction.started += instance.OnRollAction;
+            @RollAction.performed += instance.OnRollAction;
+            @RollAction.canceled += instance.OnRollAction;
             @lockON.started += instance.OnLockON;
             @lockON.performed += instance.OnLockON;
             @lockON.canceled += instance.OnLockON;
-            @swordRadialMenu.started += instance.OnSwordRadialMenu;
-            @swordRadialMenu.performed += instance.OnSwordRadialMenu;
-            @swordRadialMenu.canceled += instance.OnSwordRadialMenu;
-            @energyRadialMenu.started += instance.OnEnergyRadialMenu;
-            @energyRadialMenu.performed += instance.OnEnergyRadialMenu;
-            @energyRadialMenu.canceled += instance.OnEnergyRadialMenu;
+            @SwordRadialMenu.started += instance.OnSwordRadialMenu;
+            @SwordRadialMenu.performed += instance.OnSwordRadialMenu;
+            @SwordRadialMenu.canceled += instance.OnSwordRadialMenu;
+            @EnergyRadialMenu.started += instance.OnEnergyRadialMenu;
+            @EnergyRadialMenu.performed += instance.OnEnergyRadialMenu;
+            @EnergyRadialMenu.canceled += instance.OnEnergyRadialMenu;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -343,24 +343,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @swdATK.started -= instance.OnSwdATK;
-            @swdATK.performed -= instance.OnSwdATK;
-            @swdATK.canceled -= instance.OnSwdATK;
-            @pwrATK.started -= instance.OnPwrATK;
-            @pwrATK.performed -= instance.OnPwrATK;
-            @pwrATK.canceled -= instance.OnPwrATK;
-            @roll.started -= instance.OnRoll;
-            @roll.performed -= instance.OnRoll;
-            @roll.canceled -= instance.OnRoll;
+            @SwordAttack.started -= instance.OnSwordAttack;
+            @SwordAttack.performed -= instance.OnSwordAttack;
+            @SwordAttack.canceled -= instance.OnSwordAttack;
+            @PowerAttack.started -= instance.OnPowerAttack;
+            @PowerAttack.performed -= instance.OnPowerAttack;
+            @PowerAttack.canceled -= instance.OnPowerAttack;
+            @RollAction.started -= instance.OnRollAction;
+            @RollAction.performed -= instance.OnRollAction;
+            @RollAction.canceled -= instance.OnRollAction;
             @lockON.started -= instance.OnLockON;
             @lockON.performed -= instance.OnLockON;
             @lockON.canceled -= instance.OnLockON;
-            @swordRadialMenu.started -= instance.OnSwordRadialMenu;
-            @swordRadialMenu.performed -= instance.OnSwordRadialMenu;
-            @swordRadialMenu.canceled -= instance.OnSwordRadialMenu;
-            @energyRadialMenu.started -= instance.OnEnergyRadialMenu;
-            @energyRadialMenu.performed -= instance.OnEnergyRadialMenu;
-            @energyRadialMenu.canceled -= instance.OnEnergyRadialMenu;
+            @SwordRadialMenu.started -= instance.OnSwordRadialMenu;
+            @SwordRadialMenu.performed -= instance.OnSwordRadialMenu;
+            @SwordRadialMenu.canceled -= instance.OnSwordRadialMenu;
+            @EnergyRadialMenu.started -= instance.OnEnergyRadialMenu;
+            @EnergyRadialMenu.performed -= instance.OnEnergyRadialMenu;
+            @EnergyRadialMenu.canceled -= instance.OnEnergyRadialMenu;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -381,9 +381,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnSwdATK(InputAction.CallbackContext context);
-        void OnPwrATK(InputAction.CallbackContext context);
-        void OnRoll(InputAction.CallbackContext context);
+        void OnSwordAttack(InputAction.CallbackContext context);
+        void OnPowerAttack(InputAction.CallbackContext context);
+        void OnRollAction(InputAction.CallbackContext context);
         void OnLockON(InputAction.CallbackContext context);
         void OnSwordRadialMenu(InputAction.CallbackContext context);
         void OnEnergyRadialMenu(InputAction.CallbackContext context);

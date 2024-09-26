@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "swdATK",
+                    "name": "SwordAttack",
                     "type": "Button",
                     "id": "099b3a3a-2088-44c7-9442-4e909564c1ec",
                     "expectedControlType": "Button",
@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "pwrATK",
+                    "name": "PowerAttack",
                     "type": "Button",
                     "id": "21f8a412-0de5-442d-a260-7142d7d13f8d",
                     "expectedControlType": "Button",
@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "roll",
+                    "name": "RollAction",
                     "type": "Button",
                     "id": "c72e69cc-808f-4880-b029-208b33ed9383",
                     "expectedControlType": "Button",
@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "swordRadialMenu",
+                    "name": "SwordRadialMenu",
                     "type": "Button",
                     "id": "b4ddeea5-3354-413c-b247-d7d0aead1878",
                     "expectedControlType": "Button",
@@ -60,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "energyRadialMenu",
+                    "name": "EnergyRadialMenu",
                     "type": "Button",
                     "id": "8deb3f56-51c0-4e87-b9c6-a2e4e11a627a",
                     "expectedControlType": "Button",
@@ -132,7 +132,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "swdATK",
+                    "action": "SwordAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -143,7 +143,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "pwrATK",
+                    "action": "PowerAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -154,7 +154,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "roll",
+                    "action": "RollAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -176,7 +176,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "swordRadialMenu",
+                    "action": "SwordRadialMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -187,7 +187,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "energyRadialMenu",
+                    "action": "EnergyRadialMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

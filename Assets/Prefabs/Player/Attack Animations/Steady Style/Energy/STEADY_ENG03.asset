@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6317bcbd63690374482e8ee586ca892e, type: 3}
   m_Name: STEADY_ENG03
   m_EditorClassIdentifier: 
-  AttackName: STEADY_ENG01
+  AttackName: STEADY_ENG03
   controller: {fileID: 22100000, guid: 7203da306dccf3f49a7fb53d70e24b98, type: 2}
   damage: 0

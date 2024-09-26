@@ -36,13 +36,14 @@ namespace player
         InputAction swordAction;
         InputAction powerAction;
         InputAction lockONAction;
-
+        InputAction swordRadialMenuAction;
 
         public Vector2 moveInput { get; private set; }
         public bool swordATKTriggered { get; private set; }
         public bool powerATKTriggered { get; private set; }
         public bool rollTriggered { get; private set; }
         public bool lockONTriggered { get; private set; }
+        public bool swordRadialMenuTriggered { get; private set; }
 
         private void Awake()
         {
@@ -55,6 +56,9 @@ namespace player
             powerAction = playerControls.FindActionMap(actionMapName).FindAction(powerAttack);
 
             lockONAction = playerControls.FindActionMap(actionMapName).FindAction(lockON);
+
+            swordRadialMenuAction = playerControls.FindActionMap(actionMapName).FindAction(swordRadialMenu);
+
             RegisterInputActions();
         }
 
@@ -65,10 +69,13 @@ namespace player
             powerATKTriggered = powerAction.triggered;
             rollTriggered = rollAction.triggered;
             if (lockONAction.triggered)
-            {
                 lockONTriggered = !lockONTriggered;
-                Debug.Log(lockONTriggered);
-            }
+
+            if (swordRadialMenuAction.IsPressed())
+                swordRadialMenuTriggered = true;
+            else
+                swordRadialMenuTriggered = false;
+
 
         }
         private void RegisterInputActions()
@@ -80,12 +87,14 @@ namespace player
         private void OnEnable()
         {
             moveAction.Enable();
-            
+
             lockONAction.Enable();
             rollAction.Enable();
-            
+
             swordAction.Enable();
             powerAction.Enable();
+
+            swordRadialMenuAction.Enable();
         }
 
         private void OnDisable()
@@ -94,9 +103,12 @@ namespace player
 
             lockONAction.Disable();
             rollAction.Disable();
-            
+
             swordAction.Disable();
             powerAction.Disable();
+
+            swordRadialMenuAction.Disable();
+
         }
     }
 }

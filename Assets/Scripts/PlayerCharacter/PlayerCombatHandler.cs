@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerCombatHandler : MonoBehaviour
 {
+    public static PlayerCombatHandler instance;
+
     [SerializeField] float timeBetweenCombo;
     [SerializeField] int mainAtkComboStream;
     [SerializeField] int maxCombo = 3;
@@ -22,6 +24,8 @@ public class PlayerCombatHandler : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
+
         playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
         inputHandler = GetComponent<InputHandler>();
     }
@@ -71,10 +75,8 @@ public class PlayerCombatHandler : MonoBehaviour
                 }
             }
             else
-            {
                 // Maximum combo reached, reset combo stream
                 ResetCombo();
-            }
 
             // Update the last click time
         }
@@ -89,13 +91,9 @@ public class PlayerCombatHandler : MonoBehaviour
 
         // Perform the appropriate attack based on the current combo stream
         if (inputHandler.swordATKTriggered)
-        {
             PerformSwordAttack();
-        }
         else if (inputHandler.powerATKTriggered)
-        {
             PerformPowerAttack();
-        }
     }
 
     // Continue the current combo attack
@@ -103,14 +101,11 @@ public class PlayerCombatHandler : MonoBehaviour
     {
         lastClickTime = 0;
         mainAtkComboStream++;
+
         if (inputHandler.swordATKTriggered)
-        {
             PerformSwordAttack();
-        }
         else if (inputHandler.powerATKTriggered)
-        {
             PerformPowerAttack();
-        }
     }
 
     // Reset the combo attack
@@ -128,8 +123,7 @@ public class PlayerCombatHandler : MonoBehaviour
             Debug.Log("Empty");
         }
         // Play the corresponding animation for the sword attack
-        playerAnimationHandler.swordAttack(swordAttacks[mainAtkComboStream - 1]);
-        //Debug.Log("Performing sword attack from list=" + swdATKTrackerL[mainAtkComboStream - 1]);
+        playerAnimationHandler.SwordAttack(swordAttacks[mainAtkComboStream - 1]);
     }
 
     // Perform a power attack
@@ -140,7 +134,51 @@ public class PlayerCombatHandler : MonoBehaviour
             Debug.Log("Empty");
         }
         // Play the corresponding animation for the power attack
-        playerAnimationHandler.powerAttack(energyAttacks[mainAtkComboStream - 1]);
-        //Debug.Log("Performing power attack: " + pwrATKTrackerL[mainAtkComboStream - 1]);
+        playerAnimationHandler.PowerAttack(energyAttacks[mainAtkComboStream - 1]);
+    }
+
+
+    public AttackSO SwapSwordAttack(AttackSO newAttack)
+    {
+        int attackIndex = mainAtkComboStream - 1;
+
+        if(attackIndex < 0 || attackIndex>=swordAttacks.Count)
+        {
+            Debug.Log("invalid Attack index.");
+            return null;
+        }
+        AttackSO oldAttack = swordAttacks[attackIndex];
+        if (newAttack != null)
+        {
+            swordAttacks[mainAtkComboStream - 1] = newAttack;
+            Debug.Log($"Swapped attack at index {attackIndex}. Old Attack: {oldAttack.name}, New Attack: {newAttack.name}");
+        }
+        else
+        {
+            Debug.Log($"No new attack provided. Keeping the existing attack: {oldAttack.name}");
+        }
+        return oldAttack;
+    }
+
+    public EnergySO SwapEnergyAttack(EnergySO newAttack)
+    {
+        int attackIndex = mainAtkComboStream - 1;
+
+        if (attackIndex < 0 || attackIndex >= energyAttacks.Count)
+        {
+            Debug.Log("invalid Energy index.");
+            return null;
+        }
+        EnergySO oldAttack = energyAttacks[attackIndex];
+        if (newAttack != null)
+        {
+            energyAttacks[mainAtkComboStream - 1] = newAttack;
+            Debug.Log($"Swapped attack at index {attackIndex}. Old Attack: {oldAttack.name}, New Attack: {newAttack.name}");
+        }
+        else
+        {
+            Debug.Log($"No new attack provided. Keeping the existing attack: {oldAttack.name}");
+        }
+        return oldAttack;
     }
 }
