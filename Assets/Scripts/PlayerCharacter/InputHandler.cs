@@ -28,22 +28,21 @@ namespace player
         [SerializeField] string lockON;
 
         [Header("Menu Action")]
-        [SerializeField] string swordRadialMenu;
-        [SerializeField] string energyRadialMenu;
+        [SerializeField] string RadialMenu;
 
         InputAction moveAction;
         InputAction rollAction;
         InputAction swordAction;
         InputAction powerAction;
         InputAction lockONAction;
-        InputAction swordRadialMenuAction;
+        InputAction RadialMenuAction;
 
         public Vector2 moveInput { get; private set; }
         public bool swordATKTriggered { get; private set; }
         public bool powerATKTriggered { get; private set; }
         public bool rollTriggered { get; private set; }
         public bool lockONTriggered { get; private set; }
-        public bool swordRadialMenuTriggered { get; private set; }
+        public bool RadialMenuTriggered { get; private set; }
 
         private void Awake()
         {
@@ -57,7 +56,7 @@ namespace player
 
             lockONAction = playerControls.FindActionMap(actionMapName).FindAction(lockON);
 
-            swordRadialMenuAction = playerControls.FindActionMap(actionMapName).FindAction(swordRadialMenu);
+            RadialMenuAction = playerControls.FindActionMap(actionMapName).FindAction(RadialMenu);
 
             RegisterInputActions();
         }
@@ -71,10 +70,10 @@ namespace player
             if (lockONAction.triggered)
                 lockONTriggered = !lockONTriggered;
 
-            if (swordRadialMenuAction.IsPressed())
-                swordRadialMenuTriggered = true;
+            if (RadialMenuAction.IsPressed())
+                RadialMenuTriggered = true;
             else
-                swordRadialMenuTriggered = false;
+                RadialMenuTriggered = false;
 
 
         }
@@ -94,7 +93,7 @@ namespace player
             swordAction.Enable();
             powerAction.Enable();
 
-            swordRadialMenuAction.Enable();
+            RadialMenuAction.Enable();
         }
 
         private void OnDisable()
@@ -107,7 +106,7 @@ namespace player
             swordAction.Disable();
             powerAction.Disable();
 
-            swordRadialMenuAction.Disable();
+            RadialMenuAction.Disable();
 
         }
     }

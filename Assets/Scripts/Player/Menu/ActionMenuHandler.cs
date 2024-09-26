@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using player;
-using UnityEngine.Rendering;
 
 public class ActionMenuHandler : MonoBehaviour
 {
@@ -19,20 +16,15 @@ public class ActionMenuHandler : MonoBehaviour
         ActionMenuCanvas.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         ShowActionMenuCanvas();
     }
 
-
     void ShowActionMenuCanvas()
     {
-        if (inputHandler.swordRadialMenuTriggered)
-        {
+        if (inputHandler.RadialMenuTriggered)
             ActionMenuCanvas.gameObject.SetActive(true);
-            //playerCombatHandler.SwapSwordAttack()
-        }
         else
             ActionMenuCanvas.gameObject.SetActive(false);
     }

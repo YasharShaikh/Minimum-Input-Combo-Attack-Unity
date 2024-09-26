@@ -15,15 +15,19 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     #region combat related
 
+
+    //ISSUE: setting speed of the animation which results in slowing or increasing the speed of overall animation[Movement, Action]
     public void SwordAttack(AttackSO combo)
     {
         if (playerAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.5f)
         {
             playerAnimator.runtimeAnimatorController = combo.controller;
+            playerAnimator.speed = combo.attackSpeed;
             playerAnimator.Play("SwordAttack", 1, 0);
         }
         else
         {
+            playerAnimator.speed = combo.attackSpeed;
             Debug.Log("Currently playing combo: " + combo);
         }
     }
@@ -59,13 +63,4 @@ public class PlayerAnimationHandler : MonoBehaviour
     #endregion
 
 
-    bool AnimatorIsPlaying()
-    {
-        return playerAnimator.GetCurrentAnimatorStateInfo(1).length > playerAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime;
-    }
-    bool AnimatorIsPlayingOnLayer(int layerIndex)
-    {
-        AnimatorStateInfo stateInfo = playerAnimator.GetCurrentAnimatorStateInfo(layerIndex);
-        return stateInfo.length > stateInfo.normalizedTime;  // True if animation is still playing
-    }
 }
