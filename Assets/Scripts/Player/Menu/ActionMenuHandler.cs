@@ -7,14 +7,12 @@ public class ActionMenuHandler : MonoBehaviour
 
     PlayerInputHandler inputHandler;
     ActionMenuInputHandler actionMenuInputHandler;
-    PlayerCombatHandler playerCombatHandler;
 
 
     private void Awake()
     {
         inputHandler = GetComponentInParent<PlayerInputHandler>();
         actionMenuInputHandler = GetComponentInParent<ActionMenuInputHandler>();
-        playerCombatHandler = GetComponentInParent<PlayerCombatHandler>();
         ActionMenuCanvas.gameObject.SetActive(false);
     }
 

@@ -15,7 +15,10 @@ public class PlayerCombatHandler : MonoBehaviour
     [SerializeField] List<AttackSO> swordAttacks = new List<AttackSO>();
     [SerializeField] List<EnergySO> energyAttacks = new List<EnergySO>();
 
+
+
     bool isPerformingCombo;
+    
     PlayerAnimationHandler playerAnimationHandler;
     PlayerInputHandler inputHandler;
 

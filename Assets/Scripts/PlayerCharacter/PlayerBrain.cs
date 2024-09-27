@@ -22,17 +22,11 @@ namespace player
         [SerializeField] float rotationSpeed;
         [HideInInspector] public bool isPerformingROLLAnimation;
 
-        [Header("Player Stats")]
-        [SerializeField] float maxStamina;
-        [SerializeField] float currentStamina;
-        [SerializeField] float regenerationRate;
-        [SerializeField] float deductionRateROLL;
-
         [Header("Lock ON ")]
         [SerializeField] float lockONRadius;
         [SerializeField] float minLockONAngle;
         [SerializeField] float maxLockONAngle;
-        [SerializeField] float targetDistanceLockON;
+        [SerializeField] float targetDistanceLockON;    
         [SerializeField] GameObject lockedONEnemy;
 
         [Space]
@@ -169,6 +163,7 @@ namespace player
 
                 Quaternion lookDirection = Quaternion.LookRotation(moveDirection);
                 //characterController.Move(moveDirection.normalized * rollSpeed * Time.deltaTime);
+
 
                 PlayerAnimationHandler.instance.rollPerform();
             }
