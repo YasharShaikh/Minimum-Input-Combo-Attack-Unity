@@ -120,6 +120,7 @@ public class PlayerCombatHandler : MonoBehaviour
         if (swordAttacks.Count == 0)
         {
             Debug.Log("Empty");
+            Debug.Log("Only For Test Commit");
         }
         // Play the corresponding animation for the sword attack
         playerAnimationHandler.SwordAttack(swordAttacks[mainAtkComboStream - 1]);
