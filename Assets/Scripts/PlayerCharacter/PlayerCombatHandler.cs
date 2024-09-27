@@ -53,7 +53,7 @@ public class PlayerCombatHandler : MonoBehaviour
         {
             isPerformingCombo = true;
             // If the current main attack combo stream is zero, start a new combo
-            if (mainAtkComboStream == 0)
+            if (mainAtkComboStream == 0 || mainAtkComboStream == maxCombo)
             {
                 Debug.Log("Before StartCombo");
                 StartCombo();
@@ -73,11 +73,6 @@ public class PlayerCombatHandler : MonoBehaviour
                     StartCombo();
                 }
             }
-            else
-                // Maximum combo reached, reset combo stream
-                ResetCombo();
-
-            // Update the last click time
         }
     }
 
@@ -120,7 +115,6 @@ public class PlayerCombatHandler : MonoBehaviour
         if (swordAttacks.Count == 0)
         {
             Debug.Log("Empty");
-            Debug.Log("Only For Test Commit");
         }
         // Play the corresponding animation for the sword attack
         playerAnimationHandler.SwordAttack(swordAttacks[mainAtkComboStream - 1]);
