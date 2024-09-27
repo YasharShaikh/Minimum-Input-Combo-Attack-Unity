@@ -73,18 +73,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SwordRadialMenu"",
+                    ""name"": ""RadialMenu"",
                     ""type"": ""Button"",
                     ""id"": ""b4ddeea5-3354-413c-b247-d7d0aead1878"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""EnergyRadialMenu"",
-                    ""type"": ""Button"",
-                    ""id"": ""8deb3f56-51c0-4e87-b9c6-a2e4e11a627a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -198,18 +189,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SwordRadialMenu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a34f21c0-4a3a-44a8-86f1-b0c756afbef0"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""EnergyRadialMenu"",
+                    ""action"": ""RadialMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -225,8 +205,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_PowerAttack = m_Player.FindAction("PowerAttack", throwIfNotFound: true);
         m_Player_RollAction = m_Player.FindAction("RollAction", throwIfNotFound: true);
         m_Player_lockON = m_Player.FindAction("lockON", throwIfNotFound: true);
-        m_Player_SwordRadialMenu = m_Player.FindAction("SwordRadialMenu", throwIfNotFound: true);
-        m_Player_EnergyRadialMenu = m_Player.FindAction("EnergyRadialMenu", throwIfNotFound: true);
+        m_Player_RadialMenu = m_Player.FindAction("RadialMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -293,8 +272,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_PowerAttack;
     private readonly InputAction m_Player_RollAction;
     private readonly InputAction m_Player_lockON;
-    private readonly InputAction m_Player_SwordRadialMenu;
-    private readonly InputAction m_Player_EnergyRadialMenu;
+    private readonly InputAction m_Player_RadialMenu;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -304,8 +282,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @PowerAttack => m_Wrapper.m_Player_PowerAttack;
         public InputAction @RollAction => m_Wrapper.m_Player_RollAction;
         public InputAction @lockON => m_Wrapper.m_Player_lockON;
-        public InputAction @SwordRadialMenu => m_Wrapper.m_Player_SwordRadialMenu;
-        public InputAction @EnergyRadialMenu => m_Wrapper.m_Player_EnergyRadialMenu;
+        public InputAction @RadialMenu => m_Wrapper.m_Player_RadialMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -330,12 +307,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @lockON.started += instance.OnLockON;
             @lockON.performed += instance.OnLockON;
             @lockON.canceled += instance.OnLockON;
-            @SwordRadialMenu.started += instance.OnSwordRadialMenu;
-            @SwordRadialMenu.performed += instance.OnSwordRadialMenu;
-            @SwordRadialMenu.canceled += instance.OnSwordRadialMenu;
-            @EnergyRadialMenu.started += instance.OnEnergyRadialMenu;
-            @EnergyRadialMenu.performed += instance.OnEnergyRadialMenu;
-            @EnergyRadialMenu.canceled += instance.OnEnergyRadialMenu;
+            @RadialMenu.started += instance.OnRadialMenu;
+            @RadialMenu.performed += instance.OnRadialMenu;
+            @RadialMenu.canceled += instance.OnRadialMenu;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -355,12 +329,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @lockON.started -= instance.OnLockON;
             @lockON.performed -= instance.OnLockON;
             @lockON.canceled -= instance.OnLockON;
-            @SwordRadialMenu.started -= instance.OnSwordRadialMenu;
-            @SwordRadialMenu.performed -= instance.OnSwordRadialMenu;
-            @SwordRadialMenu.canceled -= instance.OnSwordRadialMenu;
-            @EnergyRadialMenu.started -= instance.OnEnergyRadialMenu;
-            @EnergyRadialMenu.performed -= instance.OnEnergyRadialMenu;
-            @EnergyRadialMenu.canceled -= instance.OnEnergyRadialMenu;
+            @RadialMenu.started -= instance.OnRadialMenu;
+            @RadialMenu.performed -= instance.OnRadialMenu;
+            @RadialMenu.canceled -= instance.OnRadialMenu;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -385,7 +356,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnPowerAttack(InputAction.CallbackContext context);
         void OnRollAction(InputAction.CallbackContext context);
         void OnLockON(InputAction.CallbackContext context);
-        void OnSwordRadialMenu(InputAction.CallbackContext context);
-        void OnEnergyRadialMenu(InputAction.CallbackContext context);
+        void OnRadialMenu(InputAction.CallbackContext context);
     }
 }

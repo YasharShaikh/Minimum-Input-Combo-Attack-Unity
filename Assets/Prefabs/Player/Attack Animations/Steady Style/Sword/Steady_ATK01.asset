@@ -15,5 +15,7 @@ MonoBehaviour:
   AttackName: Steady_ATK01
   controller: {fileID: 22100000, guid: 3be2d21df42095e40b8a755b5cd52d9c, type: 2}
   damage: 5
-  attackSpeed: 1.5
+  attackSpeed: 1
   recoil: 0
+  SwingVFX: {fileID: 0}
+  HitVFX: {fileID: 0}

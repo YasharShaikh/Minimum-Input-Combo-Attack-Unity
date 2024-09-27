@@ -10,7 +10,6 @@ public class PlayerCombatHandler : MonoBehaviour
     [SerializeField] int mainAtkComboStream;
     [SerializeField] int maxCombo = 3;
     [SerializeField] float lastClickTime;
-
     [Header("Avaible Sword Attacks")]
     [SerializeField] List<AttackSO> swordAttacks = new List<AttackSO>();
     [SerializeField] List<EnergySO> energyAttacks = new List<EnergySO>();
@@ -18,7 +17,7 @@ public class PlayerCombatHandler : MonoBehaviour
 
     bool isPerformingCombo;
     PlayerAnimationHandler playerAnimationHandler;
-    InputHandler inputHandler;
+    PlayerInputHandler inputHandler;
 
 
 
@@ -27,7 +26,7 @@ public class PlayerCombatHandler : MonoBehaviour
         instance = this;
 
         playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
-        inputHandler = GetComponent<InputHandler>();
+        inputHandler = GetComponent<PlayerInputHandler>();
     }
     // Start is called before the first frame update
     void Start()
@@ -140,9 +139,9 @@ public class PlayerCombatHandler : MonoBehaviour
 
     public AttackSO SwapSwordAttack(AttackSO newAttack)
     {
-        int attackIndex = mainAtkComboStream - 1;
+        int attackIndex = mainAtkComboStream;
 
-        if(attackIndex < 0 || attackIndex>=swordAttacks.Count)
+        if (attackIndex < 0 || attackIndex >= swordAttacks.Count)
         {
             Debug.Log("invalid Attack index.");
             return null;
@@ -150,7 +149,7 @@ public class PlayerCombatHandler : MonoBehaviour
         AttackSO oldAttack = swordAttacks[attackIndex];
         if (newAttack != null)
         {
-            swordAttacks[mainAtkComboStream - 1] = newAttack;
+            swordAttacks[mainAtkComboStream] = newAttack;
             Debug.Log($"Swapped attack at index {attackIndex}. Old Attack: {oldAttack.name}, New Attack: {newAttack.name}");
         }
         else
@@ -162,7 +161,7 @@ public class PlayerCombatHandler : MonoBehaviour
 
     public EnergySO SwapEnergyAttack(EnergySO newAttack)
     {
-        int attackIndex = mainAtkComboStream - 1;
+        int attackIndex = mainAtkComboStream;
 
         if (attackIndex < 0 || attackIndex >= energyAttacks.Count)
         {
@@ -172,7 +171,7 @@ public class PlayerCombatHandler : MonoBehaviour
         EnergySO oldAttack = energyAttacks[attackIndex];
         if (newAttack != null)
         {
-            energyAttacks[mainAtkComboStream - 1] = newAttack;
+            energyAttacks[mainAtkComboStream] = newAttack;
             Debug.Log($"Swapped attack at index {attackIndex}. Old Attack: {oldAttack.name}, New Attack: {newAttack.name}");
         }
         else

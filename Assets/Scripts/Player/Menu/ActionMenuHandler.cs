@@ -5,13 +5,15 @@ public class ActionMenuHandler : MonoBehaviour
 {
     [SerializeField] Canvas ActionMenuCanvas;
 
-    InputHandler inputHandler;
+    PlayerInputHandler inputHandler;
+    ActionMenuInputHandler actionMenuInputHandler;
     PlayerCombatHandler playerCombatHandler;
 
 
     private void Awake()
     {
-        inputHandler = GetComponentInParent<InputHandler>();
+        inputHandler = GetComponentInParent<PlayerInputHandler>();
+        actionMenuInputHandler = GetComponentInParent<ActionMenuInputHandler>();
         playerCombatHandler = GetComponentInParent<PlayerCombatHandler>();
         ActionMenuCanvas.gameObject.SetActive(false);
     }
@@ -23,9 +25,16 @@ public class ActionMenuHandler : MonoBehaviour
 
     void ShowActionMenuCanvas()
     {
-        if (inputHandler.RadialMenuTriggered)
+        if (actionMenuInputHandler.RadialMenuTriggered)
+        {
+            inputHandler.enabled = false;
             ActionMenuCanvas.gameObject.SetActive(true);
+        }
         else
+        {
+            inputHandler.enabled = true;
             ActionMenuCanvas.gameObject.SetActive(false);
+
+        }
     }
 }

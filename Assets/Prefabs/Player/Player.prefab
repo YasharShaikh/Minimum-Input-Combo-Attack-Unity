@@ -2582,7 +2582,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4874148330854076192}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15423335, y: 0.000000019007123, z: -0.0000000029670346, w: 0.9880345}
+  m_LocalRotation: {x: 0.15423335, y: -0.000000019007132, z: 0.0000000029670362, w: 0.9880345}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3141,8 +3141,7 @@ MonoBehaviour:
   swordAttack: SwordAttack
   powerAttack: PowerAttack
   lockON: lockON
-  swordRadialMenu: SwordRadialMenu
-  energyRadialMenu: EnergyRadialMenu
+  RadialMenu: RadialMenu
 --- !u!114 &3935248350502221898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3985,7 +3984,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7095225789752349645}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.039904393, y: 0.000000017077157, z: 6.8199685e-10, w: 0.9992035}
+  m_LocalRotation: {x: -0.039904382, y: 1.7873399e-15, z: 1.8338328e-17, w: 0.9992035}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

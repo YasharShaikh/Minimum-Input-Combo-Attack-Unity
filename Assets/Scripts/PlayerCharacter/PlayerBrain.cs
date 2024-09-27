@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace player
 {
-    [RequireComponent(typeof(InputHandler))]
+    [RequireComponent(typeof(PlayerInputHandler))]
     [RequireComponent(typeof(CharacterController))]
     public class PlayerBrain : MonoBehaviour
     {
@@ -142,8 +142,8 @@ namespace player
 
         private void Move()
         {
-            float moveVertical = InputHandler.instance.moveInput.x;
-            float moveHorizontal = InputHandler.instance.moveInput.y;
+            float moveVertical = PlayerInputHandler.instance.moveInput.x;
+            float moveHorizontal = PlayerInputHandler.instance.moveInput.y;
 
             PlayerAnimationHandler.instance.LocomotionAnimaton(magnitude);
             moveDirection = (playerCamera.transform.right * moveVertical) + (playerCamera.transform.forward * moveHorizontal);
@@ -161,7 +161,7 @@ namespace player
         {
             if (isPerformingROLLAnimation)
                 return;
-            if (magnitude > 0 && InputHandler.instance.rollTriggered)
+            if (magnitude > 0 && PlayerInputHandler.instance.rollTriggered)
             {
                 isPerformingROLLAnimation = true;
                 moveDirection.y = 0;

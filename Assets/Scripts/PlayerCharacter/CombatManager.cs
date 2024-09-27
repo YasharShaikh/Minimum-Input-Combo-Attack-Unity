@@ -13,14 +13,14 @@ public class CombatManager : MonoBehaviour
     bool bisPerformingCombo;
     bool bIsPerformingENGAttack;
 
-    InputHandler InputHandler;
+    PlayerInputHandler InputHandler;
     PlayerAnimationHandler PlayerAnimationHandler;
     public AnimationEvent swdAttack;
 
 
     private void Awake()
     {
-        InputHandler = GetComponent<InputHandler>();
+        InputHandler = GetComponent<PlayerInputHandler>();
         PlayerAnimationHandler = GetComponent<PlayerAnimationHandler>();    
     }
 

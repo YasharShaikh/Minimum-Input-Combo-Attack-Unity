@@ -51,18 +51,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SwordRadialMenu",
+                    "name": "RadialMenu",
                     "type": "Button",
                     "id": "b4ddeea5-3354-413c-b247-d7d0aead1878",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "EnergyRadialMenu",
-                    "type": "Button",
-                    "id": "8deb3f56-51c0-4e87-b9c6-a2e4e11a627a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -176,18 +167,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwordRadialMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a34f21c0-4a3a-44a8-86f1-b0c756afbef0",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "EnergyRadialMenu",
+                    "action": "RadialMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
