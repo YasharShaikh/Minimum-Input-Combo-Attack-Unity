@@ -6,7 +6,8 @@ public class PlayerAnimationHandler : MonoBehaviour
 {
     public static PlayerAnimationHandler instance;
     Animator playerAnimator;
-
+    [HideInInspector] public bool isPerformingSwordAttack = false;
+    [HideInInspector] public bool isPerformingEnergyAttack = false;
     private void Awake()
     {
         instance = this;
@@ -19,30 +20,18 @@ public class PlayerAnimationHandler : MonoBehaviour
     //ISSUE: setting speed of the animation which results in slowing or increasing the speed of overall animation[Movement, Action]
     public void SwordAttack(AttackSO combo)
     {
-        if (playerAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.5f)
-        {
-            playerAnimator.runtimeAnimatorController = combo.controller;
-            playerAnimator.speed = combo.attackSpeed;
-            playerAnimator.Play("SwordAttack", 1, 0);
-        }
-        else
-        {
-            playerAnimator.speed = combo.attackSpeed;
-            Debug.Log("Currently playing combo: " + combo);
-        }
+        isPerformingSwordAttack = true;
+        playerAnimator.runtimeAnimatorController = combo.controller;
+        playerAnimator.speed = combo.attackSpeed;
+        playerAnimator.Play("SwordAttack", 1, 0);
     }
     public void PowerAttack(EnergySO combo)
     {
-        if (playerAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.5f)
-        {
-            playerAnimator.runtimeAnimatorController = combo.controller;
-            playerAnimator.Play("EnergyAttack", 1, 0);
-        }
-        else
-        {
-            Debug.Log("Currently playing combo: " + combo);
-        }
 
+        isPerformingEnergyAttack = true;
+        playerAnimator.runtimeAnimatorController = combo.controller;
+        //add control energy attack speed
+        playerAnimator.Play("EnergyAttack", 1, 0);
     }
     #endregion
 

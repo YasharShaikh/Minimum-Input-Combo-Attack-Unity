@@ -10,10 +10,10 @@ public class PlayerCombatHandler : MonoBehaviour
     [SerializeField] int mainAtkComboStream;
     [SerializeField] int maxCombo = 3;
     [SerializeField] float lastClickTime;
+
     [Header("Avaible Sword Attacks")]
     [SerializeField] List<AttackSO> swordAttacks = new List<AttackSO>();
     [SerializeField] List<EnergySO> energyAttacks = new List<EnergySO>();
-
 
     bool isPerformingCombo;
     PlayerAnimationHandler playerAnimationHandler;
@@ -39,6 +39,7 @@ public class PlayerCombatHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (!isPerformingCombo)
         {
             lastClickTime = 0;
@@ -49,7 +50,7 @@ public class PlayerCombatHandler : MonoBehaviour
         }
 
         // Check if the player has triggered a sword or power attack
-        if (inputHandler.swordATKTriggered || inputHandler.powerATKTriggered)
+        if ((inputHandler.swordATKTriggered || inputHandler.powerATKTriggered) && (!playerAnimationHandler.isPerformingSwordAttack && !playerAnimationHandler.isPerformingEnergyAttack))
         {
             isPerformingCombo = true;
             // If the current main attack combo stream is zero, start a new combo
