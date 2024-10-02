@@ -18,6 +18,7 @@ namespace player
         [SerializeField] Vector3 gravity;
         [SerializeField] Vector3 moveDirection;
         [SerializeField] float moveSpeed;
+        [SerializeField] float moveAttackSpeed;
         [SerializeField] float rollSpeed;
         [SerializeField] float rotationSpeed;
         [HideInInspector] public bool isPerformingROLLAnimation;
@@ -26,19 +27,21 @@ namespace player
         [SerializeField] float lockONRadius;
         [SerializeField] float minLockONAngle;
         [SerializeField] float maxLockONAngle;
-        [SerializeField] float targetDistanceLockON;    
+        [SerializeField] float targetDistanceLockON;
         [SerializeField] GameObject lockedONEnemy;
 
         [Space]
         [HideInInspector] public float magnitude;
         CharacterController characterController;
         Camera playerCamera;
+        PlayerAnimationHandler playerAnimationHandler;
 
 
         private void Awake()
         {
             instance = this;
             characterController = GetComponent<CharacterController>();
+            playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
             playerCamera = Camera.main;
         }
 
@@ -76,7 +79,7 @@ namespace player
 
         private void LockONHandler()
         {
-            
+
 
             int enemyLayerMask = LayerMask.GetMask("enemy");
             Collider[] enemyColliders = Physics.OverlapSphere(transform.position, lockONRadius, enemyLayerMask);
@@ -104,7 +107,7 @@ namespace player
                 if (viewableAngle > minLockONAngle && viewableAngle < maxLockONAngle)
                 {
                     Debug.Log("Working");
-                    Debug.DrawRay(transform.position,enemyDirection, Color.red);
+                    Debug.DrawRay(transform.position, enemyDirection, Color.red);
                     enemy.isDead = true;
                 }
 
@@ -141,6 +144,7 @@ namespace player
 
             PlayerAnimationHandler.instance.LocomotionAnimaton(magnitude);
             moveDirection = (playerCamera.transform.right * moveVertical) + (playerCamera.transform.forward * moveHorizontal);
+
             magnitude = Mathf.Clamp01(moveDirection.magnitude) * moveSpeed;
 
             moveDirection.y = 0f;
@@ -149,7 +153,12 @@ namespace player
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }
-            characterController.Move(moveDirection.normalized * moveSpeed * Time.deltaTime);
+
+            if (playerAnimationHandler.isPerformingEnergyAttack || playerAnimationHandler.isPerformingSwordAttack)
+                characterController.Move(moveDirection.normalized * moveAttackSpeed * Time.deltaTime);
+            else
+                characterController.Move(moveDirection.normalized * moveSpeed * Time.deltaTime);
+
         }
         private void PerformRoll()
         {

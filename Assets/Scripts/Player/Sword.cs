@@ -20,7 +20,7 @@ public class Sword : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Damagable"))
+        if(other.CompareTag("Enemy"))
         {
 
         }

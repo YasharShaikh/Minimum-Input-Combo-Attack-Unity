@@ -6,4 +6,7 @@ public class EnergySO : ScriptableObject
     public string AttackName;
     public AnimatorOverrideController controller;
     public float damage;
+    public float groundKnochBack;
+    public float airKnockBack;
+    public GameObject Energy;
 }
