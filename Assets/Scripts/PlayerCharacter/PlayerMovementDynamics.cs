@@ -4,17 +4,17 @@ namespace player
 {
     [RequireComponent(typeof(PlayerInputHandler))]
     [RequireComponent(typeof(CharacterController))]
-    public class PlayerBrain : MonoBehaviour
+    public class PlayerMovementDynamics : MonoBehaviour
     {
 
-        public static PlayerBrain instance;
+        public static PlayerMovementDynamics instance;
 
         [Header("Information collection")]
         [SerializeField] Transform playerHead;
         [SerializeField] float RayDistance;
 
 
-        [Header("Player Movement")]
+        [Header("Movement Stats")]
         [SerializeField] Vector3 gravity;
         [SerializeField] Vector3 moveDirection;
         [SerializeField] float moveSpeed;
@@ -22,6 +22,15 @@ namespace player
         [SerializeField] float rollSpeed;
         [SerializeField] float rotationSpeed;
         [HideInInspector] public bool isPerformingROLLAnimation;
+
+        [Header("Jump Stats")]
+        [SerializeField] float jumpForce;
+        [SerializeField] float jumpGravity;
+        [HideInInspector] public bool isPerformingJumpAnimation;
+        [Space]
+        [SerializeField] float initialJumpVelocity;
+        [SerializeField] float maxJumpHeight;
+        [SerializeField] float maxJumpTime;
 
         [Header("Lock ON ")]
         [SerializeField] float lockONRadius;
@@ -35,29 +44,34 @@ namespace player
         CharacterController characterController;
         Camera playerCamera;
         PlayerAnimationHandler playerAnimationHandler;
-
+        PlayerInputHandler playerInputHandler;
 
         private void Awake()
         {
             instance = this;
             characterController = GetComponent<CharacterController>();
             playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
+            playerInputHandler = GetComponent<PlayerInputHandler>();
             playerCamera = Camera.main;
         }
 
         // Start is called before the first frame update
         void Start()
         {
-
+            SetupJumpVar();
         }
 
         // Update is called once per frame
         void Update()
         {
-            PlayerVisionInfo();
+            if (!characterController.isGrounded)
+            {
+                Debug.Log("Character is not grounded");
+            }
             Move();
+            //PerformRoll();
+            PerformJump();
             ApplyGravity();
-            PerformRoll();
             LockONHandler();
         }
 
@@ -160,6 +174,30 @@ namespace player
                 characterController.Move(moveDirection.normalized * moveSpeed * Time.deltaTime);
 
         }
+
+        private void SetupJumpVar()
+        {
+            float timeToApex = maxJumpTime / 2;
+            initialJumpVelocity = (2 * maxJumpHeight) / timeToApex;
+
+        }
+
+        private void PerformJump()
+        {
+            //if (isPerformingJumpAnimation || !characterController.isGrounded)
+            //    return;
+
+            if (characterController.isGrounded && PlayerInputHandler.instance.jumpTriggered)
+            {
+                Debug.Log("Performing Jump");
+                playerAnimationHandler.PerformJumpStart();
+
+                Vector3 _jumpVelocity = new Vector3(0, initialJumpVelocity, 0);
+                characterController.Move(_jumpVelocity * Time.deltaTime);
+            }
+
+
+        }
         private void PerformRoll()
         {
             if (isPerformingROLLAnimation)
@@ -174,7 +212,7 @@ namespace player
                 //characterController.Move(moveDirection.normalized * rollSpeed * Time.deltaTime);
 
 
-                PlayerAnimationHandler.instance.rollPerform();
+                playerAnimationHandler.rollPerform();
             }
 
 
@@ -184,8 +222,8 @@ namespace player
         }
         private void ApplyGravity()
         {
-            // Apply gravity to the character controller
-            characterController.Move(gravity * Time.deltaTime);
+            if (!characterController.isGrounded)
+                characterController.Move(gravity * Time.deltaTime);
         }
     }
 }

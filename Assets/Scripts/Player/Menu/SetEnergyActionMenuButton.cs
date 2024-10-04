@@ -6,7 +6,7 @@ public class SetEnergyActionMenuButton : MonoBehaviour
 
     public void OnButtonClick()
     {
-        EnergySO OldAttack = PlayerCombatHandler.instance.SwapEnergyAttack(EnergyAttack);
+        EnergySO OldAttack = PlayerCombatDynamic.instance.SwapEnergyAttack(EnergyAttack);
         EnergyAttack = OldAttack;
     }
 }

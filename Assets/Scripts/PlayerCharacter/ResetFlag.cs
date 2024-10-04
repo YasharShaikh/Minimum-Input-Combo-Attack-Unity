@@ -4,7 +4,7 @@ namespace player
 
     public class ResetFlag : StateMachineBehaviour
     {
-        PlayerBrain brain;
+        PlayerMovementDynamics brain;
 
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -23,7 +23,7 @@ namespace player
         {
             if (brain == null)
             {
-                brain = animator.GetComponentInParent<PlayerBrain>();
+                brain = animator.GetComponentInParent<PlayerMovementDynamics>();
             }
             brain.isPerformingROLLAnimation = false;
         }

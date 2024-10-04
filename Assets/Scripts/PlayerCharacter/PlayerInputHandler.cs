@@ -13,23 +13,28 @@ namespace player
         [Header("ActionMap Name")]
         [SerializeField] string actionMapName;
 
-        [Header("Action Name ref")]
+
+        #region[New Input strings]
+        [Header("Movement")]
         [SerializeField] string move;
-
-
 
         [Header("Movement Action")]
         [SerializeField] string roll;
-
+        [SerializeField] string jump;
 
         [Header("Combat Action")]
         [SerializeField] string swordAttack;
         [SerializeField] string powerAttack;
         [SerializeField] string lockON;
+        #endregion
+
 
 
         InputAction moveAction;
+
         InputAction rollAction;
+        InputAction jumpAction;
+        
         InputAction swordAction;
         InputAction powerAction;
         InputAction lockONAction;
@@ -38,6 +43,7 @@ namespace player
         public bool swordATKTriggered { get; private set; }
         public bool powerATKTriggered { get; private set; }
         public bool rollTriggered { get; private set; }
+        public bool jumpTriggered { get; private set; }
         public bool lockONTriggered { get; private set; }
 
         private void Awake()
@@ -46,6 +52,8 @@ namespace player
 
             moveAction = playerControls.FindActionMap(actionMapName).FindAction(move);
             rollAction = playerControls.FindActionMap(actionMapName).FindAction(roll);
+            jumpAction = playerControls.FindActionMap(actionMapName).FindAction(jump);
+            
 
             swordAction = playerControls.FindActionMap(actionMapName).FindAction(swordAttack);
             powerAction = playerControls.FindActionMap(actionMapName).FindAction(powerAttack);
@@ -58,12 +66,15 @@ namespace player
         private void Update()
         {
             moveInput = moveAction.ReadValue<Vector2>();
+
+            rollTriggered = rollAction.triggered;
+            jumpTriggered = jumpAction.triggered;   
+            
             swordATKTriggered = swordAction.triggered;
             powerATKTriggered = powerAction.triggered;
-            rollTriggered = rollAction.triggered;
+
             if (lockONAction.triggered)
                 lockONTriggered = !lockONTriggered;
-
         }
         private void RegisterInputActions()
         {
@@ -75,25 +86,26 @@ namespace player
         {
             moveAction.Enable();
 
-            lockONAction.Enable();
             rollAction.Enable();
+            jumpAction.Enable();
 
             swordAction.Enable();
             powerAction.Enable();
 
+            lockONAction.Enable();
         }
 
         private void OnDisable()
         {
             moveAction.Disable();
 
-            lockONAction.Disable();
             rollAction.Disable();
+            jumpAction.Disable();
 
             swordAction.Disable();
             powerAction.Disable();
 
-
+            lockONAction.Disable();
         }
     }
 }

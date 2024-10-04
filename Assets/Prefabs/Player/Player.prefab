@@ -236,7 +236,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250632317414508769}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.05824721, y: 0.09836872, z: 0.0057676127, w: 0.9934272}
+  m_LocalRotation: {x: -0.058247168, y: 0.09836871, z: 0.005767608, w: 0.9934272}
   m_LocalPosition: {x: 0, y: 1.2, z: -2.5}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
@@ -911,7 +911,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1145435725648448504}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.058247197, y: 0.0983687, z: 0.0057676104, w: 0.9934272}
+  m_LocalRotation: {x: -0.058247175, y: 0.09836869, z: 0.005767608, w: 0.9934272}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8343,7 +8343,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4874148330854076192}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15423335, y: 0.000000019007132, z: -0.0000000029670362, w: 0.9880345}
+  m_LocalRotation: {x: 0.15423335, y: -0.000000019007132, z: 0.0000000029670362, w: 0.9880345}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8705,12 +8705,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8656632424841459481}
   - component: {fileID: 9110174016087357962}
-  - component: {fileID: 1901958939900384446}
-  - component: {fileID: 4534814400684685654}
   - component: {fileID: 8185808113943096946}
-  - component: {fileID: 3935248350502221898}
-  - component: {fileID: 6750412091066226929}
   - component: {fileID: 2380549108331312693}
+  - component: {fileID: 4534814400684685654}
+  - component: {fileID: 6750412091066226929}
+  - component: {fileID: 3935248350502221898}
+  - component: {fileID: 1901958939900384446}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -8756,13 +8756,119 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 1.85
   m_Radius: 0.25
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.08, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &8185808113943096946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6083937801583746975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d0a152e97b9424681ea1cb0a23d2af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerControls: {fileID: -944628639613478452, guid: 9fe01958e293c3b47bff06af15ac1f62, type: 3}
+  actionMapName: Player
+  move: Movement
+  roll: RollAction
+  jump: Jump
+  swordAttack: SwordAttack
+  powerAttack: PowerAttack
+  lockON: lockON
+--- !u!114 &2380549108331312693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6083937801583746975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85fe44a175c023449a2d3e4c7fa91685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerControls: {fileID: -944628639613478452, guid: 9fe01958e293c3b47bff06af15ac1f62, type: 3}
+  actionMapName: Player
+  RadialMenu: RadialMenu
+--- !u!114 &4534814400684685654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6083937801583746975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76caa035cce5478458794530dd89b133, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHead: {fileID: 8828816907558948013}
+  RayDistance: 10
+  gravity: {x: 0, y: -9.8, z: 0}
+  moveDirection: {x: 0, y: 0, z: 0}
+  moveSpeed: 5
+  moveAttackSpeed: 3.5
+  rollSpeed: 500
+  rotationSpeed: 5
+  isPerformingROLLAnimation: 0
+  jumpForce: 5
+  jumpGravity: 0
+  isPerformingJumpAnimation: 0
+  initialJumpVelocity: 0
+  maxJumpHeight: 1
+  maxJumpTime: 0.5
+  lockONRadius: 7
+  minLockONAngle: 10
+  maxLockONAngle: -10
+  targetDistanceLockON: 0
+  lockedONEnemy: {fileID: 0}
+  magnitude: 0
+--- !u!114 &6750412091066226929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6083937801583746975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f463ca218967b7440aabe6059fbdcaa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenCombo: 10
+  mainAtkComboStream: 0
+  maxCombo: 3
+  lastClickTime: 0
+  swordAttacks:
+  - {fileID: 11400000, guid: 1943630abfbac4d4fba1b327ea21e96e, type: 2}
+  - {fileID: 11400000, guid: 3056560234602ca4f829c1b4a382399b, type: 2}
+  - {fileID: 11400000, guid: 85a8d2d9fe9861446b6ec9c758c0c75a, type: 2}
+  energyAttacks:
+  - {fileID: 11400000, guid: efec95ba3453dbb4d8429dfb9cc7e7c6, type: 2}
+  - {fileID: 11400000, guid: 913229d073286cb4f84d8c191e89e4f7, type: 2}
+  - {fileID: 11400000, guid: a3c663d53db34944185174234d78f0d3, type: 2}
+--- !u!114 &3935248350502221898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6083937801583746975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11ac5c70292178e4e8ea01ff3fcdd727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPerformingSwordAttack: 0
+  isPerformingEnergyAttack: 0
 --- !u!114 &1901958939900384446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8853,105 +8959,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &4534814400684685654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6083937801583746975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76caa035cce5478458794530dd89b133, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHead: {fileID: 8828816907558948013}
-  RayDistance: 10
-  gravity: {x: 0, y: -9.8, z: 0}
-  moveDirection: {x: 0, y: 0, z: 0}
-  moveSpeed: 5
-  moveAttackSpeed: 0.5
-  rollSpeed: 500
-  rotationSpeed: 5
-  isPerformingROLLAnimation: 0
-  lockONRadius: 7
-  minLockONAngle: 10
-  maxLockONAngle: -10
-  targetDistanceLockON: 0
-  lockedONEnemy: {fileID: 0}
-  magnitude: 0
---- !u!114 &8185808113943096946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6083937801583746975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7d0a152e97b9424681ea1cb0a23d2af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerControls: {fileID: -944628639613478452, guid: 9fe01958e293c3b47bff06af15ac1f62, type: 3}
-  actionMapName: Player
-  move: Movement
-  roll: RollAction
-  swordAttack: SwordAttack
-  powerAttack: PowerAttack
-  lockON: lockON
---- !u!114 &3935248350502221898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6083937801583746975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11ac5c70292178e4e8ea01ff3fcdd727, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPerformingSwordAttack: 0
-  isPerformingEnergyAttack: 0
---- !u!114 &6750412091066226929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6083937801583746975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f463ca218967b7440aabe6059fbdcaa5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeBetweenCombo: 10
-  mainAtkComboStream: 0
-  maxCombo: 3
-  lastClickTime: 0
-  swordAttacks:
-  - {fileID: 11400000, guid: 1943630abfbac4d4fba1b327ea21e96e, type: 2}
-  - {fileID: 11400000, guid: 3056560234602ca4f829c1b4a382399b, type: 2}
-  - {fileID: 11400000, guid: 85a8d2d9fe9861446b6ec9c758c0c75a, type: 2}
-  energyAttacks:
-  - {fileID: 11400000, guid: efec95ba3453dbb4d8429dfb9cc7e7c6, type: 2}
-  - {fileID: 11400000, guid: 913229d073286cb4f84d8c191e89e4f7, type: 2}
-  - {fileID: 11400000, guid: a3c663d53db34944185174234d78f0d3, type: 2}
---- !u!114 &2380549108331312693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6083937801583746975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85fe44a175c023449a2d3e4c7fa91685, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerControls: {fileID: -944628639613478452, guid: 9fe01958e293c3b47bff06af15ac1f62, type: 3}
-  actionMapName: Player
-  RadialMenu: RadialMenu
 --- !u!1 &6193802555155658551
 GameObject:
   m_ObjectHideFlags: 0
@@ -9940,7 +9947,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7095225789752349645}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.039904375, y: 0.000000017326471, z: 6.919531e-10, w: 0.9992035}
+  m_LocalRotation: {x: -0.039904397, y: -0.00000001732647, z: -6.919534e-10, w: 0.9992035}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10243,7 +10250,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: caf02149ff980fc40b90d04c3e4a9535, type: 2}
+  - {fileID: 2100000, guid: fcc837934a9316841ac8d2633eae9894, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

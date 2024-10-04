@@ -6,7 +6,7 @@ public class SetSwordActionMenuButton : MonoBehaviour
     
     public void OnButtonClick()
     {
-       AttackSO OldAttack =  PlayerCombatHandler.instance.SwapSwordAttack(SwordAttack);
+       AttackSO OldAttack =  PlayerCombatDynamic.instance.SwapSwordAttack(SwordAttack);
         SwordAttack = OldAttack;
     }
 }

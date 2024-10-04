@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "9f2c39ea-289e-4055-a837-f9a336de78e1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "lockON",
                     "type": "Button",
                     "id": "4a45d235-161a-4776-abb4-7e413aeb5786",
@@ -168,6 +177,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "RadialMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "13db43f8-edf1-4b95-b74c-d5548d1b2c52",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

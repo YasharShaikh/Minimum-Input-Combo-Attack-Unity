@@ -2,9 +2,9 @@ using player;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCombatHandler : MonoBehaviour
+public class PlayerCombatDynamic : MonoBehaviour
 {
-    public static PlayerCombatHandler instance;
+    public static PlayerCombatDynamic instance;
 
     [SerializeField] float timeBetweenCombo;
     [SerializeField] int mainAtkComboStream;

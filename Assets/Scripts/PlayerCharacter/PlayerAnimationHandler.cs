@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -44,6 +45,21 @@ public class PlayerAnimationHandler : MonoBehaviour
     #endregion
 
     #region Action related
+
+    public void PerformJumpStart()
+    {
+        Debug.Log("Performing Jump Animation");
+        playerAnimator.SetTrigger("jump");
+    }
+    public void PerformInAir()
+    {
+        playerAnimator.SetBool("inAir", true);
+    }
+    public void PerformJumpEnd()
+    {
+        playerAnimator.SetBool("inAir", false);
+        playerAnimator.SetTrigger("jumpEnd");
+    }
     public void rollPerform()
     {
         playerAnimator.SetTrigger("roll");

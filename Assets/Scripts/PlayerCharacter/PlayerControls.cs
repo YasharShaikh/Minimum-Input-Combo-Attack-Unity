@@ -64,6 +64,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""9f2c39ea-289e-4055-a837-f9a336de78e1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""lockON"",
                     ""type"": ""Button"",
                     ""id"": ""4a45d235-161a-4776-abb4-7e413aeb5786"",
@@ -192,6 +201,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""RadialMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""13db43f8-edf1-4b95-b74c-d5548d1b2c52"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -204,6 +224,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_SwordAttack = m_Player.FindAction("SwordAttack", throwIfNotFound: true);
         m_Player_PowerAttack = m_Player.FindAction("PowerAttack", throwIfNotFound: true);
         m_Player_RollAction = m_Player.FindAction("RollAction", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_lockON = m_Player.FindAction("lockON", throwIfNotFound: true);
         m_Player_RadialMenu = m_Player.FindAction("RadialMenu", throwIfNotFound: true);
     }
@@ -271,6 +292,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SwordAttack;
     private readonly InputAction m_Player_PowerAttack;
     private readonly InputAction m_Player_RollAction;
+    private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_lockON;
     private readonly InputAction m_Player_RadialMenu;
     public struct PlayerActions
@@ -281,6 +303,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SwordAttack => m_Wrapper.m_Player_SwordAttack;
         public InputAction @PowerAttack => m_Wrapper.m_Player_PowerAttack;
         public InputAction @RollAction => m_Wrapper.m_Player_RollAction;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @lockON => m_Wrapper.m_Player_lockON;
         public InputAction @RadialMenu => m_Wrapper.m_Player_RadialMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -304,6 +327,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RollAction.started += instance.OnRollAction;
             @RollAction.performed += instance.OnRollAction;
             @RollAction.canceled += instance.OnRollAction;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
             @lockON.started += instance.OnLockON;
             @lockON.performed += instance.OnLockON;
             @lockON.canceled += instance.OnLockON;
@@ -326,6 +352,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RollAction.started -= instance.OnRollAction;
             @RollAction.performed -= instance.OnRollAction;
             @RollAction.canceled -= instance.OnRollAction;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
             @lockON.started -= instance.OnLockON;
             @lockON.performed -= instance.OnLockON;
             @lockON.canceled -= instance.OnLockON;
@@ -355,6 +384,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSwordAttack(InputAction.CallbackContext context);
         void OnPowerAttack(InputAction.CallbackContext context);
         void OnRollAction(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
         void OnLockON(InputAction.CallbackContext context);
         void OnRadialMenu(InputAction.CallbackContext context);
     }
