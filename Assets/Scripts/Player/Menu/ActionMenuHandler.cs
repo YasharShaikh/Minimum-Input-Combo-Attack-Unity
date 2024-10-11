@@ -5,37 +5,53 @@ public class ActionMenuHandler : MonoBehaviour
 {
     [SerializeField] Canvas ActionMenuCanvas;
 
-    PlayerInputHandler inputHandler;
-    ActionMenuInputHandler actionMenuInputHandler;
-
+    private PlayerInputHandler inputHandler;
+    private ActionMenuInputHandler actionMenuInputHandler;
+    private bool isActionMenuOpen;
 
     private void Awake()
     {
         inputHandler = GetComponentInParent<PlayerInputHandler>();
         actionMenuInputHandler = GetComponentInParent<ActionMenuInputHandler>();
         ActionMenuCanvas.gameObject.SetActive(false);
+        isActionMenuOpen = false;
     }
 
     void Update()
     {
-        ShowActionMenuCanvas();
+        HandleActionMenu();
     }
 
-    void ShowActionMenuCanvas()
+    // Only enable or disable the action menu when the input changes
+    private void HandleActionMenu()
     {
-        if (actionMenuInputHandler.RadialMenuTriggered)
+        if (actionMenuInputHandler.RadialMenuTriggered && !isActionMenuOpen)
         {
-            inputHandler.enabled = false;
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
-            ActionMenuCanvas.gameObject.SetActive(true);
+            OpenActionMenu();
         }
-        else
+        else if (!actionMenuInputHandler.RadialMenuTriggered && isActionMenuOpen)
         {
-            inputHandler.enabled = true;
-            Cursor.visible = false;
-            ActionMenuCanvas.gameObject.SetActive(false);
+            CloseActionMenu();
+        }
+    }
 
-        }
+    private void OpenActionMenu()
+    {
+        isActionMenuOpen = true;
+        inputHandler.enabled = false;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+        ActionMenuCanvas.gameObject.SetActive(true);
+        SoundManager.Instance.PlayActionMenuBG(true);
+    }
+
+    private void CloseActionMenu()
+    {
+        isActionMenuOpen = false;
+        inputHandler.enabled = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        ActionMenuCanvas.gameObject.SetActive(false);
+        SoundManager.Instance.PlayActionMenuBG(false);
     }
 }
