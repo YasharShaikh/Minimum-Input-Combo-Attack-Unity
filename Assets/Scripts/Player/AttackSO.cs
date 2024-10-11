@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class AttackSO : ScriptableObject
 {
     public string AttackName;
-    public Image UIImage;
+    public Sprite UIImage;
     public AnimatorOverrideController controller;
     public float damage;
     public float attackSpeed;

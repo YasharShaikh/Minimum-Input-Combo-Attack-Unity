@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d251d832bb27810478ff5d647b8a8893, type: 3}
   m_Name: Steady_ATK01
   m_EditorClassIdentifier: 
-  AttackName: Steady_ATK01
-  UIImage: {fileID: 0}
+  AttackName: Sword Attack 1
+  UIImage: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   controller: {fileID: 22100000, guid: 3be2d21df42095e40b8a755b5cd52d9c, type: 2}
   damage: 5
   attackSpeed: 1.5

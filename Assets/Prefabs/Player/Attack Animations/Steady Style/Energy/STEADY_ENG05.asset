@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6317bcbd63690374482e8ee586ca892e, type: 3}
   m_Name: STEADY_ENG05
   m_EditorClassIdentifier: 
-  AttackName: STEADY_ENG05
+  AttackName: Energy Attack 5
+  UIImage: {fileID: 0}
   controller: {fileID: 22100000, guid: 3746f8ea4d8fdd64aa727926bc9bcd27, type: 2}
   damage: 0
+  groundKnochBack: 0
+  airKnockBack: 0
+  forwardStep: 0
+  Energy: {fileID: 0}

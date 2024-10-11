@@ -82,11 +82,7 @@ public class PlayerCombatDynamic : MonoBehaviour
         mainAtkComboStream++;
         lastClickTime = 0;
 
-        // Perform the appropriate attack based on the current combo stream
-        if (inputHandler.swordATKTriggered)
-            PerformSwordAttack();
-        else if (inputHandler.powerATKTriggered)
-            PerformPowerAttack();
+        PerformAttack();
     }
 
     // Continue the current combo attack
@@ -95,11 +91,10 @@ public class PlayerCombatDynamic : MonoBehaviour
         lastClickTime = 0;
         mainAtkComboStream++;
 
-        if (inputHandler.swordATKTriggered)
-            PerformSwordAttack();
-        else if (inputHandler.powerATKTriggered)
-            PerformPowerAttack();
+        PerformAttack();
     }
+
+   
 
     // Reset the combo attack
     void ResetCombo()
@@ -114,6 +109,7 @@ public class PlayerCombatDynamic : MonoBehaviour
         if (swordAttacks.Count == 0)
         {
             swordAttackForwardStep = 0.0f;
+            return;
         }
 
         // Play the corresponding animation for the sword attack
@@ -125,14 +121,33 @@ public class PlayerCombatDynamic : MonoBehaviour
     void PerformPowerAttack()
     {
         if (energyAttacks.Count == 0)
+        {
+            energyAttackForwardStep = 0.0f; 
             return;
+        }
 
         // Play the corresponding animation for the power attack
         playerAnimationHandler.PowerAttack(energyAttacks[mainAtkComboStream - 1]);
         energyAttackForwardStep = energyAttacks[mainAtkComboStream - 1].forwardStep;
     }
+    
+    public AttackSO SwapSwordAttack(AttackSO newAttack)
+    {
+        return swapAttack(swordAttacks, newAttack);
+    }
+    public EnergySO SwapEnergyAttack(EnergySO newAttack) 
+    {
+        return swapAttack(energyAttacks, newAttack);
+    }
 
-
+    #region Class Helpers
+    private void PerformAttack()
+    {
+        if (inputHandler.swordATKTriggered)
+            PerformSwordAttack();
+        else if (inputHandler.powerATKTriggered)
+            PerformPowerAttack();
+    }
 
     public T swapAttack<T>(List<T> attackList, T newAttack) where T : ScriptableObject
     {
@@ -154,12 +169,6 @@ public class PlayerCombatDynamic : MonoBehaviour
         }
         return oldAttack;
     }
-    public AttackSO SwapSwordAttack(AttackSO newAttack)
-    {
-        return swapAttack(swordAttacks, newAttack);
-    }
-    public EnergySO SwapEnergyAttack(EnergySO newAttack) 
-    {
-        return swapAttack(energyAttacks, newAttack);
-    }
+
+    #endregion
 }

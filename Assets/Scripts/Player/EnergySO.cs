@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnergySO : ScriptableObject
 {
     public string AttackName;
+    public Sprite UIImage;
     public AnimatorOverrideController controller;
     public float damage;
     public float groundKnochBack;
