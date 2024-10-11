@@ -9,6 +9,7 @@ public class AttackSO : ScriptableObject
     public AnimatorOverrideController controller;
     public float damage;
     public float attackSpeed;
+    public float forwardStep;
     public float KnockBackForce;
     [Tooltip("How long until next attack")] public float recoil;
     public GameObject SwingVFX;

@@ -16,9 +16,12 @@ public class PlayerCombatDynamic : MonoBehaviour
     [SerializeField] List<EnergySO> energyAttacks = new List<EnergySO>();
 
 
+    [HideInInspector] public float swordAttackForwardStep = 0.0f;
+    [HideInInspector] public float energyAttackForwardStep = 0.0f;
+
 
     bool isPerformingCombo;
-    
+
     PlayerAnimationHandler playerAnimationHandler;
     PlayerInputHandler inputHandler;
 
@@ -58,24 +61,16 @@ public class PlayerCombatDynamic : MonoBehaviour
             isPerformingCombo = true;
             // If the current main attack combo stream is zero, start a new combo
             if (mainAtkComboStream == 0 || mainAtkComboStream == maxCombo)
-            {
-                Debug.Log("Before StartCombo");
                 StartCombo();
-            }
             else if (mainAtkComboStream > 0 && mainAtkComboStream < maxCombo)
             {
                 // Check if the time between combo attacks has elapsed
                 if (lastClickTime < timeBetweenCombo)
-                {
                     //Continue the combo attack
                     ContinueCombo();
-                }
                 else
-                {
-                    Debug.Log("reset combo due to timebetweencombo");
                     // Start a new combo attack
                     StartCombo();
-                }
             }
         }
     }
@@ -118,21 +113,23 @@ public class PlayerCombatDynamic : MonoBehaviour
     {
         if (swordAttacks.Count == 0)
         {
-            Debug.Log("Empty");
+            swordAttackForwardStep = 0.0f;
         }
+
         // Play the corresponding animation for the sword attack
         playerAnimationHandler.SwordAttack(swordAttacks[mainAtkComboStream - 1]);
+        swordAttackForwardStep = swordAttacks[mainAtkComboStream - 1].forwardStep;
     }
 
     // Perform a power attack
     void PerformPowerAttack()
     {
         if (energyAttacks.Count == 0)
-        {
-            Debug.Log("Empty");
-        }
+            return;
+
         // Play the corresponding animation for the power attack
         playerAnimationHandler.PowerAttack(energyAttacks[mainAtkComboStream - 1]);
+        energyAttackForwardStep = energyAttacks[mainAtkComboStream - 1].forwardStep;
     }
 
 

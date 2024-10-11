@@ -8,5 +8,6 @@ public class EnergySO : ScriptableObject
     public float damage;
     public float groundKnochBack;
     public float airKnockBack;
+    public float forwardStep;
     public GameObject Energy;
 }

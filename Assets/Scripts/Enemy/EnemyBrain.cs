@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBrain : MonoBehaviour
 {
-
+        [SerializeField] float health;
     public bool isDead = false;
 
 

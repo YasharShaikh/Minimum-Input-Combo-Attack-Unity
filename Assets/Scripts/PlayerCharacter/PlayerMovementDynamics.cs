@@ -45,6 +45,7 @@ namespace player
         Camera playerCamera;
         PlayerAnimationHandler playerAnimationHandler;
         PlayerInputHandler playerInputHandler;
+        PlayerCombatDynamic playerCombatDynamic;
 
         private void Awake()
         {
@@ -52,6 +53,7 @@ namespace player
             characterController = GetComponent<CharacterController>();
             playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
             playerInputHandler = GetComponent<PlayerInputHandler>();
+            playerCombatDynamic = GetComponent<PlayerCombatDynamic>();
             playerCamera = Camera.main;
         }
 
@@ -64,13 +66,9 @@ namespace player
         // Update is called once per frame
         void Update()
         {
-            if (!characterController.isGrounded)
-            {
-                Debug.Log("Character is not grounded");
-            }
-            Move();
-            //PerformRoll();
+
             PerformJump();
+            Move();
             ApplyGravity();
             LockONHandler();
         }
@@ -120,7 +118,6 @@ namespace player
 
                 if (viewableAngle > minLockONAngle && viewableAngle < maxLockONAngle)
                 {
-                    Debug.Log("Working");
                     Debug.DrawRay(transform.position, enemyDirection, Color.red);
                     enemy.isDead = true;
                 }
@@ -157,35 +154,43 @@ namespace player
             float moveHorizontal = PlayerInputHandler.instance.moveInput.y;
 
             PlayerAnimationHandler.instance.LocomotionAnimaton(magnitude);
+
             moveDirection = (playerCamera.transform.right * moveVertical) + (playerCamera.transform.forward * moveHorizontal);
 
             magnitude = Mathf.Clamp01(moveDirection.magnitude) * moveSpeed;
 
             moveDirection.y = 0f;
-            if (moveDirection != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            }
 
             if (playerAnimationHandler.isPerformingEnergyAttack || playerAnimationHandler.isPerformingSwordAttack)
-                characterController.Move(moveDirection.normalized * moveAttackSpeed * Time.deltaTime);
-            else
-                characterController.Move(moveDirection.normalized * moveSpeed * Time.deltaTime);
+            {
+                Vector3 forwardStepDirection = transform.forward * playerCombatDynamic.swordAttackForwardStep;
 
+                characterController.Move(forwardStepDirection * Time.deltaTime);
+            }
+            else
+            {
+                if (moveDirection != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                }
+
+                characterController.Move(moveDirection.normalized * moveSpeed * Time.deltaTime);
+            }
         }
+
+
 
         private void SetupJumpVar()
         {
             float timeToApex = maxJumpTime / 2;
             initialJumpVelocity = (2 * maxJumpHeight) / timeToApex;
-
         }
 
         private void PerformJump()
         {
-            //if (isPerformingJumpAnimation || !characterController.isGrounded)
-            //    return;
+            if (isPerformingJumpAnimation || !characterController.isGrounded)
+                return;
 
             if (characterController.isGrounded && PlayerInputHandler.instance.jumpTriggered)
             {

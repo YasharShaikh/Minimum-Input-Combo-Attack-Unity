@@ -26,7 +26,7 @@ public class ActionMenuHandler : MonoBehaviour
         if (actionMenuInputHandler.RadialMenuTriggered)
         {
             inputHandler.enabled = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
             ActionMenuCanvas.gameObject.SetActive(true);
         }
