@@ -162,48 +162,4 @@ public class PlayerCombatDynamic : MonoBehaviour
     {
         return swapAttack(energyAttacks, newAttack);
     }
-
-    //public AttackSO SwapSwordAttack(AttackSO newAttack)
-    //{
-    //    int attackIndex = mainAtkComboStream;
-
-    //    if (attackIndex < 0 || attackIndex >= swordAttacks.Count)
-    //    {
-    //        Debug.Log("invalid Attack index.");
-    //        return null;
-    //    }
-    //    AttackSO oldAttack = swordAttacks[attackIndex];
-    //    if (newAttack != null)
-    //    {
-    //        swordAttacks[mainAtkComboStream] = newAttack;
-    //        Debug.Log($"Swapped attack at index {attackIndex}. Old Attack: {oldAttack.name}, New Attack: {newAttack.name}");
-    //    }
-    //    else
-    //    {
-    //        Debug.Log($"No new attack provided. Keeping the existing attack: {oldAttack.name}");
-    //    }
-    //    return oldAttack;
-    //}
-
-    //public EnergySO SwapEnergyAttack(EnergySO newAttack)
-    //{
-    //    int attackIndex = mainAtkComboStream;
-
-    //    if (attackIndex < 0 || attackIndex >= energyAttacks.Count)
-    //    {
-    //        Debug.Log("invalid Energy index.");
-    //        return null;
-    //    }
-    //    EnergySO oldAttack = energyAttacks[attackIndex];
-    //    if (newAttack != null)
-    //    {
-    //        energyAttacks[mainAtkComboStream] = newAttack;
-    //        Debug.Log($"Swapped attack at index {attackIndex}. Old Attack: {oldAttack.name}, New Attack: {newAttack.name}");
-    //    }
-    //    else
-    //    {
-    //        Debug.Log($"No new attack provided. Keeping the existing attack: {oldAttack.name}");
-    //    }
-    //    return oldAttack;
-    //}
 }
