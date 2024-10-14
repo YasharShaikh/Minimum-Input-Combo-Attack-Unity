@@ -12,8 +12,9 @@ A Unity project demonstrating a flexible combo attack system with minimal input 
 * Efficient input handling
 * Animation integration
 * Combo attack mechanics
+* Modular attack system
 
-**Demo Reel**
+**Preview**
 ----------
 https://github.com/user-attachments/assets/8dc5aefa-78fd-44c2-8b01-53957730d21c
 
@@ -31,6 +32,7 @@ Perform complex combos with minimal input while showcasing smooth animation tran
 * **Combo Attack System**: Allows players to perform complex combos with minimal input
 * **Animation Integration**: Seamless animation transitions
 * **Input Handling**: Optimized input detection for smooth gameplay
+* **Modular Attack System**: Enables easy addition of new attacks via serialized objects
 
 
 **Technical Details**
