@@ -65,8 +65,8 @@ Perform complex combos with minimal input while showcasing smooth animation tran
 **Contact**
 ----------
 
-NAME: Yashar Shaikh
-[Github: https://github.com/YasharShaikh]
-[Linkdin: https://www.linkedin.com/in/yashar-shaikh/]
+* NAME: Yashar Shaikh
+* [Github: https://github.com/YasharShaikh]
+* [Linkdin: https://www.linkedin.com/in/yashar-shaikh/]
 
 
