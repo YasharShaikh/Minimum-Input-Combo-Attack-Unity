@@ -1,10 +1,5 @@
-**Minimum-Input-Combo-Attack-Unity**
+**Minimum-Input-Combo-Attack-Unity** ⚔️
 ==========================
-
-
-**Overview**
-------------
-
 
 A Unity project demonstrating a flexible combo attack system with minimal input requirements. This project showcases:
 
@@ -14,39 +9,14 @@ A Unity project demonstrating a flexible combo attack system with minimal input 
 * Combo attack mechanics
 * Modular attack system
 
-**Preview**
+**Preview 👀**
 ----------
+💡**Objective**: Perform complex combos with minimal input while showcasing smooth animation transitions 💡.
+
 https://github.com/user-attachments/assets/8dc5aefa-78fd-44c2-8b01-53957730d21c
 
-**Objective**
+**Gameplay 🎮**
 ------------
-
-
-Perform complex combos with minimal input while showcasing smooth animation transitions.
-
-
-**Features**
-------------
-
-
-* **Combo Attack System**: Allows players to perform complex combos with minimal input
-* **Animation Integration**: Seamless animation transitions
-* **Input Handling**: Optimized input detection for smooth gameplay
-* **Modular Attack System**: Enables easy addition of new attacks via serialized objects
-
-
-**Technical Details**
--------------------
-
-
-* **Unity Version**: 2022.3.20f1
-* **Programming Language**: C#
-* **Animation System:**: Unity Animator
-
-**Gameplay**
-------------
-
-
 * Use keyboard or controller input to perform combos
   + Q: Open action menu to switch next performing attack
   + Right Mouse button: Perform energy attack
@@ -55,20 +25,23 @@ Perform complex combos with minimal input while showcasing smooth animation tran
 * Experiment with different combo sequences
   
 
-**How to Run**
+**Getting Started 📃**
 --------------
+Clone or download this repository and open the project with your version of Unity.
+
+*This project was built with Unity 2022.3*
 
 
-1. Clone the repository
-2. Open the project in Unity 2022.3.20f1
-3. Build and run the project
+**Contributing 💪**
+--------------
+Looking to contribute something to this project? Here's how you can help.
 
+If you believe something needs to be immediately fixed please open an issue and document the problem. 
+Fork this project and create a pull request with your solution to the problem. Thank you.
 
-**Contact**
+**Reach Out?**
 ----------
 
-* NAME: Yashar Shaikh
-* [Github: https://github.com/YasharShaikh]
-* [Linkdin: https://www.linkedin.com/in/yashar-shaikh/]
-
-
+* Yashar Shaikh (yashrsk6@gmail.com)
+* [Github](https://github.com/YasharShaikh)
+* [Linkdin](https://www.linkedin.com/in/yashar-shaikh/)
