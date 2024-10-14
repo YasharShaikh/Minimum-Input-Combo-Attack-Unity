@@ -13,6 +13,9 @@ A Unity project demonstrating a flexible combo attack system with minimal input 
 * Animation integration
 * Combo attack mechanics
 
+**Demo Reel**
+----------
+https://github.com/user-attachments/assets/8dc5aefa-78fd-44c2-8b01-53957730d21c
 
 **Objective**
 ------------
@@ -65,3 +68,5 @@ Perform complex combos with minimal input while showcasing smooth animation tran
 NAME: Yashar Shaikh
 [Github: https://github.com/YasharShaikh]
 [Linkdin: https://www.linkedin.com/in/yashar-shaikh/]
+
+
