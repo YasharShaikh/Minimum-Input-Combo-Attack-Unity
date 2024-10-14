@@ -17,7 +17,7 @@ https://github.com/user-attachments/assets/8dc5aefa-78fd-44c2-8b01-53957730d21c
 
 **Gameplay 🎮**
 ------------
-* Use keyboard or controller input to perform combos
+* Use keyboard input to perform combos
   + Q: Open action menu to switch next performing attack
   + Right Mouse button: Perform energy attack
   + Left Mouse button: Perform sword attack
