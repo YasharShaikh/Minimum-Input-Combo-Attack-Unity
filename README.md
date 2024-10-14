@@ -39,7 +39,7 @@ Looking to contribute something to this project? Here's how you can help.
 If you believe something needs to be immediately fixed please open an issue and document the problem. 
 Fork this project and create a pull request with your solution to the problem. Thank you.
 
-**Reach Out?**
+**Reach Out? 💬**
 ----------
 
 * Yashar Shaikh (yashrsk6@gmail.com)
