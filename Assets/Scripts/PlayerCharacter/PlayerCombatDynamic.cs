@@ -7,11 +7,11 @@ public class PlayerCombatDynamic : MonoBehaviour
     public static PlayerCombatDynamic instance;
 
     [SerializeField] float timeBetweenCombo;
-    [SerializeField] int mainAtkComboStream;
+    int mainAtkComboStream;
     [SerializeField] int maxCombo = 3;
-    [SerializeField] float lastClickTime;
+    float lastClickTime;
 
-    [Header("Avaible Sword Attacks")]
+    [Header("Default Attacks")]
     [SerializeField] List<AttackSO> swordAttacks = new List<AttackSO>();
     [SerializeField] List<EnergySO> energyAttacks = new List<EnergySO>();
 
@@ -24,7 +24,7 @@ public class PlayerCombatDynamic : MonoBehaviour
 
     PlayerAnimationHandler playerAnimationHandler;
     PlayerInputHandler inputHandler;
-
+    SoundManager soundManager;
 
 
     private void Awake()
@@ -33,6 +33,7 @@ public class PlayerCombatDynamic : MonoBehaviour
 
         playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
         inputHandler = GetComponent<PlayerInputHandler>();
+        soundManager = GetComponentInChildren<SoundManager>();
     }
     // Start is called before the first frame update
     void Start()
@@ -94,7 +95,7 @@ public class PlayerCombatDynamic : MonoBehaviour
         PerformAttack();
     }
 
-   
+
 
     // Reset the combo attack
     void ResetCombo()
@@ -115,6 +116,7 @@ public class PlayerCombatDynamic : MonoBehaviour
         // Play the corresponding animation for the sword attack
         playerAnimationHandler.SwordAttack(swordAttacks[mainAtkComboStream - 1]);
         swordAttackForwardStep = swordAttacks[mainAtkComboStream - 1].forwardStep;
+        soundManager.PlaySwordClip();
     }
 
     // Perform a power attack
@@ -122,7 +124,7 @@ public class PlayerCombatDynamic : MonoBehaviour
     {
         if (energyAttacks.Count == 0)
         {
-            energyAttackForwardStep = 0.0f; 
+            energyAttackForwardStep = 0.0f;
             return;
         }
 
@@ -130,12 +132,13 @@ public class PlayerCombatDynamic : MonoBehaviour
         playerAnimationHandler.PowerAttack(energyAttacks[mainAtkComboStream - 1]);
         energyAttackForwardStep = energyAttacks[mainAtkComboStream - 1].forwardStep;
     }
-    
+
     public AttackSO SwapSwordAttack(AttackSO newAttack)
     {
+        Debug.Log("Sword switch aclled");
         return swapAttack(swordAttacks, newAttack);
     }
-    public EnergySO SwapEnergyAttack(EnergySO newAttack) 
+    public EnergySO SwapEnergyAttack(EnergySO newAttack)
     {
         return swapAttack(energyAttacks, newAttack);
     }

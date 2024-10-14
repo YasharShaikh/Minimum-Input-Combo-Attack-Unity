@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -9,6 +11,10 @@ public class SoundManager : MonoBehaviour
 
     [Header("Action Menu")]
     [SerializeField] AudioSource as_ActionMenuBG;
+
+    [Header("sword attack")]
+    [SerializeField] AudioSource as_Attack;
+    [SerializeField] List<AudioClip> ac_Sword = new List<AudioClip>();
 
     private bool fadingIn;
     private bool fadingOut;
@@ -23,46 +29,38 @@ public class SoundManager : MonoBehaviour
 
     void Update()
     {
-        //HandleAudioFading();
+        RadialMenuBackground();
     }
 
-    public void PlayActionMenuBG(bool play)
+
+    private void RadialMenuBackground()
     {
-        if (play && !as_ActionMenuBG.isPlaying && !fadingIn)
-        {
-            fadingOut = false;
-            fadingIn = true;
-            as_ActionMenuBG.Play();
-        }
-        else if (!play && as_ActionMenuBG.isPlaying && !fadingOut)
-        {
-            fadingIn = false;
-            fadingOut = true;
-        }
+        if (ActionMenuInputHandler.Instance.RadialMenuTriggered)
+            FadeInHandler(as_ActionMenuBG);
+        else
+            FadeOutHandler(as_ActionMenuBG);
     }
 
-    private void HandleAudioFading(AudioSource audioSource)
+    private void FadeOutHandler(AudioSource audioSource)
     {
-        if (fadingIn)
-        {
-            // Fade in
-            audioSource.volume += (1f / fadeSeconds) * Time.deltaTime;
-            if (audioSource.volume >= 1f)
-            {
-                audioSource.volume = 1f;
-                fadingIn = false; // Stop fading when fully faded in
-            }
-        }
-        else if (fadingOut)
-        {
-            // Fade out
-            audioSource.volume -= (1f / fadeSeconds) * Time.deltaTime;
-            if (audioSource.volume <= 0f)
-            {
-                audioSource.volume = 0f;
-                fadingOut = false;
-                audioSource.Stop(); // Only stop once volume is fully faded out
-            }
-        }
+        audioSource.volume = Mathf.Clamp(audioSource.volume - (Time.deltaTime / fadeSeconds), 0f, 1f);
+
+        if (audioSource.volume <= 0f && audioSource.isPlaying)
+            audioSource.Stop();
+    }
+
+    private void FadeInHandler(AudioSource audioSource)
+    {
+        if (!audioSource.isPlaying)
+            audioSource.Play();
+
+        audioSource.volume = Mathf.Clamp(audioSource.volume + (Time.deltaTime / fadeSeconds), 0f, 1f);
+    }
+
+
+    public void PlaySwordClip()
+    {
+        int clip = Random.Range(0, ac_Sword.Count);
+        as_Attack.PlayOneShot(ac_Sword[clip]);
     }
 }

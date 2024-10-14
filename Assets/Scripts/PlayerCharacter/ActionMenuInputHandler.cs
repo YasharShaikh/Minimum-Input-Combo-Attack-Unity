@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class ActionMenuInputHandler : MonoBehaviour
 {
+    public static ActionMenuInputHandler Instance;
 
     [Header("InputAction Asset")]
     [SerializeField] InputActionAsset playerControls;
@@ -21,6 +22,7 @@ public class ActionMenuInputHandler : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         RadialMenuAction = playerControls.FindActionMap(actionMapName).FindAction(RadialMenu);
     }
     // Update is called once per frame

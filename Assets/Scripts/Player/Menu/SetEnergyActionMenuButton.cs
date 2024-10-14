@@ -6,7 +6,8 @@ public class SetEnergyActionMenuButton : MonoBehaviour
     [SerializeField] EnergySO EnergyAttack;
     [SerializeField] private Image image;
     [SerializeField] private TMP_Text text;
-
+    [SerializeField] private AudioSource as_actionMenu;
+    [SerializeField] private AudioClip ac_actionMenuButton;
 
     private void OnEnable()
     {
@@ -25,7 +26,9 @@ public class SetEnergyActionMenuButton : MonoBehaviour
 
     public void OnButtonClick()
     {
+        as_actionMenu.PlayOneShot(ac_actionMenuButton);
         EnergySO OldAttack = PlayerCombatDynamic.instance.SwapEnergyAttack(EnergyAttack);
         EnergyAttack = OldAttack;
+        UpdateButtonUI();
     }
 }

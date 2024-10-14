@@ -3,6 +3,8 @@ using player;
 
 public class ActionMenuHandler : MonoBehaviour
 {
+
+
     [SerializeField] Canvas ActionMenuCanvas;
 
     private PlayerInputHandler inputHandler;
@@ -42,7 +44,6 @@ public class ActionMenuHandler : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         ActionMenuCanvas.gameObject.SetActive(true);
-        SoundManager.Instance.PlayActionMenuBG(true);
     }
 
     private void CloseActionMenu()
@@ -52,6 +53,5 @@ public class ActionMenuHandler : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         ActionMenuCanvas.gameObject.SetActive(false);
-        SoundManager.Instance.PlayActionMenuBG(false);
     }
 }
