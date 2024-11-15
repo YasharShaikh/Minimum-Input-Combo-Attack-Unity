@@ -57,7 +57,7 @@ public class PlayerCombatDynamic : MonoBehaviour
         }
 
         // Check if the player has triggered a sword or power attack
-        if ((inputHandler.swordATKTriggered || inputHandler.powerATKTriggered) && (!playerAnimationHandler.isPerformingSwordAttack && !playerAnimationHandler.isPerformingEnergyAttack))
+        if (CheckAttackPerform())
         {
             isPerformingCombo = true;
             // If the current main attack combo stream is zero, start a new combo
@@ -144,6 +144,11 @@ public class PlayerCombatDynamic : MonoBehaviour
     }
 
     #region Class Helpers
+
+    private bool CheckAttackPerform()
+    {
+        return (inputHandler.swordATKTriggered || inputHandler.powerATKTriggered) && (!playerAnimationHandler.isPerformingSwordAttack && !playerAnimationHandler.isPerformingEnergyAttack);
+    }
     private void PerformAttack()
     {
         if (inputHandler.swordATKTriggered)

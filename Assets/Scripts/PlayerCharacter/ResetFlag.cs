@@ -25,7 +25,7 @@ namespace player
             {
                 brain = animator.GetComponentInParent<PlayerMovementDynamics>();
             }
-            brain.isPerformingROLLAnimation = false;
+            //brain.isPerformingROLLAnimation = false;
         }
 
 
