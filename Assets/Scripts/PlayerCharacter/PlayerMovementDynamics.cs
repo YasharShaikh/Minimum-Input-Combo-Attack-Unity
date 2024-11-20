@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace player
@@ -8,7 +9,6 @@ namespace player
     {
 
         public static PlayerMovementDynamics instance;
-        [SerializeField] float lastInput;
 
         [Header("Information collection")]
         [SerializeField] Transform playerHead;
@@ -22,10 +22,13 @@ namespace player
         [SerializeField] float moveAttackSpeed;
         [SerializeField] float rollSpeed;
         [SerializeField] float rotationSpeed;
+        [Header("Blocking")]
+        [SerializeField] LayerMask AvoidEnemyLayer;
+        [SerializeField] float blockTime;
         [SerializeField] float sideStepDistance;
-
-
+        [SerializeField] float dodgeDuration = 0.5f;
         [Space]
+        float lastInput;
         float magnitude;
         CharacterController characterController;
         Camera playerCamera;
@@ -53,6 +56,7 @@ namespace player
         {
             Move();
             ApplyGravity();
+            StepDodge();
         }
 
         private void Move()
@@ -82,7 +86,36 @@ namespace player
             }
         }
 
+        private void StepDodge()
+        {
+            if (Mathf.Abs(playerInputHandler.moveInput.magnitude) > 0 && playerInputHandler.jumpTriggered)
+            {
+                // Determine the dodge direction and start the dodge coroutine
+                Vector3 sideStepDirection = transform.forward * sideStepDistance;
+                StartCoroutine(SmoothDodge(sideStepDirection));
+            }
+        }
 
+
+        private IEnumerator SmoothDodge(Vector3 targetOffset)
+        {
+            // Time it takes to complete the dodge
+            float elapsedTime = 0f;
+
+            Vector3 startPosition = characterController.transform.localPosition;
+            Vector3 targetPosition = startPosition + targetOffset;
+
+            while (elapsedTime < dodgeDuration)
+            {
+                // Lerp the position smoothly over time
+                characterController.Move(Vector3.Lerp(startPosition, targetPosition, elapsedTime / dodgeDuration) - characterController.transform.position);
+                elapsedTime += Time.deltaTime;
+                yield return null; // Wait until the next frame
+            }
+
+            // Ensure final position after the dodge
+            characterController.Move(targetPosition - characterController.transform.position);
+        }
         private void ApplyGravity()
         {
             if (!characterController.isGrounded)

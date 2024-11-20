@@ -61,6 +61,6 @@ public class energy_EarthColumn : MonoBehaviour
     void StartMovingForward()
     {
         // Apply forward velocity to the column's rigidbody
-        rigidbody.velocity = transform.forward * forwardSpeed;
+        rigidbody.linearVelocity = transform.forward * forwardSpeed;
     }
 }
