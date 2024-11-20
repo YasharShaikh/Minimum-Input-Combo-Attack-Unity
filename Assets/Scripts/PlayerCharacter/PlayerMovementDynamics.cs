@@ -27,6 +27,8 @@ namespace player
         [SerializeField] float blockTime;
         [SerializeField] float sideStepDistance;
         [SerializeField] float dodgeDuration = 0.5f;
+        [Header("Lock on")]
+        [SerializeField] bool enemyLocked;
         [Space]
         float lastInput;
         float magnitude;
@@ -55,8 +57,8 @@ namespace player
         void Update()
         {
             Move();
-            ApplyGravity();
             StepDodge();
+            ApplyGravity();
         }
 
         private void Move()
@@ -85,7 +87,14 @@ namespace player
                 characterController.Move(moveDirection * Time.deltaTime);
             }
         }
+        void LockOn()
+        {
+            if (playerInputHandler.lockONTriggered && !enemyLocked)
+            {
+                enemyLocked = true;
 
+            }
+        }
         private void StepDodge()
         {
             if (Mathf.Abs(playerInputHandler.moveInput.magnitude) > 0 && playerInputHandler.jumpTriggered)
@@ -122,5 +131,8 @@ namespace player
                 characterController.Move(gravity * Time.deltaTime);
         }
     }
+
+
+
 }
 

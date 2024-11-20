@@ -30,7 +30,10 @@ public class ActionMenuInputHandler : MonoBehaviour
     {
 
         if (RadialMenuAction.IsPressed())
+        {
             RadialMenuTriggered = true;
+
+        }
         else
             RadialMenuTriggered = false;
     }

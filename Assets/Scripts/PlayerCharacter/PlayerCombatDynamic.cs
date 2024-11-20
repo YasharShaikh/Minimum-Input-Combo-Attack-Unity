@@ -15,6 +15,7 @@ public class PlayerCombatDynamic : MonoBehaviour
     [SerializeField] List<AttackSO> swordAttacks = new List<AttackSO>();
     [SerializeField] List<EnergySO> energyAttacks = new List<EnergySO>();
 
+  
 
     [HideInInspector] public float swordAttackForwardStep = 0.0f;
     [HideInInspector] public float energyAttackForwardStep = 0.0f;
@@ -31,9 +32,7 @@ public class PlayerCombatDynamic : MonoBehaviour
     {
         instance = this;
 
-        playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
         inputHandler = GetComponent<PlayerInputHandler>();
-        soundManager = GetComponentInChildren<SoundManager>();
     }
     // Start is called before the first frame update
     void Start()
@@ -135,13 +134,13 @@ public class PlayerCombatDynamic : MonoBehaviour
 
     public AttackSO SwapSwordAttack(AttackSO newAttack)
     {
-        Debug.Log("Sword switch aclled");
         return swapAttack(swordAttacks, newAttack);
     }
     public EnergySO SwapEnergyAttack(EnergySO newAttack)
     {
         return swapAttack(energyAttacks, newAttack);
     }
+
 
     #region Class Helpers
 
