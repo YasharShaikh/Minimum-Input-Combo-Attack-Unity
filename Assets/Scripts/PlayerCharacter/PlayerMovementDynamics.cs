@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 namespace player
@@ -29,6 +30,15 @@ namespace player
         [SerializeField] float dodgeDuration = 0.5f;
         [Header("Lock on")]
         [SerializeField] bool enemyLocked;
+
+        [Header("Lock ON ")]
+        [SerializeField] GameObject POV;
+        [SerializeField] float lockONRadius;
+        [SerializeField] float minLockONAngle;
+        [SerializeField] float maxLockONAngle;
+        [SerializeField] float targetDistanceLockON;
+        [SerializeField] GameObject lockedONEnemy;
+
         [Space]
         float lastInput;
         float magnitude;
@@ -59,6 +69,7 @@ namespace player
             Move();
             StepDodge();
             ApplyGravity();
+            EnemyInFOV();   
         }
 
         private void Move()
@@ -105,7 +116,50 @@ namespace player
             }
         }
 
+        #region Lock on 
+        private void EnemyInFOV()
+        {
+            // Radius of the FOV
+            float radius = 90f;
+            int enemyLayerMask = LayerMask.GetMask("enemy");
 
+            // Get all colliders within the radius
+            Collider[] colliders = Physics.OverlapSphere(POV.transform.position, lockONRadius, enemyLayerMask);
+
+
+            foreach (Collider collider in colliders)
+            {
+                // Get direction to the enemy
+                Vector3 directionToEnemy = (collider.transform.position - POV.transform.position).normalized;
+
+                // Check if the enemy is within the FOV
+                float angleToEnemy = Vector3.Angle(POV.transform.forward, directionToEnemy);
+
+                if (angleToEnemy <= radius / 2)
+                {
+                    Debug.Log($"Enemy {collider.gameObject.name} is within the FOV.");
+                }
+                else
+                {
+                    Debug.Log($"Enemy {collider.name} is outside the FOV.");
+                }
+            }
+
+        }
+        
+        private void OnDrawGizmosSelected()
+        {
+            float radius = 3f;
+            Handles.color = Color.yellow;
+            // DrawWireArc(Vector3 center, Vector3 normal, Vector3 from, float angle, float radius, float thickness = 0.0f);
+            Handles.DrawWireArc(POV.transform.position, Vector3.up, Vector3.left, 180, lockONRadius);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(POV.transform.position, lockONRadius);
+
+        }
+
+        #endregion
         private IEnumerator SmoothDodge(Vector3 targetOffset)
         {
             // Time it takes to complete the dodge
@@ -133,6 +187,14 @@ namespace player
     }
 
 
+    
+
+    //GameObject DetectEnemy()
+    //{
+    //    GameObject LockedOnEnemy = null;
+
+    //    return LockedOnEnemy;
+    //}
 
 }
 

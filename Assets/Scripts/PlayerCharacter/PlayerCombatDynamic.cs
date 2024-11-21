@@ -33,6 +33,7 @@ public class PlayerCombatDynamic : MonoBehaviour
         instance = this;
 
         inputHandler = GetComponent<PlayerInputHandler>();
+        playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
     }
     // Start is called before the first frame update
     void Start()
