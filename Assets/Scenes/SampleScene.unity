@@ -10221,7 +10221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4244223381589991520, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000011920929
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4244223381589991520, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10233,15 +10233,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4244223381589991520, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.039904386
+      value: -0.039904423
       objectReference: {fileID: 0}
     - target: {fileID: 4244223381589991520, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000029836688
+      value: -0.000000029836688
       objectReference: {fileID: 0}
     - target: {fileID: 4244223381589991520, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000011915637
+      value: -0.000000001191565
       objectReference: {fileID: 0}
     - target: {fileID: 4534814400684685654, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
       propertyPath: POV
@@ -10249,11 +10249,15 @@ PrefabInstance:
       objectReference: {fileID: 1124013198}
     - target: {fileID: 4534814400684685654, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
       propertyPath: lockONRadius
-      value: 5.8
+      value: 8.39
       objectReference: {fileID: 0}
     - target: {fileID: 4534814400684685654, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
       propertyPath: dodgeDuration
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4534814400684685654, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
+      propertyPath: closestDistance
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4534814400684685654, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
       propertyPath: sideStepDistance

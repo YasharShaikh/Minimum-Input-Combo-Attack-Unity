@@ -34,10 +34,8 @@ namespace player
         [Header("Lock ON ")]
         [SerializeField] GameObject POV;
         [SerializeField] float lockONRadius;
-        [SerializeField] float minLockONAngle;
-        [SerializeField] float maxLockONAngle;
-        [SerializeField] float targetDistanceLockON;
-        [SerializeField] GameObject lockedONEnemy;
+        [SerializeField] Collider closestEnemy = null;
+        [SerializeField] float closestDistance = float.MaxValue;
 
         [Space]
         float lastInput;
@@ -69,7 +67,7 @@ namespace player
             Move();
             StepDodge();
             ApplyGravity();
-            EnemyInFOV();   
+            EnemyInFOV();
         }
 
         private void Move()
@@ -120,33 +118,47 @@ namespace player
         private void EnemyInFOV()
         {
             // Radius of the FOV
-            float radius = 90f;
             int enemyLayerMask = LayerMask.GetMask("enemy");
+           
 
             // Get all colliders within the radius
             Collider[] colliders = Physics.OverlapSphere(POV.transform.position, lockONRadius, enemyLayerMask);
 
-
             foreach (Collider collider in colliders)
             {
                 // Get direction to the enemy
-                Vector3 directionToEnemy = (collider.transform.position - POV.transform.position).normalized;
+                Vector3 directionToEnemy = (collider.transform.position - Camera.main.transform.position).normalized;
 
                 // Check if the enemy is within the FOV
-                float angleToEnemy = Vector3.Angle(POV.transform.forward, directionToEnemy);
-
-                if (angleToEnemy <= radius / 2)
+                float angleToEnemy = Vector3.Angle(Camera.main.transform.forward, directionToEnemy); // Fix here
+                if (angleToEnemy <= 90.0f) // Assuming a 180° FOV (90° on each side)
                 {
-                    Debug.Log($"Enemy {collider.gameObject.name} is within the FOV.");
-                }
-                else
-                {
-                    Debug.Log($"Enemy {collider.name} is outside the FOV.");
+                    // Check for line of sight
+                    Ray ray = new Ray(Camera.main.transform.position, directionToEnemy);
+                    if (Physics.Raycast(ray, out RaycastHit hit, lockONRadius))
+                    {
+                        if (hit.collider == collider) // Ensure the ray hits the enemy
+                        {
+                            float distanceToEnemy = Vector3.Distance(Camera.main.transform.position, collider.transform.position);
+                            if (distanceToEnemy < closestDistance)
+                            {
+                                closestDistance = distanceToEnemy;
+                                closestEnemy = collider;
+                                Debug.DrawRay(Camera.main.transform.position, directionToEnemy);
+                            }
+                        }
+                    }
                 }
             }
 
+            if (closestEnemy != null)
+            {
+                Debug.Log($"Closest enemy is {closestEnemy.transform.root.name} at distance {closestDistance}");
+                // Perform actions like targeting, locking on, etc.
+            }
         }
-        
+
+
         private void OnDrawGizmosSelected()
         {
             float radius = 3f;
@@ -187,7 +199,7 @@ namespace player
     }
 
 
-    
+
 
     //GameObject DetectEnemy()
     //{
