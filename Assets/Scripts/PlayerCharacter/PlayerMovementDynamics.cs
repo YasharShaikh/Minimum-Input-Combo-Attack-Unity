@@ -8,43 +8,43 @@ namespace player
     [RequireComponent(typeof(CharacterController))]
     public class PlayerMovementDynamics : MonoBehaviour
     {
-
         public static PlayerMovementDynamics instance;
 
-        [Header("Information collection")]
-        [SerializeField] Transform playerHead;
-        [SerializeField] float RayDistance;
-
+        [Header("Information Collection")]
+        [SerializeField] private Transform playerHead;
+        [SerializeField] private float rayDistance;
 
         [Header("Movement Stats")]
-        [SerializeField] Vector3 gravity;
-        [SerializeField] Vector3 moveDirection;
-        [SerializeField] float moveSpeed;
-        [SerializeField] float moveAttackSpeed;
-        [SerializeField] float rollSpeed;
-        [SerializeField] float rotationSpeed;
+        [SerializeField] private Vector3 gravity;
+        [SerializeField] private Vector3 moveDirection;
+        [SerializeField] private float moveSpeed;
+        [SerializeField] private float moveAttackSpeed;
+        [SerializeField] private float rollSpeed;
+        [SerializeField] private float rotationSpeed;
+
         [Header("Blocking")]
-        [SerializeField] LayerMask AvoidEnemyLayer;
-        [SerializeField] float blockTime;
-        [SerializeField] float sideStepDistance;
-        [SerializeField] float dodgeDuration = 0.5f;
-        [Header("Lock on")]
-        [SerializeField] bool enemyLocked;
+        [SerializeField] private LayerMask avoidEnemyLayer;
+        [SerializeField] private float blockTime;
+        [SerializeField] private float sideStepDistance;
+        [SerializeField] private float dodgeDuration = 0.5f;
 
-        [Header("Lock ON ")]
-        [SerializeField] GameObject POV;
-        [SerializeField] float lockONRadius;
-        [SerializeField] Collider closestEnemy = null;
-        [SerializeField] float closestDistance = float.MaxValue;
+        [Header("Lock On")]
+        [SerializeField] private bool enemyLocked;
+        [SerializeField] private GameObject POV;
+        [SerializeField] private float lockOnRadius;
+        [SerializeField] private GameObject lockOnCamera;
+        [SerializeField] private GameObject followCamera;
 
-        [Space]
-        float lastInput;
-        float magnitude;
-        CharacterController characterController;
-        Camera playerCamera;
-        PlayerAnimationHandler playerAnimationHandler;
-        PlayerInputHandler playerInputHandler;
-        PlayerCombatDynamic playerCombatDynamic;
+        private Collider closestEnemy = null;
+        private float closestDistance;
+        private float lastInput;
+        private float magnitude;
+
+        private CharacterController characterController;
+        private Camera playerCamera;
+        private PlayerAnimationHandler playerAnimationHandler;
+        private PlayerInputHandler playerInputHandler;
+        private PlayerCombatDynamic playerCombatDynamic;
 
         private void Awake()
         {
@@ -54,15 +54,10 @@ namespace player
             playerInputHandler = GetComponent<PlayerInputHandler>();
             playerCombatDynamic = GetComponent<PlayerCombatDynamic>();
             playerCamera = Camera.main;
+            closestDistance = float.MaxValue;
         }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
             Move();
             StepDodge();
@@ -86,6 +81,7 @@ namespace player
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }
+
             if (playerAnimationHandler.isPerformingEnergyAttack || playerAnimationHandler.isPerformingSwordAttack)
             {
                 Vector3 forwardStepDirection = transform.forward * playerCombatDynamic.swordAttackForwardStep;
@@ -96,117 +92,88 @@ namespace player
                 characterController.Move(moveDirection * Time.deltaTime);
             }
         }
-        void LockOn()
-        {
-            if (playerInputHandler.lockONTriggered && !enemyLocked)
-            {
-                enemyLocked = true;
 
-            }
-        }
         private void StepDodge()
         {
             if (Mathf.Abs(playerInputHandler.moveInput.magnitude) > 0 && playerInputHandler.jumpTriggered)
             {
-                // Determine the dodge direction and start the dodge coroutine
                 Vector3 sideStepDirection = transform.forward * sideStepDistance;
                 StartCoroutine(SmoothDodge(sideStepDirection));
             }
         }
 
-        #region Lock on 
         private void EnemyInFOV()
         {
-            // Radius of the FOV
-            int enemyLayerMask = LayerMask.GetMask("enemy");
-           
-
-            // Get all colliders within the radius
-            Collider[] colliders = Physics.OverlapSphere(POV.transform.position, lockONRadius, enemyLayerMask);
-
-            foreach (Collider collider in colliders)
+            if (playerInputHandler.lockONTriggered && !enemyLocked)
             {
-                // Get direction to the enemy
-                Vector3 directionToEnemy = (collider.transform.position - Camera.main.transform.position).normalized;
+                enemyLocked = true;
+                int enemyLayerMask = LayerMask.GetMask("enemy");
+                Collider[] colliders = Physics.OverlapSphere(POV.transform.position, lockOnRadius, enemyLayerMask);
 
-                // Check if the enemy is within the FOV
-                float angleToEnemy = Vector3.Angle(Camera.main.transform.forward, directionToEnemy); // Fix here
-                if (angleToEnemy <= 90.0f) // Assuming a 180° FOV (90° on each side)
+                foreach (Collider collider in colliders)
                 {
-                    // Check for line of sight
-                    Ray ray = new Ray(Camera.main.transform.position, directionToEnemy);
-                    if (Physics.Raycast(ray, out RaycastHit hit, lockONRadius))
+                    EnemyBrain enemyBrain = collider.GetComponent<EnemyBrain>();
+                    if (enemyBrain == null || enemyBrain.isDead) continue;
+
+                    Vector3 directionToEnemy = (collider.transform.position - Camera.main.transform.position).normalized;
+                    float angleToEnemy = Vector3.Angle(Camera.main.transform.forward, directionToEnemy);
+
+                    if (angleToEnemy <= 90.0f)
                     {
-                        if (hit.collider == collider) // Ensure the ray hits the enemy
+                        Ray ray = new Ray(Camera.main.transform.position, directionToEnemy);
+                        if (Physics.Raycast(ray, out RaycastHit hit, lockOnRadius) && hit.collider == collider)
                         {
                             float distanceToEnemy = Vector3.Distance(Camera.main.transform.position, collider.transform.position);
                             if (distanceToEnemy < closestDistance)
                             {
                                 closestDistance = distanceToEnemy;
                                 closestEnemy = collider;
-                                Debug.DrawRay(Camera.main.transform.position, directionToEnemy);
+                                Debug.DrawRay(Camera.main.transform.position, directionToEnemy, Color.green);
                             }
                         }
                     }
                 }
-            }
 
-            if (closestEnemy != null)
-            {
-                Debug.Log($"Closest enemy is {closestEnemy.transform.root.name} at distance {closestDistance}");
-                // Perform actions like targeting, locking on, etc.
+                if (closestEnemy != null)
+                {
+                    Debug.Log($"Closest enemy is {closestEnemy.transform.root.name} at distance {closestDistance}");
+                }
+                else
+                {
+                    Debug.Log("All enemies are dead or out of range.");
+                }
             }
         }
 
-
-        private void OnDrawGizmosSelected()
-        {
-            float radius = 3f;
-            Handles.color = Color.yellow;
-            // DrawWireArc(Vector3 center, Vector3 normal, Vector3 from, float angle, float radius, float thickness = 0.0f);
-            Handles.DrawWireArc(POV.transform.position, Vector3.up, Vector3.left, 180, lockONRadius);
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(POV.transform.position, lockONRadius);
-
-        }
-
-        #endregion
-        private IEnumerator SmoothDodge(Vector3 targetOffset)
-        {
-            // Time it takes to complete the dodge
-            float elapsedTime = 0f;
-
-            Vector3 startPosition = characterController.transform.localPosition;
-            Vector3 targetPosition = startPosition + targetOffset;
-
-            while (elapsedTime < dodgeDuration)
-            {
-                // Lerp the position smoothly over time
-                characterController.Move(Vector3.Lerp(startPosition, targetPosition, elapsedTime / dodgeDuration) - characterController.transform.position);
-                elapsedTime += Time.deltaTime;
-                yield return null; // Wait until the next frame
-            }
-
-            // Ensure final position after the dodge
-            characterController.Move(targetPosition - characterController.transform.position);
-        }
         private void ApplyGravity()
         {
             if (!characterController.isGrounded)
                 characterController.Move(gravity * Time.deltaTime);
         }
+
+        private IEnumerator SmoothDodge(Vector3 targetOffset)
+        {
+            float elapsedTime = 0f;
+            Vector3 startPosition = characterController.transform.localPosition;
+            Vector3 targetPosition = startPosition + targetOffset;
+
+            while (elapsedTime < dodgeDuration)
+            {
+                characterController.Move(Vector3.Lerp(startPosition, targetPosition, elapsedTime / dodgeDuration) - characterController.transform.position);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            characterController.Move(targetPosition - characterController.transform.position);
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Handles.color = Color.yellow;
+            Handles.DrawWireArc(POV.transform.position, Vector3.up, Vector3.left, 180, lockOnRadius);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(POV.transform.position, lockOnRadius);
+        }
     }
-
-
-
-
-    //GameObject DetectEnemy()
-    //{
-    //    GameObject LockedOnEnemy = null;
-
-    //    return LockedOnEnemy;
-    //}
-
 }
-

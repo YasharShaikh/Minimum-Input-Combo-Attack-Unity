@@ -27,6 +27,7 @@ public class SetSwordActionMenuButton : MonoBehaviour
 
     public void OnButtonClick()
     {
+        Debug.Log("Attack Swapped");    
         as_actionMenu.PlayOneShot(ac_actionMenuButton);
         AttackSO OldAttack = PlayerCombatDynamic.instance.SwapSwordAttack(SwordAttack);
         SwordAttack = OldAttack;
