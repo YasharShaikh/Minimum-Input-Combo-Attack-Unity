@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEditor;
 using UnityEngine;
 
@@ -32,11 +33,13 @@ namespace player
         [SerializeField] private bool enemyLocked;
         [SerializeField] private GameObject POV;
         [SerializeField] private float lockOnRadius;
-        [SerializeField] private GameObject lockOnCamera;
-        [SerializeField] private GameObject followCamera;
-
-        private Collider closestEnemy = null;
-        private float closestDistance;
+        //[SerializeField] private GameObject lockOnCamera;
+        //[SerializeField] private GameObject followCamera;
+        [Header("Camera Manager")]
+        [SerializeField] private CinemachineCamera freelookCamera;
+        [SerializeField] private CinemachineCamera lockonCamera;
+        [SerializeField] private Collider closestEnemy = null;
+        [SerializeField] private float closestDistance;
         private float lastInput;
         private float magnitude;
 
@@ -106,18 +109,16 @@ namespace player
         {
             if (playerInputHandler.lockONTriggered && !enemyLocked)
             {
-                enemyLocked = true;
-                int enemyLayerMask = LayerMask.GetMask("enemy");
+                int enemyLayerMask = LayerMask.GetMask("Enemy");
                 Collider[] colliders = Physics.OverlapSphere(POV.transform.position, lockOnRadius, enemyLayerMask);
 
                 foreach (Collider collider in colliders)
                 {
                     EnemyBrain enemyBrain = collider.GetComponent<EnemyBrain>();
-                    if (enemyBrain == null || enemyBrain.isDead) continue;
+                    //if (enemyBrain == null || enemyBrain.isDead) continue;
 
                     Vector3 directionToEnemy = (collider.transform.position - Camera.main.transform.position).normalized;
                     float angleToEnemy = Vector3.Angle(Camera.main.transform.forward, directionToEnemy);
-
                     if (angleToEnemy <= 90.0f)
                     {
                         Ray ray = new Ray(Camera.main.transform.position, directionToEnemy);
@@ -126,8 +127,12 @@ namespace player
                             float distanceToEnemy = Vector3.Distance(Camera.main.transform.position, collider.transform.position);
                             if (distanceToEnemy < closestDistance)
                             {
+                                freelookCamera.gameObject.SetActive(false);
+                                lockonCamera.gameObject.SetActive(true);
+                                lockonCamera.LookAt = collider.transform;
                                 closestDistance = distanceToEnemy;
                                 closestEnemy = collider;
+                                enemyLocked = true;
                                 Debug.DrawRay(Camera.main.transform.position, directionToEnemy, Color.green);
                             }
                         }

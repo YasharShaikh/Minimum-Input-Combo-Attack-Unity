@@ -9082,8 +9082,8 @@ MonoBehaviour:
   enemyLocked: 0
   POV: {fileID: 6502697755241602113}
   lockOnRadius: 0
-  lockOnCamera: {fileID: 5333591047126099782}
-  followCamera: {fileID: 6641945548509034272}
+  freelookCamera: {fileID: 5996663873980249205}
+  lockonCamera: {fileID: 9203831130730993280}
 --- !u!114 &6750412091066226929
 MonoBehaviour:
   m_ObjectHideFlags: 0
