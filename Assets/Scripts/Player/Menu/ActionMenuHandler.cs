@@ -1,57 +1,67 @@
 using UnityEngine;
 using player;
+using UnityEngine.Events;
 
 public class ActionMenuHandler : MonoBehaviour
 {
+    [SerializeField] private Canvas ActionMenuCanvas;
+    [SerializeField] private PlayerInputHandler inputHandler;
+    [SerializeField] private ActionMenuInputHandler actionMenuInputHandler;
 
+    [SerializeField] private UnityEvent onMenuOpened;
+    [SerializeField] private UnityEvent onMenuClosed;
 
-    [SerializeField] Canvas ActionMenuCanvas;
-
-    private PlayerInputHandler inputHandler;
-    private ActionMenuInputHandler actionMenuInputHandler;
-    private bool isActionMenuOpen;
+    public bool IsActionMenuOpen { get; private set; }
 
     private void Awake()
     {
-        inputHandler = GetComponentInParent<PlayerInputHandler>();
-        actionMenuInputHandler = GetComponentInParent<ActionMenuInputHandler>();
+        ValidateDependencies();
         ActionMenuCanvas.gameObject.SetActive(false);
-        isActionMenuOpen = false;
+        IsActionMenuOpen = false;
     }
 
-    void Update()
+    private void Update()
     {
         HandleActionMenu();
     }
 
-    // Only enable or disable the action menu when the input changes
     private void HandleActionMenu()
     {
-        if (actionMenuInputHandler.RadialMenuTriggered && !isActionMenuOpen)
+        if (actionMenuInputHandler.RadialMenuTriggered && !IsActionMenuOpen)
         {
-            OpenActionMenu();
+            ToggleActionMenu(true);
         }
-        else if (!actionMenuInputHandler.RadialMenuTriggered && isActionMenuOpen)
+        else if (!actionMenuInputHandler.RadialMenuTriggered && IsActionMenuOpen)
         {
-            CloseActionMenu();
+            ToggleActionMenu(false);
         }
     }
 
-    private void OpenActionMenu()
+    private void ToggleActionMenu(bool isOpen)
     {
-        isActionMenuOpen = true;
-        inputHandler.enabled = false;
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-        ActionMenuCanvas.gameObject.SetActive(true);
+        if (ActionMenuCanvas == null) return;
+
+        IsActionMenuOpen = isOpen;
+        inputHandler.enabled = !isOpen;
+        Cursor.lockState = isOpen ? CursorLockMode.Confined : CursorLockMode.Locked;
+        Cursor.visible = isOpen;
+        ActionMenuCanvas.gameObject.SetActive(isOpen);
+
+        if (isOpen)
+            onMenuOpened?.Invoke();
+        else
+            onMenuClosed?.Invoke();
     }
 
-    private void CloseActionMenu()
+    private void ValidateDependencies()
     {
-        isActionMenuOpen = false;
-        inputHandler.enabled = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        ActionMenuCanvas.gameObject.SetActive(false);
+#if UNITY_EDITOR
+        if (ActionMenuCanvas == null)
+            Debug.LogError("ActionMenuCanvas is not assigned.");
+        if (inputHandler == null)
+            Debug.LogError("PlayerInputHandler is not assigned.");
+        if (actionMenuInputHandler == null)
+            Debug.LogError("ActionMenuInputHandler is not assigned.");
+#endif
     }
 }

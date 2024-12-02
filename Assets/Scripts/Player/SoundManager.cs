@@ -61,6 +61,6 @@ public class SoundManager : MonoBehaviour
     public void PlaySwordClip()
     {
         int clip = Random.Range(0, ac_Sword.Count);
-        as_Attack.PlayOneShot(ac_Sword[clip]);
+        as_Attack?.PlayOneShot(ac_Sword[clip]);
     }
 }

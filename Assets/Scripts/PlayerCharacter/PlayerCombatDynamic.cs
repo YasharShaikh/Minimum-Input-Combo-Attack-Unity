@@ -34,6 +34,7 @@ public class PlayerCombatDynamic : MonoBehaviour
 
         inputHandler = GetComponent<PlayerInputHandler>();
         playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
+        soundManager = GetComponentInChildren<SoundManager>();  
     }
     // Start is called before the first frame update
     void Start()
@@ -116,7 +117,7 @@ public class PlayerCombatDynamic : MonoBehaviour
         // Play the corresponding animation for the sword attack
         playerAnimationHandler.SwordAttack(swordAttacks[mainAtkComboStream - 1]);
         swordAttackForwardStep = swordAttacks[mainAtkComboStream - 1].forwardStep;
-        //soundManager.PlaySwordClip();
+        soundManager.PlaySwordClip();
     }
 
     // Perform a power attack

@@ -30,11 +30,10 @@ namespace player
         [SerializeField] private float dodgeDuration = 0.5f;
 
         [Header("Lock On")]
-        [SerializeField] private bool enemyLocked;
+        [SerializeField] private bool enemyLocked = false;
         [SerializeField] private GameObject POV;
         [SerializeField] private float lockOnRadius;
-        //[SerializeField] private GameObject lockOnCamera;
-        //[SerializeField] private GameObject followCamera;
+
         [Header("Camera Manager")]
         [SerializeField] private CinemachineCamera freelookCamera;
         [SerializeField] private CinemachineCamera lockonCamera;
@@ -62,13 +61,13 @@ namespace player
 
         private void Update()
         {
-            Move();
-            StepDodge();
+            ProcessMovement();
+            HandleDodge();
             ApplyGravity();
-            EnemyInFOV();
+            CheckEnemiesInFOV();
         }
 
-        private void Move()
+        private void ProcessMovement()
         {
             Vector3 inputDirection = new Vector3(playerInputHandler.moveInput.x, 0, playerInputHandler.moveInput.y);
             Vector3 cameraDirection = playerCamera.transform.TransformDirection(inputDirection);
@@ -96,7 +95,7 @@ namespace player
             }
         }
 
-        private void StepDodge()
+        private void HandleDodge()
         {
             if (Mathf.Abs(playerInputHandler.moveInput.magnitude) > 0 && playerInputHandler.jumpTriggered)
             {
@@ -105,50 +104,73 @@ namespace player
             }
         }
 
-        private void EnemyInFOV()
+        private void CheckEnemiesInFOV()
         {
-            if (playerInputHandler.lockONTriggered && !enemyLocked)
+            if (playerInputHandler.lockONTriggered)
             {
-                int enemyLayerMask = LayerMask.GetMask("Enemy");
-                Collider[] colliders = Physics.OverlapSphere(POV.transform.position, lockOnRadius, enemyLayerMask);
-
-                foreach (Collider collider in colliders)
+                if (!enemyLocked)
                 {
-                    EnemyBrain enemyBrain = collider.GetComponent<EnemyBrain>();
-                    //if (enemyBrain == null || enemyBrain.isDead) continue;
+                    // Reset closest enemy variables
+                    closestEnemy = null;
+                    closestDistance = Mathf.Infinity;
 
-                    Vector3 directionToEnemy = (collider.transform.position - Camera.main.transform.position).normalized;
-                    float angleToEnemy = Vector3.Angle(Camera.main.transform.forward, directionToEnemy);
-                    if (angleToEnemy <= 90.0f)
+                    int enemyLayerMask = LayerMask.GetMask("Enemy");
+                    Collider[] colliders = Physics.OverlapSphere(POV.transform.position, lockOnRadius, enemyLayerMask);
+
+                    foreach (Collider collider in colliders)
                     {
-                        Ray ray = new Ray(Camera.main.transform.position, directionToEnemy);
-                        if (Physics.Raycast(ray, out RaycastHit hit, lockOnRadius) && hit.collider == collider)
+                        Enemy enemyBrain = collider.GetComponent<Enemy>();
+                        //if (enemyBrain == null || enemyBrain.isDead) continue;
+
+                        Vector3 toEnemy = (collider.transform.position - playerCamera.transform.position).normalized;
+                        float dotProduct = Vector3.Dot(playerCamera.transform.forward, toEnemy);
+
+                        // Check if the enemy is within the FOV
+                        if (dotProduct > Mathf.Cos(Mathf.Deg2Rad * 90.0f))
                         {
-                            float distanceToEnemy = Vector3.Distance(Camera.main.transform.position, collider.transform.position);
-                            if (distanceToEnemy < closestDistance)
+                            if (Physics.Raycast(playerCamera.transform.position, toEnemy, out RaycastHit hit, lockOnRadius) && hit.collider == collider)
                             {
-                                freelookCamera.gameObject.SetActive(false);
-                                lockonCamera.gameObject.SetActive(true);
-                                lockonCamera.LookAt = collider.transform;
-                                closestDistance = distanceToEnemy;
-                                closestEnemy = collider;
-                                enemyLocked = true;
-                                Debug.DrawRay(Camera.main.transform.position, directionToEnemy, Color.green);
+                                float distanceToEnemy = Vector3.Distance(playerCamera.transform.position, collider.transform.position);
+                                if (distanceToEnemy < closestDistance)
+                                {
+                                    closestDistance = distanceToEnemy;
+                                    closestEnemy = collider;
+                                }
                             }
                         }
                     }
-                }
 
-                if (closestEnemy != null)
-                {
-                    Debug.Log($"Closest enemy is {closestEnemy.transform.root.name} at distance {closestDistance}");
+                    if (closestEnemy != null)
+                    {
+                        Debug.Log($"Locking on to {closestEnemy.transform.root.name}");
+                        freelookCamera.gameObject.SetActive(false);
+                        lockonCamera.gameObject.SetActive(true);
+                        lockonCamera.LookAt = closestEnemy.transform;
+                        enemyLocked = true;
+                    }
+                    else
+                    {
+                        Debug.Log("No valid enemies in range.");
+                    }
                 }
-                else
-                {
-                    Debug.Log("All enemies are dead or out of range.");
-                }
+               
+            }
+            else if(!playerInputHandler.lockONTriggered)
+            {
+                ResetLockOn();
             }
         }
+
+        private void ResetLockOn()
+        {
+            freelookCamera.gameObject.SetActive(true);
+            lockonCamera.gameObject.SetActive(false);
+            lockonCamera.LookAt = null;
+            closestEnemy = null;
+            closestDistance = Mathf.Infinity;
+            enemyLocked = false;
+        }
+
 
         private void ApplyGravity()
         {

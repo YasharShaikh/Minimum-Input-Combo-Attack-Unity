@@ -6,6 +6,7 @@ TagManager:
   tags:
   - lockONCamera
   - Enemy
+  - sword
   layers:
   - Default
   - TransparentFX
