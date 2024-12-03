@@ -1,14 +1,14 @@
-using player;
-using System;
 using UnityEngine;
+using System;
+using player;
+
 public class Sword : MonoBehaviour
 {
+    public event Action<Enemy, float> onEnemyHit; // Pass enemy and damage
+    [SerializeField] private float damage = 10f;
 
-    public event Action<Enemy> onEnemyHit;
-    [SerializeField] float Damage;
     PlayerInputHandler inputHandler;
     Collider swordCollider;
-    AttackSO attackSO;
     bool isAttacking = false;
 
     private void Awake()
@@ -16,21 +16,19 @@ public class Sword : MonoBehaviour
         inputHandler = GetComponentInParent<PlayerInputHandler>();
         swordCollider = GetComponent<Collider>();
     }
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
         swordCollider.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (inputHandler.swordATKTriggered)
         {
             isAttacking = true;
             EnableSwordCollider();
         }
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,12 +38,18 @@ public class Sword : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.TakeDamage(Damage);
-                onEnemyHit?.Invoke(enemy);
+                onEnemyHit?.Invoke(enemy, damage); // Notify listeners with enemy and damage
+                Time.timeScale = 0.1f;
+                Invoke("Resume", 1f);
                 isAttacking = false;
                 DisableSwordCollider();
             }
         }
+    }
+
+    public void ResumeTime()
+    {
+        Time.timeScale = 1f;
     }
 
     private void EnableSwordCollider() => swordCollider.enabled = true;
