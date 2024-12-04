@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 using player;
 
 public class Sword : MonoBehaviour
@@ -10,6 +11,7 @@ public class Sword : MonoBehaviour
     PlayerInputHandler inputHandler;
     Collider swordCollider;
     bool isAttacking = false;
+    private bool isSlowMotionActive = false;
 
     private void Awake()
     {
@@ -38,18 +40,23 @@ public class Sword : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null)
             {
-                onEnemyHit?.Invoke(enemy, damage); // Notify listeners with enemy and damage
-                Time.timeScale = 0.1f;
-                Invoke("Resume", 1f);
+                onEnemyHit?.Invoke(enemy, damage);
                 isAttacking = false;
+                StartCoroutine(TriggerSlowMotion(0.1f, 0.8f)); // Slow motion for 1 second
                 DisableSwordCollider();
             }
         }
     }
 
-    public void ResumeTime()
+    private IEnumerator TriggerSlowMotion(float duration, float slowTimeScale)
     {
+        if (isSlowMotionActive) yield break;
+
+        isSlowMotionActive = true;
+        Time.timeScale = slowTimeScale;
+        yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = 1f;
+        isSlowMotionActive = false;
     }
 
     private void EnableSwordCollider() => swordCollider.enabled = true;

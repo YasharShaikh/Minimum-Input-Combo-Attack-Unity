@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EffectComponent : MonoBehaviour
 {
+    [SerializeField] ParticleSystem woodHit;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -12,5 +13,10 @@ public class EffectComponent : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void PlayHitParticle()
+    {
+        woodHit.Play();
     }
 }

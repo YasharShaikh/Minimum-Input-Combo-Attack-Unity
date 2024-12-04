@@ -120,7 +120,7 @@ namespace player
                     foreach (Collider collider in colliders)
                     {
                         Enemy enemyBrain = collider.GetComponent<Enemy>();
-                        //if (enemyBrain == null || enemyBrain.isDead) continue;
+                        if (enemyBrain == null || !enemyBrain.isAlive) continue;
 
                         Vector3 toEnemy = (collider.transform.position - playerCamera.transform.position).normalized;
                         float dotProduct = Vector3.Dot(playerCamera.transform.forward, toEnemy);

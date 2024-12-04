@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     EffectComponent effectComponent;
 
     Sword playerSword;
-
+    public bool isAlive=>healthComponent.IsAlive;
     private void Awake()
     {
         playerSword = FindAnyObjectByType<Sword>();
@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
         {
             animationComponent.PlayHitAnimation();
             soundComponent.PlayHitSound();
-            //effectComponent?.PlayHitEffect();
+            effectComponent?.PlayHitParticle();
         }
         else
         {
