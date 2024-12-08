@@ -7,8 +7,16 @@ public class EnergySO : ScriptableObject
     public Sprite UIImage;
     public AnimatorOverrideController controller;
     public float damage;
-    public float groundKnochBack;
-    public float airKnockBack;
+    public float groundKnockBack;
     public float forwardStep;
-    public GameObject Energy;
+    public GameObject energyPrefab;
+    public EnergyType energyType;
+    public float stunDuration;
+    public float projectileSpeed;
+}
+public enum EnergyType
+{
+    Projectile,
+    Stun,
+    Tornado
 }

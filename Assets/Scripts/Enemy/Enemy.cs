@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -36,13 +37,20 @@ public class Enemy : MonoBehaviour
 
     private void HandleEnemyHit(Enemy targetEnemy, float damage)
     {
-        // Only respond if this enemy is the target
         if (targetEnemy == this)
         {
             TakeDamage(damage);
         }
     }
-
+    public void Stun(float stunDuration)
+    {
+        StartCoroutine(Stunned(stunDuration));
+    }
+    IEnumerator Stunned(float duration)
+    {
+        Debug.Log("Stunned");
+        yield return new WaitForSeconds(duration);  
+    }
     public void TakeDamage(float damage)
     {
         healthComponent.ReduceHealth(damage);

@@ -15,7 +15,7 @@ public class PlayerCombatDynamic : MonoBehaviour
     [SerializeField] List<AttackSO> swordAttacks = new List<AttackSO>();
     [SerializeField] List<EnergySO> energyAttacks = new List<EnergySO>();
 
-  
+
 
     [HideInInspector] public float swordAttackForwardStep = 0.0f;
     [HideInInspector] public float energyAttackForwardStep = 0.0f;
@@ -34,7 +34,7 @@ public class PlayerCombatDynamic : MonoBehaviour
 
         inputHandler = GetComponent<PlayerInputHandler>();
         playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
-        soundManager = GetComponentInChildren<SoundManager>();  
+        soundManager = GetComponentInChildren<SoundManager>();
     }
     // Start is called before the first frame update
     void Start()
@@ -124,16 +124,39 @@ public class PlayerCombatDynamic : MonoBehaviour
     void PerformPowerAttack()
     {
         if (energyAttacks.Count == 0)
-        {
-            energyAttackForwardStep = 0.0f;
             return;
-        }
+        EnergySO selectedAttack = energyAttacks[mainAtkComboStream - 1];
+        EnergyHandler energyHandler = GetHandlerForType(selectedAttack.energyType);
 
+        if (energyHandler != null)
+        {
+            energyHandler.Execute(selectedAttack, transform, GetTarget());
+        }
         // Play the corresponding animation for the power attack
         playerAnimationHandler.PowerAttack(energyAttacks[mainAtkComboStream - 1]);
         energyAttackForwardStep = energyAttacks[mainAtkComboStream - 1].forwardStep;
     }
+    private EnergyHandler GetHandlerForType(EnergyType type)
+    {
+        switch (type)
+        {
+            case EnergyType.Projectile:
+                return gameObject.AddComponent<ProjectileMagic>();
+            case EnergyType.Stun:
+                return gameObject.AddComponent<StunMagic>();
 
+            //case EnergyType.Tornado:
+            //    //return gameObject.AddComponent<TornadoMagic>();
+            default:
+                Debug.LogError("Unsupported energy type!");
+                return null;
+        }
+    }
+    private Transform GetTarget()
+    {
+        // Implement logic to find or aim at a target if required
+        return null;
+    }
     public AttackSO SwapSwordAttack(AttackSO newAttack)
     {
         return swapAttack(swordAttacks, newAttack);
@@ -148,7 +171,7 @@ public class PlayerCombatDynamic : MonoBehaviour
 
     private bool CheckAttackPerform()
     {
-        return (inputHandler.swordATKTriggered || inputHandler.powerATKTriggered) && (!playerAnimationHandler.isPerformingSwordAttack && !playerAnimationHandler.isPerformingEnergyAttack);
+        return (inputHandler.swordATKTriggered || inputHandler.powerATKTriggered) && !playerAnimationHandler.isPerformingSwordAttack && !playerAnimationHandler.isPerformingEnergyAttack;
     }
     private void PerformAttack()
     {
