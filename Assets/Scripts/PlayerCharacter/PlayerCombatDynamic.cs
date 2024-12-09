@@ -7,14 +7,13 @@ public class PlayerCombatDynamic : MonoBehaviour
     public static PlayerCombatDynamic instance;
 
     [SerializeField] float timeBetweenCombo;
-    int mainAtkComboStream;
+    
     [SerializeField] int maxCombo = 3;
-    float lastClickTime;
+    [SerializeField] GameObject spawnPoint;
 
     [Header("Default Attacks")]
-    [SerializeField] List<AttackSO> swordAttacks = new List<AttackSO>();
     [SerializeField] List<EnergySO> energyAttacks = new List<EnergySO>();
-
+    [SerializeField] List<AttackSO> swordAttacks = new List<AttackSO>();
 
 
     [HideInInspector] public float swordAttackForwardStep = 0.0f;
@@ -22,6 +21,8 @@ public class PlayerCombatDynamic : MonoBehaviour
 
 
     bool isPerformingCombo;
+    int mainAtkComboStream;
+    float lastClickTime;
 
     PlayerAnimationHandler playerAnimationHandler;
     PlayerInputHandler inputHandler;
@@ -130,7 +131,7 @@ public class PlayerCombatDynamic : MonoBehaviour
 
         if (energyHandler != null)
         {
-            energyHandler.Execute(selectedAttack, transform, GetTarget());
+            energyHandler.Execute(selectedAttack, spawnPoint.transform, GetTarget());
         }
         // Play the corresponding animation for the power attack
         playerAnimationHandler.PowerAttack(energyAttacks[mainAtkComboStream - 1]);

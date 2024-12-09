@@ -7,6 +7,8 @@ public class Projectile : MonoBehaviour
     public void Setup(EnergySO energyData)
     {
         damage = energyData.damage;
+        Collider collider = gameObject.AddComponent<Collider>();
+
     }
 
     private void OnCollisionEnter(Collision collision)

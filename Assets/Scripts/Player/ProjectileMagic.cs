@@ -7,14 +7,13 @@ public class ProjectileMagic : EnergyHandler
         if (energyData.energyPrefab == null) return;
 
         GameObject projectile = Instantiate(energyData.energyPrefab, spawnPoint.position, Quaternion.identity);
-        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        Rigidbody rb = projectile.AddComponent<Rigidbody>();
+        Collider collider = projectile.AddComponent<Collider>();
         if (rb != null)
         {
             Vector3 direction = target != null ? (target.position - spawnPoint.position).normalized : spawnPoint.forward;
             rb.linearVelocity = direction * energyData.projectileSpeed;
         }
-
-        // Apply damage or other effects when the projectile hits
-        projectile.GetComponent<Projectile>().Setup(energyData);
+        projectile.AddComponent<Projectile>().Setup(energyData);
     }
 }

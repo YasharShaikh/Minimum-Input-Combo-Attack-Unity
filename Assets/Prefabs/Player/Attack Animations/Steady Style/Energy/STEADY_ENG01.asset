@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6317bcbd63690374482e8ee586ca892e, type: 3}
   m_Name: STEADY_ENG01
   m_EditorClassIdentifier: 
-  AttackName: Energy Attack 1
+  AttackName: Fire Ball
   UIImage: {fileID: 0}
   controller: {fileID: 22100000, guid: f0d9ed06113efa043ac16f623b079368, type: 2}
   damage: 50
   groundKnockBack: 2
   forwardStep: 0
-  energyPrefab: {fileID: 0}
+  energyPrefab: {fileID: 7626139322179216226, guid: dc33e45a4bb28854c941caca0629dcce, type: 3}
   energyType: 0
   stunDuration: 2
-  projectileSpeed: 5
+  projectileSpeed: 50
