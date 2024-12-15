@@ -8,7 +8,6 @@ public class ProjectileMagic : EnergyHandler
 
         GameObject projectile = Instantiate(energyData.energyPrefab, spawnPoint.position, Quaternion.identity);
         Rigidbody rb = projectile.AddComponent<Rigidbody>();
-        Collider collider = projectile.AddComponent<Collider>();
         if (rb != null)
         {
             Vector3 direction = target != null ? (target.position - spawnPoint.position).normalized : spawnPoint.forward;

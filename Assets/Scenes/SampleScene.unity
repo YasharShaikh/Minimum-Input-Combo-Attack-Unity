@@ -951,6 +951,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2666285568849917153, guid: 0331b169005eb1d469455efaa6b9024a, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4697017240656324050, guid: 0331b169005eb1d469455efaa6b9024a, type: 3}
       propertyPath: m_Name
       value: training_dummy (2)
@@ -7323,7 +7327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3611579213298384197, guid: dc33e45a4bb28854c941caca0629dcce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.09306
+      value: -5.24
       objectReference: {fileID: 0}
     - target: {fileID: 3611579213298384197, guid: dc33e45a4bb28854c941caca0629dcce, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7331,7 +7335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3611579213298384197, guid: dc33e45a4bb28854c941caca0629dcce, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.668
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 3611579213298384197, guid: dc33e45a4bb28854c941caca0629dcce, type: 3}
       propertyPath: m_LocalRotation.w
