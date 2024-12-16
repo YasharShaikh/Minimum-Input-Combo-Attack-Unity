@@ -131,7 +131,7 @@ public class PlayerCombatDynamic : MonoBehaviour
 
         if (energyHandler != null)
         {
-            energyHandler.Execute(selectedAttack, spawnPoint.transform, GetTarget());
+            energyHandler.Execute(selectedAttack, spawnPoint.transform, GetTarget());   
         }
         // Play the corresponding animation for the power attack
         playerAnimationHandler.PowerAttack(energyAttacks[mainAtkComboStream - 1]);
@@ -142,7 +142,8 @@ public class PlayerCombatDynamic : MonoBehaviour
         switch (type)
         {
             case EnergyType.Projectile:
-                return gameObject.AddComponent<ProjectileMagic>();
+                //if(//if projectilemagic component exist in the gameobject then dont add)
+                return gameObject.GetComponent<ProjectileMagic>() ?? gameObject.AddComponent<ProjectileMagic>();
             case EnergyType.Stun:
                 return gameObject.AddComponent<StunMagic>();
 

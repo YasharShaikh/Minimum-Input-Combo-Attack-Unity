@@ -6,70 +6,87 @@ public class Projectile : MonoBehaviour
     private float damage;
     private float lifeTime;
     private ParticleSystem explosionEffect;
-    private SphereCollider collider;
+    private SphereCollider sphereCollider;
     private AudioSource as_Fire;
     private AudioClip ac_hit;
-
+    private AudioClip ac_fire;
+    private ObjectPool<Projectile> pool;
 
     private void Awake()
     {
-        collider = gameObject.AddComponent<SphereCollider>();
-        collider.radius = 0.5f;  // Customize as needed
-        collider.isTrigger = false;  // Ensure proper collision detection
-
+        sphereCollider = gameObject.AddComponent<SphereCollider>();
+        sphereCollider.radius = 0.5f;  
+        sphereCollider.isTrigger = true;
         as_Fire = gameObject.AddComponent<AudioSource>();
+        SetupAudioSource();
     }
-    public void Setup(EnergySO energyData)
+    public void Setup(EnergySO energyData, ObjectPool<Projectile> pool)
     {
         damage = energyData.damage;
-        explosionEffect = energyData.ps_Explosion;  // Assign explosion prefab reference
+        explosionEffect = energyData.ps_Explosion;  
         ac_hit = energyData.ac_Hit;
-
-        as_Fire.clip = energyData.ac_Fire;
-        as_Fire.loop = true;
-        as_Fire.Play();
+        ac_fire = energyData.ac_Fire;
+        this.pool = pool;
+        PlayFireSound();
     }
 
-
-    private IEnumerator PlayExplosion()
+    private void PlayExplosiom()
     {
         if (explosionEffect != null)
         {
             var explosion = Instantiate(explosionEffect, transform.position, Quaternion.identity);
 
-            as_Fire.loop = false;
-            as_Fire.Stop();
-
-            as_Fire.PlayOneShot(ac_hit);
-
+            PlayHitSound();
             explosion.Play();
+            Invoke(nameof(ReturnToPool), explosion.main.duration);
 
-            yield return new WaitForSeconds(explosion.main.duration);
-
-            Destroy(explosion.gameObject);  
-            Destroy(gameObject);  
         }
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    private void ReturnToPool()
     {
-        collider.enabled = false;
-        if (collision.collider.CompareTag("Enemy"))
+        sphereCollider.enabled = true;
+        pool.ReturnToPool(this);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        sphereCollider.enabled = false;
+        if (other.CompareTag("Enemy"))
         {
-            Enemy enemy = collision.collider.GetComponent<Enemy>();
+            Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null)
                 enemy.TakeDamage(damage);
         }
-
-        StartCoroutine(PlayExplosion()); // Destroy the projectile after impact
+        PlayExplosiom();
     }
-
     private void OnDestroy()
     {
         if (as_Fire.isPlaying)
         {
             as_Fire.Stop();  // Stop any lingering audio
         }
+    }
+    private void SetupAudioSource()
+    {
+        as_Fire.spatialBlend = 1.0f;  // 3D sound blending
+        as_Fire.rolloffMode = AudioRolloffMode.Linear;
+        as_Fire.maxDistance = 50f;
+    }
+    private void PlayFireSound()
+    {
+        float random = Random.Range(1f, 1.5f);
+        as_Fire.pitch = random;
+        as_Fire.clip = ac_fire;
+        as_Fire.loop = true;
+        if(as_Fire.isPlaying)
+         as_Fire.Play();
+    }
+    private void PlayHitSound()
+    {
+        as_Fire.loop = false;
+        if(as_Fire.isPlaying)
+            as_Fire.Stop();
+        as_Fire.PlayOneShot(ac_hit);
     }
 }
