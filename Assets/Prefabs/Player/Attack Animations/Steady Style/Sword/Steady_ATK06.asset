@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Steady_ATK06
   m_EditorClassIdentifier: 
   AttackName: Sword Attack 6
-  UIImage: {fileID: 0}
+  UIImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   controller: {fileID: 22100000, guid: be600ecb5222fd84cbdb2531d95b62b8, type: 2}
   damage: 5
   attackSpeed: 1

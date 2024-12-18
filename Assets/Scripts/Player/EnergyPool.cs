@@ -32,7 +32,6 @@ public class ObjectPool<T> where T : Component
             newObject.gameObject.AddComponent<Projectile>();
         }
 
-
         newObject.gameObject.SetActive(false);
         return newObject;
     }

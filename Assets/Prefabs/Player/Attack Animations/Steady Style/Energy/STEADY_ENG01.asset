@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: STEADY_ENG01
   m_EditorClassIdentifier: 
   AttackName: Fire Ball
-  UIImage: {fileID: 0}
+  UIImage: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
   controller: {fileID: 22100000, guid: f0d9ed06113efa043ac16f623b079368, type: 2}
   damage: 50
   ps_Explosion: {fileID: 5444105318733727396, guid: cf82839c411151342a7b2337bda9fb34, type: 3}

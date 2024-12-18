@@ -12,11 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6317bcbd63690374482e8ee586ca892e, type: 3}
   m_Name: STEADY_ENG02
   m_EditorClassIdentifier: 
-  AttackName: Energy Attack 2
-  UIImage: {fileID: 0}
+  AttackName: Meteor Shower
+  UIImage: {fileID: 21300000, guid: f5ab3f534c1138f4786f23cd74103223, type: 3}
   controller: {fileID: 22100000, guid: dde2e480195705d4f93bc5663e8739c4, type: 2}
   damage: 0
-  groundKnochBack: 0
-  airKnockBack: 0
+  ps_Explosion: {fileID: 0}
+  groundKnockBack: 0
   forwardStep: 0
-  Energy: {fileID: 5548987680624015790, guid: 3681a990d7be9144c93c97ccb425507b, type: 3}
+  lifeTime: 0.5
+  ac_Fire: {fileID: 0}
+  ac_Hit: {fileID: 0}
+  energyPrefab: {fileID: 7640970267051462298, guid: ae9bdcaa1a8496449b1068fd7844906c, type: 3}
+  energyType: 3
+  stunDuration: 0
+  projectileSpeed: 0

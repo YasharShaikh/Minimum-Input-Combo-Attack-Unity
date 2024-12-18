@@ -20,7 +20,8 @@ public class SetSwordActionMenuButton : MonoBehaviour
     {
         if (text != null)
             text.text = SwordAttack.AttackName;
-
+        else
+            text.text = "Random Name";
         if (image != null)
             image.sprite = SwordAttack.UIImage;
     }
