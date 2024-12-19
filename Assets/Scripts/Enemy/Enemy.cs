@@ -10,6 +10,12 @@ public class Enemy : MonoBehaviour
 
     Sword playerSword;
     public bool isAlive=>healthComponent.IsAlive;
+
+
+    private void OnParticleCollision(GameObject other)
+    {
+        Debug.Log("Hit with particle: "+other.gameObject.name);
+    }
     private void Awake()
     {
         playerSword = FindAnyObjectByType<Sword>();

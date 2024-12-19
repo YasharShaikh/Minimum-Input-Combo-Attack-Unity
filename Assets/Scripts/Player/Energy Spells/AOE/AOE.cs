@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class AOE : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private ParticleSystem ps_MeteorRain;
-    [SerializeField] private AudioSource as_MeteorRain;
+    private ParticleSystem ps_MeteorRain;
+    private AudioSource as_MeteorRain;
     private ObjectPool<AOE> pool;
-
     private float damage;
-    private List<ParticleSystem.Particle> hitParticles = new List<ParticleSystem.Particle>();
+    private List<ParticleSystem.Particle> enterParticles = new List<ParticleSystem.Particle>();
+    private List<Enemy> hitEnemies = new List<Enemy>();
 
     private void Awake()
     {
@@ -34,46 +34,82 @@ public class AOE : MonoBehaviour
     {
         //Invoke(nameof(ReturnToPool), ps_MeteorRain.main.duration);
     }
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
-    }
-    // ** Correctly Triggered Automatically by Unity **
-    private void OnParticleCollision(GameObject other)
-    {
-        if(other.gameObject.tag == "Enemy")
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("from Particle Collision Event ");
-        }
-    }
-    private void OnParticleTrigger()
-    {
-        Debug.Log("From OnParticleTrigger");
-        int numCollisions = ps_MeteorRain.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, hitParticles);
-
-        //if (numCollisions == 0) return; // No collisions detected
-
-        for (int i = 0; i < numCollisions; i++)
-        {
-            Debug.Log("From For loop");
-            ParticleSystem.Particle particle = hitParticles[i];
-            Collider[] hitColliders = Physics.OverlapSphere(particle.position, 0.5f);
-
-            foreach (Collider hitCollider in hitColliders)
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            if (enemy != null && !hitEnemies.Contains(enemy))
             {
-                Debug.Log("From For Each");
-                if (hitCollider.CompareTag("Enemy"))
-                {
-                    Enemy enemy = hitCollider.GetComponent<Enemy>();
-                    if (enemy != null)
-                    {
-                        enemy.TakeDamage(damage);
-                        Debug.Log($"Enemy Hit: {hitCollider.name}");
-                    }
-                }
+                hitEnemies.Add(enemy);
+                RegisterEnemies(other);
+            }
+        }
+
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Enemy enemy = other.GetComponent<Enemy>();
+            if (enemy != null && hitEnemies.Contains(enemy))
+            {
+                hitEnemies.Remove(enemy);
+                DeregisterEnemies(other);
             }
         }
     }
 
+    private void RegisterEnemies(Collider col)
+    {
+        var trigger = ps_MeteorRain.trigger;
+        trigger.enabled = true;
+        trigger.enter = ParticleSystemOverlapAction.Callback;
+        trigger.SetCollider(trigger.colliderCount, col);
+    }
+    private void DeregisterEnemies(Collider col)
+    {
+        var trigger = ps_MeteorRain.trigger;
+
+        for (int i = 0; i < trigger.colliderCount; i++)
+        {
+            if (trigger.GetCollider(i) == col)
+            {
+                for (int j = i; j < trigger.colliderCount - 1; j++)
+                {
+                    trigger.SetCollider(j, trigger.GetCollider(j + 1));
+                }
+                trigger.SetCollider(trigger.colliderCount - 1, null);
+                return;
+            }
+        }
+    }
+
+    private void OnParticleTrigger()
+    {
+        int numEnter = ps_MeteorRain.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enterParticles);
+
+        if (numEnter == 0) return;
+
+        for (int i = 0; i < numEnter; i++)
+        {
+            ParticleSystem.Particle particle = enterParticles[i];
+            Collider[] hitColliders = Physics.OverlapSphere(particle.position, 0.5f);
+
+            foreach (Collider col in hitColliders)
+            {
+                if (col.CompareTag("Enemy"))
+                {
+                    Enemy enemy = col.GetComponent<Enemy>();
+                    if (enemy != null)
+                        enemy.TakeDamage(damage);
+                }
+            }
+        }
+
+        // Reset the trigger particles to clear the processed ones
+        ps_MeteorRain.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, enterParticles);
+    }
     private void ReturnToPool()
     {
         ps_MeteorRain.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
