@@ -34,21 +34,33 @@ public class AOE : MonoBehaviour
     {
         //Invoke(nameof(ReturnToPool), ps_MeteorRain.main.duration);
     }
-
+    private void Update()
+    {
+    }
     // ** Correctly Triggered Automatically by Unity **
+    private void OnParticleCollision(GameObject other)
+    {
+        if(other.gameObject.tag == "Enemy")
+        {
+            Debug.Log("from Particle Collision Event ");
+        }
+    }
     private void OnParticleTrigger()
     {
+        Debug.Log("From OnParticleTrigger");
         int numCollisions = ps_MeteorRain.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, hitParticles);
 
-        if (numCollisions == 0) return; // No collisions detected
+        //if (numCollisions == 0) return; // No collisions detected
 
         for (int i = 0; i < numCollisions; i++)
         {
+            Debug.Log("From For loop");
             ParticleSystem.Particle particle = hitParticles[i];
             Collider[] hitColliders = Physics.OverlapSphere(particle.position, 0.5f);
 
             foreach (Collider hitCollider in hitColliders)
             {
+                Debug.Log("From For Each");
                 if (hitCollider.CompareTag("Enemy"))
                 {
                     Enemy enemy = hitCollider.GetComponent<Enemy>();
