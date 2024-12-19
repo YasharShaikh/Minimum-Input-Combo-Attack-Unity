@@ -40,7 +40,6 @@ public class Projectile : MonoBehaviour
             PlayHitSound();
             explosion.Play();
             Invoke(nameof(ReturnToPool), explosion.main.duration);
-            Debug.Log("This was called");
         }
     }
 
@@ -48,8 +47,6 @@ public class Projectile : MonoBehaviour
     {
         sphereCollider.enabled = true;
         pool.ReturnToPool(this);
-        Debug.Log("Or This was called");
-
     }
 
     private void OnTriggerEnter(Collider other)
