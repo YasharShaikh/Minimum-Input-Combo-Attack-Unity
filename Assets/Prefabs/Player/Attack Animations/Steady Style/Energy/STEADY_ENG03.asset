@@ -16,13 +16,13 @@ MonoBehaviour:
   UIImage: {fileID: 21300000, guid: 7184252199212cf4a9288a2a2d70dee1, type: 3}
   controller: {fileID: 22100000, guid: 7203da306dccf3f49a7fb53d70e24b98, type: 2}
   damage: 0
-  ps_Explosion: {fileID: 0}
+  ps_Explosion: {fileID: 5444105318733727396, guid: cf82839c411151342a7b2337bda9fb34, type: 3}
   groundKnockBack: 0
   forwardStep: 0
   lifeTime: 0.5
   ac_Fire: {fileID: 0}
   ac_Hit: {fileID: 0}
-  energyPrefab: {fileID: 0}
+  energyPrefab: {fileID: 7626139322179216226, guid: dc33e45a4bb28854c941caca0629dcce, type: 3}
   energyType: 0
   stunDuration: 0
   projectileSpeed: 0

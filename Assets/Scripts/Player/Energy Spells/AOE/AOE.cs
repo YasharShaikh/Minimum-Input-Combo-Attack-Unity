@@ -32,8 +32,16 @@ public class AOE : MonoBehaviour
 
     private void OnEnable()
     {
-        //Invoke(nameof(ReturnToPool), ps_MeteorRain.main.duration);
+        // Only return if properly initialized
+        if (pool != null)
+        {
+            Debug.Log("Called after returntopool");
+            Invoke(nameof(ReturnToPool), 1.0f);
+        }
     }
+
+
+    #region Trigger Checks
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
@@ -112,11 +120,20 @@ public class AOE : MonoBehaviour
     }
     private void ReturnToPool()
     {
-        ps_MeteorRain.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        pool.ReturnToPool(this);
-        Debug.Log("Returned AOE to Pool.");
+        if (pool != null)
+        {
+            ps_MeteorRain.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            pool.ReturnToPool(this);
+            Debug.Log("Returned AOE to Pool.");
+        }
+        else
+        {
+            Debug.LogWarning("Pool not initialized! Destroying the object.");
+            Destroy(gameObject);  // Fallback if pool initialization failed
+        }
     }
 
+    #endregion
     private void EnsureParticleSystem()
     {
         if (ps_MeteorRain == null)
@@ -129,6 +146,7 @@ public class AOE : MonoBehaviour
         }
     }
 
+    #region Audio Handle
     private void EnsureAudioSource()
     {
         if (as_MeteorRain == null)
@@ -149,4 +167,5 @@ public class AOE : MonoBehaviour
             as_MeteorRain.Play();
         }
     }
+    #endregion
 }

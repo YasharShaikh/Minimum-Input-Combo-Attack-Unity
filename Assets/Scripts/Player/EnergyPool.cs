@@ -7,6 +7,7 @@ public class ObjectPool<T> where T : Component
     private T prefab;
     private Transform parent;
 
+    // Constructor for initializing the pool
     public ObjectPool(T prefab, int initialSize, Transform parent = null)
     {
         this.prefab = prefab;
@@ -14,6 +15,7 @@ public class ObjectPool<T> where T : Component
         PreloadObjects(initialSize);
     }
 
+    // Preload specified number of objects into the pool
     private void PreloadObjects(int size)
     {
         for (int i = 0; i < size; i++)
@@ -23,19 +25,26 @@ public class ObjectPool<T> where T : Component
         }
     }
 
+    // Create a new instance of the prefab
     private T CreateObject()
     {
         T newObject = Object.Instantiate(prefab, parent);
-
-        if (!newObject.TryGetComponent(out Projectile projectile)) 
-        {
-            newObject.gameObject.AddComponent<Projectile>();
-        }
-
+        EnsureRequiredComponent<T>(newObject);
         newObject.gameObject.SetActive(false);
         return newObject;
     }
 
+    // Check if the required component exists or add it
+    private void EnsureRequiredComponent<TComponent>(T obj) where TComponent : Component
+    {
+        if (!obj.TryGetComponent(out TComponent component))
+        {
+            obj.gameObject.AddComponent<TComponent>();
+            Debug.LogWarning($"Added missing component {typeof(TComponent).Name} to {obj.name}");
+        }
+    }
+
+    // Get an object from the pool
     public T Get(Vector3 position, Quaternion rotation)
     {
         T obj = pool.Count > 0 ? pool.Dequeue() : CreateObject();
@@ -45,6 +54,7 @@ public class ObjectPool<T> where T : Component
         return obj;
     }
 
+    // Return an object to the pool
     public void ReturnToPool(T obj)
     {
         obj.gameObject.SetActive(false);

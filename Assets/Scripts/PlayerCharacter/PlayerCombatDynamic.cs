@@ -128,7 +128,6 @@ public class PlayerCombatDynamic : MonoBehaviour
             return;
         EnergySO selectedAttack = energyAttacks[mainAtkComboStream - 1];
         EnergyHandler energyHandler = GetHandlerForType(selectedAttack.energyType);
-
         if (energyHandler != null)
         {
             energyHandler.Execute(selectedAttack, spawnPoint.transform, GetTarget());   
@@ -142,13 +141,12 @@ public class PlayerCombatDynamic : MonoBehaviour
         switch (type)
         {
             case EnergyType.Projectile:
-                //if(//if projectilemagic component exist in the gameobject then dont add)
                 return gameObject.GetComponent<ProjectileMagic>() ?? gameObject.AddComponent<ProjectileMagic>();
             case EnergyType.Stun:
                 return gameObject.AddComponent<StunMagic>();
+            case EnergyType.AOE:
+                return gameObject.GetComponent<AOEMagic>() ?? gameObject.AddComponent<AOEMagic>();
 
-            //case EnergyType.Tornado:
-            //    //return gameObject.AddComponent<TornadoMagic>();
             default:
                 Debug.LogError("Unsupported energy type!");
                 return null;

@@ -22,7 +22,7 @@ MonoBehaviour:
   lifeTime: 0.5
   ac_Fire: {fileID: 0}
   ac_Hit: {fileID: 0}
-  energyPrefab: {fileID: 7640970267051462298, guid: ae9bdcaa1a8496449b1068fd7844906c, type: 3}
+  energyPrefab: {fileID: 6799575675495554084, guid: 63814976d244100468dcc88a2a9e398b, type: 3}
   energyType: 3
   stunDuration: 0
   projectileSpeed: 0
