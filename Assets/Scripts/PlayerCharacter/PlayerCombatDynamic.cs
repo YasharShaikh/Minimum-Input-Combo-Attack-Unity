@@ -7,9 +7,10 @@ public class PlayerCombatDynamic : MonoBehaviour
     public static PlayerCombatDynamic instance;
 
     [SerializeField] float timeBetweenCombo;
-    
+
     [SerializeField] int maxCombo = 3;
-    [SerializeField] GameObject spawnPoint;
+    [SerializeField] GameObject projectileSpawnPoint;
+    [SerializeField] GameObject AOEprojectileSpawnPoint;
 
     [Header("Default Attacks")]
     [SerializeField] List<EnergySO> energyAttacks = new List<EnergySO>();
@@ -127,14 +128,34 @@ public class PlayerCombatDynamic : MonoBehaviour
         if (energyAttacks.Count == 0)
             return;
         EnergySO selectedAttack = energyAttacks[mainAtkComboStream - 1];
-        EnergyHandler energyHandler = GetHandlerForType(selectedAttack.energyType);
+
+        EnergyHandler energyHandler = GetHandlerForType(selectedAttack.energyType); // this needs to be performed but along with this use custom spawn point
         if (energyHandler != null)
         {
-            energyHandler.Execute(selectedAttack, spawnPoint.transform, GetTarget());   
+            Transform spawnPoint = GetSpawnPoint(selectedAttack.energyType);
+            energyHandler.Execute(selectedAttack, spawnPoint, GetTarget());
         }
+
+
         // Play the corresponding animation for the power attack
         playerAnimationHandler.PowerAttack(energyAttacks[mainAtkComboStream - 1]);
         energyAttackForwardStep = energyAttacks[mainAtkComboStream - 1].forwardStep;
+    }
+    private Transform GetSpawnPoint(EnergyType type)
+    {
+        switch (type)
+        {
+            case EnergyType.Projectile:
+                return projectileSpawnPoint.transform;
+            case EnergyType.Stun:
+                return projectileSpawnPoint.transform;
+            case EnergyType.Tornado:
+                return projectileSpawnPoint.transform;
+            case EnergyType.AOE:
+                return AOEprojectileSpawnPoint.transform;
+            default:
+                return null;
+        }
     }
     private EnergyHandler GetHandlerForType(EnergyType type)
     {

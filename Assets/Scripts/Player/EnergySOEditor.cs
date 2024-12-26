@@ -15,6 +15,7 @@ public class EnergySOEditor : Editor
         energySO.UIImage = (Sprite)EditorGUILayout.ObjectField("UI Image", energySO.UIImage, typeof(Sprite), false);
         energySO.controller = (AnimatorOverrideController)EditorGUILayout.ObjectField("Animation Controller", energySO.controller, typeof(AnimatorOverrideController), false);
 
+
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Damage and Effects", EditorStyles.boldLabel);
         energySO.damage = EditorGUILayout.Slider("Damage", energySO.damage, 0, 100);

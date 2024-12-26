@@ -10109,45 +10109,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 348969851158980164, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
-      propertyPath: m_Name
-      value: HUD Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 5539780693249858575, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
-      propertyPath: m_CullTransparentMesh
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6083937801583746975, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8463277923375097384, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8463277923375097384, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
-      propertyPath: m_Maskable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8463277923375097384, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
-      propertyPath: m_FillAmount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8463277923375097384, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
-      propertyPath: m_FillMethod
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8463277923375097384, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
-      propertyPath: m_FillOrigin
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8463277923375097384, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
-      propertyPath: m_UseSpriteMesh
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8463277923375097384, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
-      propertyPath: m_PreserveAspect
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8656632424841459481, guid: 1a1d33275c737d24d853aae54d391efc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10212,7 +10176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3427778983635783203, guid: 63814976d244100468dcc88a2a9e398b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.72
+      value: 8.72
       objectReference: {fileID: 0}
     - target: {fileID: 3427778983635783203, guid: 63814976d244100468dcc88a2a9e398b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10248,7 +10212,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6799575675495554084, guid: 63814976d244100468dcc88a2a9e398b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
